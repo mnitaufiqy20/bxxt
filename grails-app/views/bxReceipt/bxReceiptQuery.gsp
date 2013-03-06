@@ -1,0 +1,142 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: 孟敏
+  Date: 13-1-9
+  Time: 下午6:35
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<html>
+<head>
+    %{--<meta name="layout" content="main"/>--}%
+    <title>华电集团报销系统</title>
+    <script src="${resource(dir: 'js/calendar', file: 'jsdate.js')}"></script>
+    <script src="${resource(dir: 'js/calendar', file: 'WdatePicker.js')}"></script>
+    <style type="text/css">
+    .Wdate{
+        border:#999 1px solid;
+        height:20px;
+        background:#fff url(../images/main/datePicker.gif) no-repeat right;
+    }
+
+    .WdateFmtErr{
+        font-weight:bold;
+        color:red;
+    }
+    </style>
+</head>
+
+<body id="">
+<table width="100%"  height="480" border="0" cellpadding="0" cellspacing="0">
+    <tr height="40">
+        <td colspan="6" align="center" ><h2>报销单列表</h2></td>
+    </tr>
+    <tr height="80">
+        <td colspan="6" width="100%">
+            <table  width="100%">
+                <tr>
+                    <td colspan="6" width="100%">
+<g:form id="gForm" name="gForm" action="queryReceipt" controller="bxReceipt" method="post">
+                        <table  width="100%" >
+                            <tr>
+                                <td height="30"><div style="width: 150px;background: #ADCDF4;">查询条件：</div></td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" width="100%">
+                                    <table>
+                                        <tr>
+                                            <td height="30" width="8%" align="right">单号：</td>
+                                            <td height="30" width="15%"><input id="rNo" name="rNo" type="text" value="${rNo}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                            <td height="30" width="10%" align="right">状态：</td>
+                                            <td height="30" width="8%">
+                                                <select id="status"  name="status">
+                                                    <option value="-1">请选择</option>
+                                                    <option value="已保存">已保存</option>
+                                                    <option value="已提交">已提交</option>
+                                                    <option value="已审核">已审核</option>
+                                                    <option value="已过帐">已过帐</option>
+                                                    <option value="已付款">已付款</option>
+                                                </select>
+                                            </td>
+                                            <td height="30" width="12%" align="right">时间范围：</td>
+                                            <td height="30" width="37%">
+                                                <input type="text" name="startDate" value="${startDate}"  class="Wdate" onclick="SelectDate(this,'yyyy-MM-dd',null,null);">
+                                                至<input type="text" value="${endDate}" name="endDate"  class="Wdate" onclick="SelectDate(this,'yyyy-MM-dd',null,null);">
+                                            </td>
+                                            <td height="30" colspan="3" width="5%" align="right"><input type="submit" value="查询"></td> &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <td colspan="2" width="5%" align="right"><input type="button" value="添加" onclick="location='../bxReceipt/bxdDetail'"></td>
+                                        </tr>
+                                        <tr>
+
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+    </g:form>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr height="360">
+        <td colspan="6" width="100%">
+            <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                <tr height="360">
+                    <td colspan="6" width="100%">
+                        <table width="100%" height="360">
+                            <tr  height="10">
+                                <td colspan="6"><div style="width: 150px;background: #ADCDF4;">查询结果</div></td>
+                            </tr>
+                            <tr height="350">
+                                <td>
+                                    <table width="100%" height="350" border="0" cellpadding="0" cellspacing="0">
+                                        <tr height="320">
+                                            <td colspan="6" height="320">
+                                                <table width="100%"   border="1" cellpadding="0" cellspacing="0">
+                                                    <tr align="center">
+                                                        <td height="23" width="10%">序号</td>
+                                                        <td width="30%">单号</td>
+                                                        <td width="15%">申请日期</td>
+                                                        <td width="15%">实际报销总金额</td>
+                                                        <td width="20%">状态</td>
+                                                        <td width="10%">操作</td>
+                                                    </tr>
+                                                    <g:each in="${bxdList}" var="item">
+                                                        <tr align="center">
+                                                            <td height="23">
+                                                                ${item.id}
+                                                            </td>
+                                                            <td>${item.bxNo}</td>
+                                                            <td>${item.applicationDate}</td>
+                                                            <td>${item.payCounts}</td>
+                                                            <td>${item.bxdStatus}</td>
+                                                            <g:if test="${item.bxdStatus=='已保存'}">
+                                                            <td><a href="../bxReceipt/bxdEdit?bxNo=${item.bxNo}">修改</a></td>
+                                                            </g:if>
+                                                            <g:else>
+                                                                <td><a href="../bxReceipt/bxdUpdate">查看</a></td>
+                                                            </g:else>
+                                                        </tr>
+                                                    </g:each>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr height="30">
+                                            <td colspan="6" align="right">
+                                                <input type="button" value="上一页">每页共10条，目前是第1页<input type="button" value="下一页">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<script>document.getElementById("status").value = "${status}";</script>
+</body>
+</html>

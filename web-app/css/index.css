@@ -1,0 +1,382 @@
+/*index.css */
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.clear {
+    clear: both;
+    line-height: 0em;
+}
+
+#container {
+    height: 100%;
+    width: 100%
+}
+
+#pagefooter {
+    width: 100%;
+    height: 27px;
+}
+
+/* header */
+#header {
+    width: 100%;
+    height: 71px;
+}
+
+#header_001 {
+    width: 100%;
+    height: 71px;
+}
+
+.header_left {
+    background: url(../images/main/head_left.jpg) no-repeat;
+    width: 20%;
+    height: 71px;
+}
+
+.header_right {
+    height: 71px;
+    background-position: right;
+    padding: 40px 25px 0 0;
+    font-size: 12px;
+    background-color: #FFFFFF;
+    text-align: right;
+}
+
+.header_right a {
+    font-size: 12px;
+    color: #aecdf5;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.header_right a:hover {
+    text-decoration: underline;
+}
+
+/* content */
+#content {
+    background: #aecdf5;
+    height: 100%;
+}
+
+.content_bg {
+    width: 100%;
+    height: 100%;
+}
+
+#sidebar {
+    /*background: #FFFFFF;*/
+    width: 181px;
+    border-bottom: 1px solid #82afec;
+    border-top: 1px solid #82afec;
+    border-right: 1px solid #82afec;
+    margin-top: 6px;
+    margin-right: 5px;
+    height: 98%;
+    background-position: bottom;
+}
+
+#main {
+    border: 1px solid #82afec;
+    margin-top: 6px;
+    background: #ADCDF4;
+    margin-right: 5px;
+    height: 98%;
+}
+
+/* sidebar */
+
+.Navigation_tree {
+    background: url(../images/nav_an_22.jpg) no-repeat;
+    width: 192px;
+    height: 31px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #008dc2;
+    line-height: 31px;
+}
+
+.Navigation_tree a {
+    font-size: 12px;
+    font-weight: bold;
+    color: #008dc2;
+    line-height: 31px;
+    text-decoration: none;
+    display: block;
+    width: 192px;
+    height: 31px;
+    background: url(../images/nav_an_22.jpg) no-repeat;
+    padding-left: 50px;
+}
+
+.Navigation_tree a:hover {
+    text-decoration: underline;
+    color: #066589;
+}
+
+.Navigation_tree_nr {
+    font-size: 12px;
+    color: #0a78a2;
+    padding-top: 5px;
+}
+
+.Navigation_tree_nr ul {
+    margin: 0;
+    padding: 0;
+}
+
+.Navigation_tree_nr ul li {
+    list-style: none;
+    padding-left: 50px;
+}
+
+.Navigation_tree_nr ul li a {
+    font-size: 12px;
+    color: #0a78a2;
+    display: block;
+    text-decoration: none;
+    line-height: 28px;
+    height: 28px;
+}
+
+/* main */
+.main_top {
+    background: url(../images/main_top_15.jpg);
+    width: 100%;
+    height: 30px;
+    border-bottom: 1px solid #76b1ef;
+}
+
+.tabtop {
+    background: url(../images/table_top_17.jpg) repeat-x;
+    height: 23px;
+    line-height: 23px;
+    font-size: 13px;
+    color: #333333;
+    text-align: center;
+    font-weight: bold;
+}
+
+.tabtop td {
+    border-right: 1px solid #76b1ef;
+    line-height: 23px;
+}
+
+.main_tab {
+    text-align: center;
+    font-size: 12px;
+    color: #333333;
+}
+
+.main_tab td {
+    padding-right: 3px;
+    line-height: 22px;
+}
+
+.tabbg {
+    background: url(../images/tab_bg_23.jpg);
+    font-size: 12px;
+    color: #333333;
+}
+
+.main_wz {
+    line-height: 24px;
+    font-size: 12px;
+    color: #333333;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.neirong {
+    line-height: 24px;
+    font-size: 12px;
+    color: #333333;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.jiange {
+    background: #bccee8;
+    height: 5px;
+    line-height: 0em;
+}
+
+.Inquiry {
+    height: 50px;
+    font-size: 12px;
+    color: #666666;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.Inquiry input {
+    width: 150px;
+    height: 20px;
+    line-height: 18px;
+    border: 1px solid #76b1ef;
+}
+
+/****Data Table****/
+.longresult {
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.tabledisplay {
+    height: auto;
+    margin: 0 0 10px 5px;
+    font-size: 12px;
+}
+
+.tabledisplay2 {
+    width: 350px !important;
+    height: auto;
+    margin: 0 0 10px 5px;
+    font-size: 12px;
+}
+
+.tabledisplay3 {
+    height: auto;
+    margin: 0 0 10px 5px;
+    font-size: 12px;
+}
+
+.tabledisplay4 {
+    height: auto;
+    margin: 0 0 10px 5px;
+    font-size: 12px;
+}
+
+/*jenny090708*/
+.datashow {
+    width: 100%; /*min-width:760px; */
+    border-left: #CCCCCC 1px solid;
+    border-right: #CCCCCC 1px solid;
+}
+
+
+.th1 {
+    width: 5px;
+    font-size: 12px;
+    line-height: 27px;
+    text-align: center;
+}
+
+.datashow th {
+    width: auto;
+    font-size: 12px;
+    text-align: center; /*line-height:27px; */
+    border-left: #CCCCCC 1px solid;
+}
+
+.Interlaced_color {
+    background: #f1f4f9;
+}
+
+/****Bottom******/
+.table_btn_weight {
+    width: 40px;
+}
+
+.table_btn {
+    margin: 4px 0 0 5px;
+    width: auto;
+    height: auto;
+}
+
+.table_btn_centre {
+    margin: 4px 0 0 140px;
+    width: auto;
+    height: auto;
+}
+
+.table_btn .btn, .table_btn_centre .btn {
+    font-size: 12px;
+    color: #fff;
+    width: auto;
+    text-align: center;
+    line-height: 21px;
+    float: none;
+    display: inline;
+}
+
+/*blue*/
+.table_btn .btn_left, .table_btn_centre .btn_left {
+    background: url(../images/btn_left.gif) left top no-repeat;
+    margin: 0;
+    width: 5px;
+    height: 21px;
+    float: left;
+}
+
+/*blue*/
+.table_btn .btn_bar, .table_btn_centre .btn_bar {
+    background: url(../images/btn_bar.gif) left top repeat-x;
+    margin: 0;
+    width: auto;
+    height: 21px;
+    float: left;
+}
+
+/*blue*/
+.table_btn .btn_right, .table_btn_centre .btn_right {
+    background: url(../images/btn_right.gif) left top no-repeat;
+    margin: 0;
+    width: 5px;
+    height: 21px;
+    float: left;
+}
+
+/*blue*/
+.btndisable {
+    color: #0a78a2;
+}
+
+/*new for disable btn*/
+.btn_bar .btndisable a:hover {
+    cursor: text;
+    color: #0a78a2;
+}
+
+/*new for disable btn*/
+.btn_bar .btndisable a {
+    text-decoration: none;
+    color: #0a78a2;
+}
+
+/*new for disable btn*/
+.btn_bar a:hover {
+    color: #0a78a2;
+}
+
+/*new for btnhover*/
+.btn_bar a {
+    text-decoration: none;
+    color: #0a78a2;
+}
+
+/*new for btnhover*/
+
+/* pagefooter */
+
+.footer_right {
+    float: right;
+    line-height: 27px;
+    font-size: 12px;
+    color: #333333;
+    margin-right: 15px;
+}
+
+/*hint*/
+.hint {
+    text-align: left;
+    background: #ca2f2d url(../images/bg.jpg) left top no-repeat;
+    color: #ffffff;
+    padding: 2px 5px 0 18px;
+    font-size: 12px;
+}
+
