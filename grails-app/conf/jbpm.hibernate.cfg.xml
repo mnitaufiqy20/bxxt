@@ -14,9 +14,9 @@
 		<mapping package='com.chd.um.dao' />
 	-->
         <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-        <property name="hibernate.connection.url">jdbc:oracle:thin:@192.168.1.190:1521:ORCL</property>
-        <property name="hibernate.connection.username">peihao</property>
-        <property name="hibernate.connection.password">peihao</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@10.76.66.56:1521:DBDEV</property>
+        <property name="hibernate.connection.username">er</property>
+        <property name="hibernate.connection.password">er</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.format_sql">false</property>
         <property name="show_sql">true</property>
