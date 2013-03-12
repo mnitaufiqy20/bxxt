@@ -14,7 +14,8 @@ class LoanAppReceiptsService {
 
     def loanAppReceiptsQuery(def empNo) {
         println("LoanAppReceiptsService loanReceiptsQuery is loading....")
-        String strSql = "from LoanAppReceipts where loanEmpNo= '"+empNo+"' order by id asc "
+//        String strSql = "from LoanAppReceipts where loanEmpNo= '"+empNo+"' order by id asc "
+        String strSql = "from LoanAppReceipts order by id asc "
         List<LoanAppReceipts> list = LoanAppReceipts.findAll(strSql)
         if (list != null && list.size() > 0) {
             return list
@@ -101,6 +102,14 @@ class LoanAppReceiptsService {
 
     def getProcessApprove(String role){
         def strSql = "from ExmApp where empRole='"+role +"' and receiptsType = 'LOAN'"
+        List<ExmApp> list = ExmApp.findAll(strSql)
+        if (list != null && list.size() > 0) {
+            return list.get(0)
+        }
+    }
+
+    def getProcessApprove2(String role){
+        def strSql = "from ExmApp where empRole='"+role +"' and receiptsType = 'FYBX'"
         List<ExmApp> list = ExmApp.findAll(strSql)
         if (list != null && list.size() > 0) {
             return list.get(0)

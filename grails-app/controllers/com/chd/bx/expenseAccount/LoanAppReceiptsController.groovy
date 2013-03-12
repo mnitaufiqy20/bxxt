@@ -66,6 +66,13 @@ class LoanAppReceiptsController {
         println("LoanAppReceiptsController loanAppReceiptsSave is loading....")
         def loanId = getLoanId()
         def user = (UserLogin)session.getAttribute("user")
+        loanAppReceipts = new LoanAppReceipts();
+//        loanAppReceipts.id=0;
+        loanAppReceipts.loanAppReceiptsId = loanId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
+        loanAppReceipts = loanAppRec(loanAppReceipts,params)
+        loanAppReceipts.loanStatus = "已保存"
+        System.out.print(""+loanAppReceipts)
+        loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts) ;
         def exmApp = loanAppReceiptsService.getProcessApprove(user.empPosition)
         String type = "";
         if (user.empPosition.equals("公司领导")){
@@ -112,11 +119,6 @@ class LoanAppReceiptsController {
         }
 
         workflowFactory.startWorkflow(processEngine,"LoanAppRec",map)
-        loanAppReceipts = new LoanAppReceipts()
-        loanAppReceipts.loanAppReceiptsId = loanId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
-        loanAppReceipts = loanAppRec(loanAppReceipts,params)
-        loanAppReceipts.loanStatus = "已保存"
-        loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
 
         render(view: '/loanAppReceipts/loanAppReceiptsUpdate',model: [loanAppReceipts: loanAppReceipts])
     }
@@ -180,7 +182,13 @@ class LoanAppReceiptsController {
         def loanAppReceiptsId = params["loanAppReceiptsId"]
         loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(loanAppReceiptsId)
         def historyLists = handle(taskId,loanAppReceiptsId)
-        render(view: '/loanAppReceipts/loanAppReceiptsExamine', model: [nowDate:nowDate,user:user,loanAppReceipts: loanAppReceipts,taskId:taskId,historyLists:historyLists])
+        String type = loanAppReceiptsId.toString().substring(0,1);
+        if("J".equals(type)){
+            render(view: '/loanAppReceipts/loanAppReceiptsExamine', model: [nowDate:nowDate,user:user,loanAppReceipts: loanAppReceipts,taskId:taskId,historyLists:historyLists])
+        }else if ("B".equals(type)){
+            render(view: '/bxReceipt/bxHandle', model: [nowDate:nowDate,user:user,loanAppReceipts: loanAppReceipts,taskId:taskId,historyLists:historyLists])
+        }
+
     }
 
     def examineSave(params){
@@ -195,8 +203,9 @@ class LoanAppReceiptsController {
         String nowDate = matter.format(date);
         examAppHistory.examAppTime = nowDate
         examAppHistory.examAppIdea = params["examAppIdea"]
-
         loanAppReceiptsService.examineSave(examAppHistory)
+
+
         def taskId = params["taskId"]
         Task task = processEngine.getTaskService().getTask(taskId);
         def executionId = task.getExecutionId()
@@ -214,7 +223,9 @@ class LoanAppReceiptsController {
     //在新增时获得单号
     def getLoanId(){
         String loanId = "J";
-        def comNo = "0001"  //公司代码（四位）
+        def user = (UserLogin)session.getAttribute("user")
+
+        def comNo = user.companyNo  //公司代码（四位）
 
         //年月 （四位）
         Date date = new Date()
@@ -226,7 +237,6 @@ class LoanAppReceiptsController {
 
         //流水号（三位）
         def serialNumberList = new ArrayList<String>()
-        def user = (UserLogin)session.getAttribute("user")
         def empNo = user.empNo
         loan_list = new ArrayList<LoanAppReceipts>()
         loan_list = loanAppReceiptsService.loanAppReceiptsQuery(empNo)

@@ -1,6 +1,9 @@
 package com.chd.bx.bxd
 
 import java.text.SimpleDateFormat
+import jbpm.WorkflowFactory
+import com.chd.bx.expenseAccount.LoanAppReceiptsService
+import com.chd.bx.login.UserLogin
 
 /**
  *   用户登录service
@@ -16,6 +19,9 @@ class BxReceiptController {
     def bxTravelService
     def bxWorkService
     def bxZhaoDaiService
+    def processEngine;
+    WorkflowFactory  workflowFactory = new WorkflowFactory()
+    def loanAppReceiptsService = new LoanAppReceiptsService()
     /**
      *  初始 进入查询报销单界面
      * @return
@@ -151,6 +157,35 @@ class BxReceiptController {
         saveZhaoDai(params,bxdNo,type)
         List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
         listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
+        //启动流程
+        def user = (UserLogin)session.getAttribute("user")
+        def exmApp = loanAppReceiptsService.getProcessApprove2(user.empPosition)
+        String ty = "";
+        if (user.empPosition.equals("公司领导")){
+            ty = "A";
+        }else if (user.empPosition.equals("公司分管领导")){
+            ty = "B";
+        }else if (user.empPosition.equals("公司责任部门领导")){
+            ty = "C";
+        }else if (user.empPosition.equals("部门领导")){
+            ty = "D";
+        }else if (user.empPosition.equals("分部领导")){
+            ty = "E";
+        }else if (user.empPosition.equals("员工")){
+            ty = "E";
+        }
+        def map = new HashMap<String, Object>()
+        map.put("loanId",bxdNo)
+        map.put("type",ty)
+        map.put("userId",user.userId)
+        if (exmApp!=null){
+            map.put("first",exmApp.getFirstName())
+            map.put("second",exmApp.getSecondName())
+            map.put("third",exmApp.getThirdName())
+            map.put("fourth",exmApp.getFourthName())
+            map.put("fifth",exmApp.getFifthName())
+        }
+        workflowFactory.startWorkflow(processEngine,"BxRec",map)
         render(view: '/bxReceipt/bxReceiptDetail',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
     /**
@@ -195,7 +230,7 @@ class BxReceiptController {
     }
     //在新增时获得单号
     def getBxdNo(){
-        String bxdNo = "J";
+        String bxdNo = "B";
         def comNo = "0001"  //公司代码（四位）
 
         //年月 （四位）
