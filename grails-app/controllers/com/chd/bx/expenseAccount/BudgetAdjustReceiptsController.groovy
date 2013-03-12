@@ -19,7 +19,7 @@ class BudgetAdjustReceiptsController {
         budgetReportReceipts = budgetAdjustReceiptsService.budgetAdjustReceiptsQuery()
         budgetReportReceiptsT = null
 //        budgetReportReceiptsT = budgetAdjustReceiptsService.budgetAdjustReceiptsTQuery()
-        render(view: '/expenseAccount/budgetAdjustReceipts',model: [budgetReportReceipts: budgetReportReceipts,budgetReportReceiptsT: budgetReportReceiptsT,budgetYear:str])
+        render(view: '/budgetAdjustReceipts/budgetAdjustReceipts',model: [budgetReportReceipts: budgetReportReceipts,budgetReportReceiptsT: budgetReportReceiptsT,budgetYear:str])
     }
 
     def budgetAdjustReceiptsChangeType(params){
@@ -29,7 +29,7 @@ class BudgetAdjustReceiptsController {
         str = getYear()
         budgetReportReceipts = budgetAdjustReceiptsService.budgetAdjustReceiptsQueryByType(budgetCostType,budgetYear)
         budgetReportReceiptsT = null
-        render(view: '/expenseAccount/budgetAdjustReceipts',model: [budgetReportReceipts: budgetReportReceipts,budgetReportReceiptsT: budgetReportReceiptsT,budgetYear:str])
+        render(view: '/budgetAdjustReceipts/budgetAdjustReceipts',model: [budgetReportReceipts: budgetReportReceipts,budgetReportReceiptsT: budgetReportReceiptsT,budgetYear:str])
 //        budgetReportReceiptsT = budgetAdjustReceiptsService.budgetAdjustReceiptsTQueryByType(budgetCostType,budgetYear)
 //        if (budgetReportReceipts!=null){
 //            render(view: '/expenseAccount/budgetAdjustReceipts',model: [budgetReportReceipts: budgetReportReceipts,budgetReportReceiptsT: budgetReportReceiptsT,budgetYear:str])
@@ -48,7 +48,7 @@ class BudgetAdjustReceiptsController {
         budgetReportReceiptsT = budgetAdjustReceiptsService.budgetAdjustReceiptsTQueryById(id,type)
         budgetReportReceiptsT = budgetAdjustRecT(budgetReportReceiptsT,params)
         budgetAdjustReceiptsService.budgetReportReceiptsTSave(budgetReportReceiptsT)
-        render(view: '/expenseAccount/budgetAdjustReceipts',model: [budgetReportReceipts: budgetReportReceipts,budgetReportReceiptsT: budgetReportReceiptsT,budgetYear:str])
+        render(view: '/budgetAdjustReceipts/budgetAdjustReceipts',model: [budgetReportReceipts: budgetReportReceipts,budgetReportReceiptsT: budgetReportReceiptsT,budgetYear:str])
     }
 
     def getYear(){

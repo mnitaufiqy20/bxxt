@@ -88,7 +88,7 @@ class BudgetReportReceiptsController {
             }
         }
         def user = (UserLogin)session.getAttribute("user")
-        render(view: '/expenseAccount/budgetReportReceipts', model: [nowDate: nowDate,year: year,budgetYear:str,user:user])
+        render(view: '/budgetReportReceipts/budgetReportReceipts', model: [nowDate: nowDate,year: year,budgetYear:str,user:user])
     }
 
     def checkBudgetYear(){
@@ -137,7 +137,7 @@ class BudgetReportReceiptsController {
                 budgetReportReceiptsService.budgetReportReceiptsSave(budgetReportReceipts4)
             }
         }
-        render(view: '/expenseAccount/budgetReportReceipts', model: [budgetReportReceipts1: budgetReportReceipts1,
+        render(view: '/budgetReportReceipts/budgetReportReceipts', model: [budgetReportReceipts1: budgetReportReceipts1,
                 budgetReportReceipts2: budgetReportReceipts2,budgetReportReceipts3: budgetReportReceipts3,
                 budgetReportReceipts4: budgetReportReceipts4])
     }

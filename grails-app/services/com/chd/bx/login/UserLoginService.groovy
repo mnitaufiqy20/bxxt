@@ -5,10 +5,6 @@ package com.chd.bx.login;
  *   @time 2013年1月6日
  */
 class UserLoginService {
-
-    def serviceMethod() {
-
-    }
     def login(String loginName, String userPwd) {
         String strSql = "select * FROM user_login where login_name='"+loginName+"' and user_pwd='"+userPwd+"'"
         List<UserLogin> listCol = UserLogin.find(strSql)

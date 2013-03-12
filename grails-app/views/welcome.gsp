@@ -72,7 +72,9 @@
                                     </li>
                                     <li class="level1"><a href="#">流程管理</a>
                                         <ul class="level2">
-                                            <li class="level3"><a href="#" target="contentFrame">流程配置</a></li>
+                                            <li class="level3"><a href="../flowLookUp/flowLookUp" target="contentFrame">流程查看</a></li>
+                                            <li class="level3"><a href="../flowConfig/flowConfig" target="contentFrame">流程配置</a></li>
+                                            <li class="level3"><a href="../flowSheetInfuse/flowSheetInfuse" target="contentFrame">流程发布</a></li>
                                             <li class="level3"><a href="#" target="contentFrame">费用报销核算流程</a></li>
                                             <li class="level3"><a href="#" target="contentFrame">员工借款核算流程</a></li>
                                         </ul>
@@ -92,6 +94,7 @@
                                                     <li><a href="../costCenterImport/index2" target="contentFrame">成本中心导入</a></li>
                                                     <li><a href="../accSubjectImport/index2" target="contentFrame">会计科目导入</a></li>
                                                     <li><a href="#" target="contentFrame">费用报销科目导入</a></li>
+                                                    <li><a href="#" target="contentFrame">凭证集成</a></li>
                                                     <li><a href="#" target="contentFrame">凭证集成</a></li>
                                                 </ul>
                                             </li>

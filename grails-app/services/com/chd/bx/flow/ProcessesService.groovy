@@ -8,10 +8,10 @@ class ProcessesService {
            //
     }
 
-    def getProcessList(String type) {
-        List<Processes> list = Processes.findAllByType(type, [max: 3, offset: 0, sort: "lastUpdateTime", order: "desc"])
+    def getProcessList() {
+        List<Processes> list = Processes.findAllByType("1", [max: 3, offset: 0, sort: "lastUpdateTime", order: "desc"])
         if (list != null ) {
-            if(!list.empty){
+            if(list.size()>1){
             return list
             }
         }
@@ -21,14 +21,5 @@ class ProcessesService {
         if (list!=null&&list.size()>0){
             return list
         }
-    }
-
-    def init(String type){
-        List<Processes> loan_list = new ArrayList<Processes>();
-        loan_list = getProcessList(type);
-        if (loan_list==null){
-            loan_list= new ArrayList<Processes>();
-        }
-        return   loan_list
     }
 }
