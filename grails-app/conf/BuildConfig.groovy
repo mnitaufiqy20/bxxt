@@ -63,5 +63,10 @@ grails.war.resources = { stagingDir, args ->
     //delete file: "${stagingDir}/WEB-INF/lib/slf4j-api-1.6.2.jar"
     copy(file: "lib-other/cglib-nodep-2.2.2.jar",
             tofile: "${stagingDir}/WEB-INF/lib/cglib-nodep-2.2.2.jar")
+
+    delete file: "${stagingDir}/WEB-INF/classes/jbpm.hibernate.cfg.xml"
+    copy(file: "env/${grails.util.Environment.current.name}/jbpm.hibernate.cfg.xml",
+            tofile: "${stagingDir}/WEB-INF/classes/jbpm.hibernate.cfg.xml")
+
 }
 
