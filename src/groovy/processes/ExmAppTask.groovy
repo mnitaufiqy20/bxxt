@@ -10,6 +10,7 @@ package processes
 class ExmAppTask {
     String dbId;
     String executionId;
+    String assignId;
     String taskDefName;
 
     String getDbId() {
@@ -18,6 +19,14 @@ class ExmAppTask {
 
     void setDbId(String dbId) {
         this.dbId = dbId
+    }
+
+    String getAssignId() {
+        return assignId
+    }
+
+    void setAssignId(String assignId) {
+        this.assignId = assignId
     }
 
     String getExecutionId() {

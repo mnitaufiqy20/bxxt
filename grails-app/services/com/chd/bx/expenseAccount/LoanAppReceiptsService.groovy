@@ -9,6 +9,8 @@ import java.sql.Statement
 import java.sql.ResultSet
 import empInformation.EmpInformation
 import processes.ExmAppTask
+import jbpm.SpringUtil
+import processes.AppHistVar
 
 class LoanAppReceiptsService {
 
@@ -117,12 +119,15 @@ class LoanAppReceiptsService {
     }
 
     def getTaskByExecutionId(String executionId){
-        def strSql = "SELECT DBID_, EXECUTION_ID_, TASKDEFNAME_ \n" +
+        def strSql = "SELECT DBID_, EXECUTION_ID_, ASSIGNEE_, TASKDEFNAME_ \n" +
                 "\tFROM PEIHAO.JBPM4_TASK WHERE EXECUTION_ID_='"+executionId+"'"
+        def conn = null;
         try {
-            def conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.190:1521:ORCL","peihao","peihao")
-//            def pre = conn.prepareStatement(strSql)
-//            def rs = pre.executeQuery()
+
+            org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy ds = SpringUtil.getBean("dataSource");
+
+//           def conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.190:1521:ORCL","peihao","peihao")
+            conn = ds.getConnection()
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(strSql);
             List<ExmAppTask> list = new ArrayList<ExmAppTask>()
@@ -130,6 +135,7 @@ class LoanAppReceiptsService {
                 def exmAppTask = new ExmAppTask()
                 exmAppTask.setDbId(rs.getString("DBID_"))
                 exmAppTask.setExecutionId(rs.getString("EXECUTION_ID_"))
+                exmAppTask.setAssignId(rs.getString("ASSIGNEE_"))
                 exmAppTask.setTaskDefName(rs.getString("TASKDEFNAME_"))
                 list.add(exmAppTask)
             }
@@ -140,8 +146,39 @@ class LoanAppReceiptsService {
             }
         } catch (Exception e1) {
             e1.printStackTrace()
+            return null
         }
     }
 
+    def getNowAppHistVar(String userId , String executionId){
+        def strSql = "SELECT PROCINSTID_ , VARNAME_ , VALUE_ FROM PEIHAO.JBPM4_HIST_VAR " +
+                     " WHERE PROCINSTID_='"+executionId+"' AND VARNAME_='userId'"
+        def conn = null;
+        try {
+
+            org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy ds = SpringUtil.getBean("dataSource");
+
+//           def conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.190:1521:ORCL","peihao","peihao")
+            conn = ds.getConnection()
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(strSql);
+            List<AppHistVar> list = new ArrayList<AppHistVar>()
+            while(rs.next()){
+                def appHistVar = new AppHistVar()
+                appHistVar.setProId(rs.getString("PROCINSTID_"))
+                appHistVar.setVarName(rs.getString("VARNAME_"))
+                appHistVar.setValue(rs.getString("VALUE_"))
+                list.add(appHistVar)
+            }
+            if (list != null && list.size() > 0) {
+                return list.get(0)
+            }else{
+                return null
+            }
+        } catch (Exception e1) {
+            e1.printStackTrace()
+            return null
+        }
+    }
 
 }

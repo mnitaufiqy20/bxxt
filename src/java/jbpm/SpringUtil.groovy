@@ -7,10 +7,9 @@ package jbpm
  * Time: 5:49 PM
  * To change this template use File | Settings | File Templates.
  */
-
-import org.codehaus.groovy.grails.web.context.ServletContextHolder
-import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes
-import org.springframework.context.ApplicationContext
+import org.springframework.context.ApplicationContext;
+import org.codehaus.groovy.grails.web.context.ServletContextHolder;
+import org.codehaus.groovy.grails.web.servlet.GrailsApplicationAttributes;
 
 class SpringUtil {
 

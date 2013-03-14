@@ -14,6 +14,8 @@ import org.jbpm.api.cmd.Environment
 import org.hibernate.Session
 import org.jbpm.api.ProcessDefinition
 import processes.ExmAppTask
+import email.SendMail
+import processes.AppHistVar
 
 class LoanAppReceiptsController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -27,6 +29,10 @@ class LoanAppReceiptsController {
         redirect(action: "list", params: params)
     }
 
+    /**
+     * 查询
+     * @return
+     */
     def loanAppReceiptsQuery() {
 //        workflowFactory.applyWorkflow(processEngine,"E:/Groovy/loanAppRec.zip")
         println("LoanAppReceiptsController loanAppReceiptsQuery is loading....")
@@ -37,6 +43,11 @@ class LoanAppReceiptsController {
         render(view: '/loanAppReceipts/loanAppReceiptsList', model: [loan_list: loan_list])
     }
 
+    /**
+     * 高级查询
+     * @param params
+     * @return
+     */
     def  loanAppReceiptsGJQuery(params){
         loan_list = new ArrayList<LoanAppReceipts>();
         loan_list = loanAppReceiptsService.loanAppReceiptsGJQuery(params)
@@ -44,6 +55,11 @@ class LoanAppReceiptsController {
                 endDate:params["endDate"],loanAppReceiptsId:params["loanAppReceiptsId"],loanStatus:params["loanStatus"]])
     }
 
+    /**
+     * 添加
+     * @param params
+     * @return
+     */
     def loanAppReceiptsAdd(params) {
         println("LoanAppReceiptsController loanReceiptsAdd is loading....")
         Date date = new Date()
@@ -61,7 +77,11 @@ class LoanAppReceiptsController {
         render(view: '/loanAppReceipts/loanAppReceiptsAdd', model: [nowDate: nowDate,user:user])
     }
 
-    //添加保存
+    /**
+     *  保存
+     * @param params
+     * @return
+     */
     def loanAppReceiptsSave(params) {
         println("LoanAppReceiptsController loanAppReceiptsSave is loading....")
         def loanId = getLoanId()
@@ -123,7 +143,11 @@ class LoanAppReceiptsController {
         render(view: '/loanAppReceipts/loanAppReceiptsUpdate',model: [loanAppReceipts: loanAppReceipts])
     }
 
-    //提交
+    /**
+     * 提交申请
+     * @param params
+     * @return
+     */
     def commitLoanAppReceipts(params){
         def action = params["act"]
         if (action.equals("add")){
@@ -142,11 +166,28 @@ class LoanAppReceiptsController {
         if (list!=null&&list.size()>1){
             paiXu(list);
         }
+        Task task = list.get(0)
+        def executionId = task.getExecutionId()
+        def nextUserId = task.assignee
+        def nextUser = UserLogin.findByUserId(nextUserId)
         workflowFactory.approveTask(processEngine,list.get(0).getId(),"approve");
+
+        List<ExmAppTask> exmAppTaskList = loanAppReceiptsService.getTaskByExecutionId(executionId)
+        def exmAppTask = list.get(0)
+//        def nextUserId = exmAppTask.assignId
+//        def nextUser = UserLogin.findByUserId(nextUserId)
+
+        //发送邮件给下一个办理人
+        sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],"494383861@qq.com",1);//用户需要邮箱
 
         render(view: '/loanAppReceipts/loanAppReceiptsCommit',model: [loanAppReceipts: loanAppReceipts])
     }
 
+    /**
+     * 修改
+     * @param params
+     * @return
+     */
     def editLoanAppReceipts(params){
         loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(params["loanAppReceiptsId"])
         if (loanAppReceipts.loanStatus.equals("已保存")){
@@ -156,13 +197,22 @@ class LoanAppReceiptsController {
         }
     }
 
+    /**
+     * 查看
+     * @param params
+     * @return
+     */
     def lookUpLoanAppReceipts(params){
         loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(params["loanAppReceiptsId"])
         def user = (UserLogin)session.getAttribute("user")
         render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user])
     }
 
-    //修改保存
+    /**
+     * 修改后保存
+     * @param params
+     * @return
+     */
     def loanAppReceiptsUpdate(params) {
         println("LoanAppReceiptsController loanAppReceiptsUpdate is loading....")
         loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(params["loanAppReceiptsId"])
@@ -172,6 +222,11 @@ class LoanAppReceiptsController {
         render(view: '/loanAppReceipts/loanAppReceiptsUpdate', model: [loanAppReceipts: loanAppReceipts])
     }
 
+    /**
+     * 待办箱点击办理
+     * @param params
+     * @return
+     */
     def examineLoanAppReceipts(params){
         Date date = new Date()
 //        SimpleDateFormat matter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -191,6 +246,11 @@ class LoanAppReceiptsController {
 
     }
 
+    /**
+     * 办理后保存
+     * @param params
+     * @return
+     */
     def examineSave(params){
         def examAppHistory = new ExamAppHistory()
         examAppHistory.receiptsId = params["loanAppReceiptsId"]
@@ -209,18 +269,71 @@ class LoanAppReceiptsController {
         def taskId = params["taskId"]
         Task task = processEngine.getTaskService().getTask(taskId);
         def executionId = task.getExecutionId()
+
         workflowFactory.approveTask(processEngine,taskId,params["examAppIdea"]);
+
         List<ExmAppTask> list = loanAppReceiptsService.getTaskByExecutionId(executionId)
+        loanAppReceipts = new LoanAppReceipts()
+        loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(params["loanAppReceiptsId"])
         if (list==null){
-            loanAppReceipts = new LoanAppReceipts()
-            loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(params["loanAppReceiptsId"])
             loanAppReceipts.loanStatus = "已审核"
             loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
+            def loanUser = UserLogin.findByEmpNo(loanAppReceipts.loanEmpNo)
+            sendEmail(loanUser.getUserName(),params["loanAppReceiptsId"],"873427288@qq.com",0);//用户需要邮箱
+        }else{
+            def exmAppTask = list.get(0)
+            def nextUserId = exmAppTask.assignId
+            def nextUser = UserLogin.findByUserId(nextUserId)
+            if (params["examAppIdea"].equals("approve")) {
+                sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],"494383861@qq.com",1);//用户需要邮箱
+            }else{
+                sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],"873427288@qq.com",2);//用户需要邮箱
+            }
         }
+        //发送邮件给下一个办理人
+//        def appHistVar = new AppHistVar()
+//        appHistVar = loanAppReceiptsService.getNowAppHistVar(user.userId,executionId)
+//        def varName = appHistVar.varName
+//         if (varName.equals("userId")){
+//
+//         }else if (varName.equals("first")){
+//
+//         }else if (varName.equals("second")){
+//
+//         }else if (varName.equals("third")){
+//
+//         }else if (varName.equals("fourth")){
+//
+//         }else if (varName.equals("fifth")){
+//
+//         }
         returnProcessList()
     }
 
-    //在新增时获得单号
+    /**
+     * Ldap帐号申请结束，根据结果发送Email
+     * @param res
+     *      1 成功，2  审批中， 3  失败
+     */
+    public void sendEmail(java.lang.String userName,String uid,String email,int res){
+        SendMail mail = new SendMail();
+        if (res==0){
+            //申请成功
+            mail.send(userName,uid,request.getRealPath("/email/SuccessMail.txt"),email,res)
+        }else if (res==1){
+            //审批人
+            mail.send(userName,uid,request.getRealPath("/email/ApproverMail.txt"),email,res)
+        }else if (res==2){
+            //申请失败
+            mail.send(userName,uid,request.getRealPath("/email/FailureMail.txt"),email,res)
+        }
+
+    }
+
+    /**
+     *  在新增时获得申请单号
+     * @return  loanId 单据号
+     */
     def getLoanId(){
         String loanId = "J";
         def user = (UserLogin)session.getAttribute("user")
@@ -282,7 +395,12 @@ class LoanAppReceiptsController {
         return loanId
     }
 
-    //页面获取值之后赋给一个对象
+    /**
+     *  页面获取值之后赋给一个对象
+     * @param loanApp  申请对象
+     * @param params   页面参数
+     * @return  loanApp 赋值后的对象
+     */
     def loanAppRec(LoanAppReceipts loanApp,params){
         loanApp.loanEmpNo = params["loanEmpNo"]
         loanApp.loanCostCenter = params["loanCostCenter"]
@@ -309,7 +427,12 @@ class LoanAppReceiptsController {
         return loanApp
     }
 
-    //通过  loanAppReceiptsId 得到对应的对象
+    /**
+     *  通过  loanAppReceiptsId 得到对应的对象
+     * @param loanAppReceiptsId   单据号
+     * @return  loanAppReceipts  相应的对象
+     */
+    //
     def getLoanAppReceiptsById(String loanAppReceiptsId){
         List<LoanAppReceipts> list= loanAppReceiptsService.getLoanAppReceiptsById(loanAppReceiptsId)
         loanAppReceipts = new LoanAppReceipts()
@@ -427,6 +550,10 @@ class LoanAppReceiptsController {
         });
     }
 
+    /**
+     * 获得代办列表的数据
+     * @return
+     */
     def returnProcessList() {
         def user = (UserLogin)session.getAttribute("user")
         def userId = user.userId

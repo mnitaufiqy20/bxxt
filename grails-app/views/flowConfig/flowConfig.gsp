@@ -25,9 +25,6 @@
     <g:form id="gForm" name="gForm" action="commitLoanAppReceipts" controller="loanAppReceipts" method="post">
     <input type="hidden" name="act" value="update">
     <table width="100%"  height="200" border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td colspan="8" align="center" height="40"><h2>流程配置界面</h2></td>
-        </tr>
         <tr height="30">
             <td colspan="5" align="center" ><h2>流程配置</h2></td>
         </tr>
