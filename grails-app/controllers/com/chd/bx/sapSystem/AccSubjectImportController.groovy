@@ -1,13 +1,18 @@
 package com.chd.bx.sapSystem
 
+import com.chd.bx.login.UserLogin
+
 class AccSubjectImportController {
     def accSubjectImportService = new AccSubjectImportService()
     def accSubjectImportList = new ArrayList<AccSubjectImport>()
+    def springSecurityService
     def index() {
         redirect(action: "list", params: params)
     }
     def index2() {
-        render(view: '/accSubjectImport/accSubjectImport')
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
+        render(view: '/accSubjectImport/accSubjectImport',model: [user:user])
     }
     def accSubjectImport(params){
         def companyCode = params["companyCode"]

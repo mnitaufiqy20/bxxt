@@ -15,6 +15,7 @@ class UserLogin {
     String companyNo            //公司代码
     String departmentNo        //部门代码
     String empPosition         //员工职位
+    String empEmail             //邮箱
 
     static constraints = {
         userId  unique: true
@@ -27,6 +28,7 @@ class UserLogin {
         companyNo  nullable: false, minSize: 15
         departmentNo  nullable: false, minSize: 25
         empPosition   nullable: false, minSize: 25
+        empEmail   nullable: false
     }
     static mapping = {
         table 'TM_USER_LOGIN'

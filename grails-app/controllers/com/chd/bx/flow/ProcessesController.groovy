@@ -11,16 +11,17 @@ import java.text.SimpleDateFormat
  * 在办箱业务逻辑处理
  */
 class ProcessesController {
-
-    static processesService = new ProcessesService()
+    def processesService = new ProcessesService()
     def processEngine
+    def springSecurityService
     WorkflowFactory  workflowFactory = new WorkflowFactory()
     def index() {
         render(view: '../processes/processesList.gsp')
     }
 
     def initProcess() {
-        def user = (UserLogin)session.getAttribute("user")
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
         def userId = user.userId
 //        List<Processes> loan_list = new ArrayList<Processes>();
         List<TaskStore> list = new ArrayList<TaskStore>();

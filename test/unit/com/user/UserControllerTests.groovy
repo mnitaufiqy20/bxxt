@@ -1,7 +1,8 @@
 package com.user
 
 import grails.test.mixin.*
-import com.chd.bcs.fi.user.User
+import com.chd.bx.security.UserController
+import com.chd.bx.security.User
 
 @TestFor(UserController)
 @Mock(User)

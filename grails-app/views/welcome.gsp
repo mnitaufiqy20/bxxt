@@ -27,13 +27,13 @@
 <table id="container" width="100%" height="100%" border="1" cellpadding="0" cellspacing="0">
     <tr height="10%">
         <g:form>
-            <td >
+            <td>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" id="header">
                     <tr>
                         <td width="90%" height="71" class="header_left">&nbsp;</td>
-                        <td width="20%" align="right" valign="middle" class="header_right">
-                            <a>您&nbsp;好，&nbsp;${session.getAttribute("user").getProperties().userName}</a>  <br>
-                            <a href="clearSession">注销</a>
+                        <td width="10%" align="right" valign="middle" class="header_right">
+                            <a>您&nbsp;好，&nbsp;<sec:loggedInUserInfo field="username"/></a>
+                            <a href="../logout/index">注销</a>
                         </td>
                     </tr>
                 </table>

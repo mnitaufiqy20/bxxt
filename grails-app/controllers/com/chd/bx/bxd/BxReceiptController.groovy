@@ -20,6 +20,7 @@ class BxReceiptController {
     def bxWorkService
     def bxZhaoDaiService
     def processEngine;
+    def springSecurityService
     WorkflowFactory  workflowFactory = new WorkflowFactory()
     def loanAppReceiptsService = new LoanAppReceiptsService()
     /**
@@ -158,7 +159,8 @@ class BxReceiptController {
         List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
         listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
         //启动流程
-        def user = (UserLogin)session.getAttribute("user")
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
         def exmApp = loanAppReceiptsService.getProcessApprove2(user.empPosition)
         String ty = "";
         if (user.empPosition.equals("公司领导")){

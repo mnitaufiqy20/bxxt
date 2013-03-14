@@ -15,7 +15,7 @@ class BudgetReportReceiptsController {
     def budgetReportReceiptsT2 = new BudgetReportReceiptsTemp()
     def budgetReportReceiptsT3 = new BudgetReportReceiptsTemp()
     def budget_list = new ArrayList<BudgetReportReceipts>()
-
+    def springSecurityService
     def index() {
         redirect(action: "list", params: params)
     }
@@ -87,7 +87,8 @@ class BudgetReportReceiptsController {
                 }
             }
         }
-        def user = (UserLogin)session.getAttribute("user")
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
         render(view: '/budgetReportReceipts/budgetReportReceipts', model: [nowDate: nowDate,year: year,budgetYear:str,user:user])
     }
 

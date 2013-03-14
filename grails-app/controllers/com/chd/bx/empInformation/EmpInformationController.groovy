@@ -7,6 +7,7 @@ class EmpInformationController {
     def empInformationService = new EmpInformationService()
     def empInformation = new UserLogin()
     def emp_list = new ArrayList<EmpInformation>()
+    def springSecurityService
     def index() {
         redirect(action: "list", params: params)
     }
@@ -49,7 +50,8 @@ class EmpInformationController {
         render(view: '/empInformation/empInformationUpdatePassword',model: [empInformation: empInformation])
     }
     def  getEmpInformation(){
-        def user = (UserLogin)session.getAttribute("user")
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
         def userId = user.id;
         return userId
     }

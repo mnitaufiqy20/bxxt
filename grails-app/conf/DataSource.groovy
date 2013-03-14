@@ -17,9 +17,12 @@ environments {
 //    password = "ibm"
 //    url = "jdbc:mysql://192.168.1.191:3306/ers"
             driverClassName = "oracle.jdbc.driver.OracleDriver"
-            username = "er"
-            password = "er"
-            url = "jdbc:oracle:thin:@10.76.66.56:1521:DBDEV"
+//            username = "er"
+//            password = "er"
+//            url = "jdbc:oracle:thin:@10.76.66.56:1521:DBDEV"
+            username = "peihao"
+            password = "peihao"
+            url = "jdbc:oracle:thin:@192.168.1.190:1521:ORCL"
 //            url = "jdbc:mysql://192.168.1.191:3306/ers"
         }
     }

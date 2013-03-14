@@ -23,6 +23,7 @@ class LoanAppReceiptsController {
     def loanAppReceipts = new LoanAppReceipts()
     def loan_list = new ArrayList<LoanAppReceipts>()
     def processEngine;
+    def springSecurityService
     WorkflowFactory  workflowFactory = new WorkflowFactory()
 
     def index() {
@@ -36,7 +37,8 @@ class LoanAppReceiptsController {
     def loanAppReceiptsQuery() {
 //        workflowFactory.applyWorkflow(processEngine,"E:/Groovy/loanAppRec.zip")
         println("LoanAppReceiptsController loanAppReceiptsQuery is loading....")
-        def user = (UserLogin)session.getAttribute("user")
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
         def empNo = user.empNo
         loan_list = new ArrayList<LoanAppReceipts>();
         loan_list = loanAppReceiptsService.loanAppReceiptsQuery(empNo)
@@ -67,7 +69,8 @@ class LoanAppReceiptsController {
         String nowDate = matter.format(date);
 //        def empNo = params["loanEmpNo"]
 //        def emp = new UserLogin()
-        def user = (UserLogin)session.getAttribute("user")
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
 //        if (empNo!=null && empNo!=-1) {
 //            emp = loanAppReceiptsService.loanAppReceiptsAddChangeEmpNo(empNo)
 //            render(view: '/expenseAccount/loanAppReceiptsAdd', model: [nowDate: nowDate,emp:emp])
@@ -85,7 +88,8 @@ class LoanAppReceiptsController {
     def loanAppReceiptsSave(params) {
         println("LoanAppReceiptsController loanAppReceiptsSave is loading....")
         def loanId = getLoanId()
-        def user = (UserLogin)session.getAttribute("user")
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
         loanAppReceipts = new LoanAppReceipts();
 //        loanAppReceipts.id=0;
         loanAppReceipts.loanAppReceiptsId = loanId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
@@ -161,7 +165,8 @@ class LoanAppReceiptsController {
         loanAppReceipts.loanStatus = "已提交"
         loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
 
-        def user = (UserLogin)session.getAttribute("user")
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
         List<Task> list = workflowFactory.getTaskByUserId(processEngine,user.userId);
         if (list!=null&&list.size()>1){
             paiXu(list);
@@ -178,7 +183,7 @@ class LoanAppReceiptsController {
 //        def nextUser = UserLogin.findByUserId(nextUserId)
 
         //发送邮件给下一个办理人
-        sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],"494383861@qq.com",1);//用户需要邮箱
+        sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱
 
         render(view: '/loanAppReceipts/loanAppReceiptsCommit',model: [loanAppReceipts: loanAppReceipts])
     }
@@ -204,7 +209,9 @@ class LoanAppReceiptsController {
      */
     def lookUpLoanAppReceipts(params){
         loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(params["loanAppReceiptsId"])
-        def user = (UserLogin)session.getAttribute("user")
+//        def user = (UserLogin)session.getAttribute("user")
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
         render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user])
     }
 
@@ -232,7 +239,8 @@ class LoanAppReceiptsController {
 //        SimpleDateFormat matter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         SimpleDateFormat matter=new SimpleDateFormat("yyyy-MM-dd")
         String nowDate = matter.format(date);
-        def user = (UserLogin)session.getAttribute("user")
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
         def taskId = params["taskId"]
         def loanAppReceiptsId = params["loanAppReceiptsId"]
         loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(loanAppReceiptsId)
@@ -254,7 +262,8 @@ class LoanAppReceiptsController {
     def examineSave(params){
         def examAppHistory = new ExamAppHistory()
         examAppHistory.receiptsId = params["loanAppReceiptsId"]
-        def user = (UserLogin)session.getAttribute("user")
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
         examAppHistory.examAppName = user.userName
         examAppHistory.examAppNamePosition = user.empPosition
         Date date = new Date()
@@ -275,19 +284,19 @@ class LoanAppReceiptsController {
         List<ExmAppTask> list = loanAppReceiptsService.getTaskByExecutionId(executionId)
         loanAppReceipts = new LoanAppReceipts()
         loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(params["loanAppReceiptsId"])
+        def loanUser = UserLogin.findByEmpNo(loanAppReceipts.loanEmpNo)
         if (list==null){
             loanAppReceipts.loanStatus = "已审核"
             loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
-            def loanUser = UserLogin.findByEmpNo(loanAppReceipts.loanEmpNo)
-            sendEmail(loanUser.getUserName(),params["loanAppReceiptsId"],"873427288@qq.com",0);//用户需要邮箱
+            sendEmail(loanUser.getUserName(),params["loanAppReceiptsId"],loanUser.empEmail,0);//用户需要邮箱
         }else{
             def exmAppTask = list.get(0)
             def nextUserId = exmAppTask.assignId
             def nextUser = UserLogin.findByUserId(nextUserId)
             if (params["examAppIdea"].equals("approve")) {
-                sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],"494383861@qq.com",1);//用户需要邮箱
+                sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱
             }else{
-                sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],"873427288@qq.com",2);//用户需要邮箱
+                sendEmail(loanUser.getUserName(),params["loanAppReceiptsId"],loanUser.empEmail,2);//用户需要邮箱
             }
         }
         //发送邮件给下一个办理人
@@ -336,7 +345,8 @@ class LoanAppReceiptsController {
      */
     def getLoanId(){
         String loanId = "J";
-        def user = (UserLogin)session.getAttribute("user")
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
 
         def comNo = user.companyNo  //公司代码（四位）
 
@@ -555,7 +565,8 @@ class LoanAppReceiptsController {
      * @return
      */
     def returnProcessList() {
-        def user = (UserLogin)session.getAttribute("user")
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
         def userId = user.userId
 //        List<Processes> loan_list = new ArrayList<Processes>();
         List<TaskStore> list = new ArrayList<TaskStore>();

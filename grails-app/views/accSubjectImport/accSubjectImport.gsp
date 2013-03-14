@@ -41,8 +41,8 @@
                                         <table>
                                             <tr>
                                                 <td height="30" width="30%" align="right">所属公司代码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                <td height="30" width="20%"><span>${session.getAttribute("user").getProperties().companyNo}</span></td>
-                                                <td width="30">&nbsp;<input type="hidden" id="companyCode" name="companyCode" value="${session.getAttribute("user").getProperties().companyNo}"></td>
+                                                <td height="30" width="20%"><span>${user.companyNo}</span></td>
+                                                <td width="30">&nbsp;<input type="hidden" id="companyCode" name="companyCode" value="${user.companyNo}"></td>
                                                 <td height="30" width="50" align="right"><input type="button" value="现金银行科目导入" onclick="query(1);"></td>
                                                 <td width="30">&nbsp;</td>
                                                 <td height="30" width="50" align="right"><input type="button" value="费用科目导入" onclick="query(5);"></td>

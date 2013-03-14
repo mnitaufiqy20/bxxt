@@ -6,13 +6,14 @@ class User {
 
     String username             //登录用户名
     String password             //登录口令
-    String name                  //用户姓名
+    String name                   //用户姓名
     String empNo                //员工编号
     String telephone           // 电话
     String idNumber            // 身份证号
     String companyNo           //公司代码
     String departmentNo       //部门代码
     String empPosition        //员工职位
+    String userId              //用户Id
     Role role                  //用户角色
 
     boolean enabled
@@ -29,6 +30,7 @@ class User {
         idNumber   nullable: false
         companyNo  nullable: false
         departmentNo  nullable: false
+        userId nullable: false
         empPosition   nullable: false
     }
 
