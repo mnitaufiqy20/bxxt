@@ -377,6 +377,8 @@ class BootStrap {
         def mc5 =new MenuCategory(categoryName:'集成接口',sortIndex:5).save(flush: true)
         new Menu(menuName:'SAP系统',sortIndex:1,actionUrl:'#',menuCategory:mc5).save(flush: true)
         new Menu(menuName:'人事系统',sortIndex:2,actionUrl:'#',menuCategory:mc5).save(flush: true)
+        new Menu(menuName:'成本中心导入',sortIndex:3,actionUrl:'../costCenterImport/index2',menuCategory:mc5).save(flush: true)
+        new Menu(menuName:'会计科目导入',sortIndex:4,actionUrl:'../accSubjectImport/index2',menuCategory:mc5).save(flush: true)
 
     }
     def destroy = {

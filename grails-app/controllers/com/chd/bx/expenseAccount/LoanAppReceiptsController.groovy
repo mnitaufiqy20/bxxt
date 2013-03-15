@@ -261,6 +261,7 @@ class LoanAppReceiptsController {
      */
     def examineSave(params){
         def examAppHistory = new ExamAppHistory()
+        examAppHistory.taskId = params["taskId"]
         examAppHistory.receiptsId = params["loanAppReceiptsId"]
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = UserLogin.findByLoginName(currentUserName)
@@ -272,6 +273,7 @@ class LoanAppReceiptsController {
         String nowDate = matter.format(date);
         examAppHistory.examAppTime = nowDate
         examAppHistory.examAppIdea = params["examAppIdea"]
+        examAppHistory.approveRemark = params["approveRemark"]
         loanAppReceiptsService.examineSave(examAppHistory)
 
 
@@ -531,8 +533,11 @@ class LoanAppReceiptsController {
                 taskStore.setResult("不同意");
             }
             ExamAppHistory tl = ExamAppHistory.findByTaskId(historyTask.getId());
-            UserLogin userL = UserLogin.findById(historyTask.getId())
-//            taskStore.setExamAppNamePosition(userL.getEmpPosition());
+            if(tl==null){
+                taskStore.setRemark("");
+            }else{
+                taskStore.setRemark(tl.getApproveRemark());
+            }
             storeList.add(taskStore);
         }
         return storeList;

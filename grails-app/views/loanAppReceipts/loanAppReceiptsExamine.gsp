@@ -38,6 +38,7 @@
                 document.getElementById("back").style.backgroundColor = "green";
             }
             document.getElementById("goBack").disabled = true;
+            document.getElementById("ideaRemark").display = "none";
         }
     </script>
     <script type="text/javascript">
@@ -46,14 +47,23 @@
             if(idea=="approve") {
                 document.getElementById("goBack").disabled = true;
                 document.getElementById("comm").disabled = false;
+                document.getElementById("ideaRemark").style.display="none";
             }else{
                 document.getElementById("comm").disabled = true;
                 document.getElementById("goBack").disabled = false;
+                document.getElementById("ideaRemark").style.display="block";
             }
         }
     </script>
     <script type="text/javascript">
-        function commForm(){
+        function commForm(id){
+            if(id==1){
+                var approveRemark = document.getElementById("approveRemark").value;
+                if(approveRemark=="" || approveRemark.trim()==""){
+                    alert("请输入退回原因！");
+                    return;
+                }
+            }
             var gForm = document.getElementById("gForm");
             gForm.action = "examineSave";
             gForm.controller = "loanAppReceipts";
@@ -65,7 +75,7 @@
 <body id="" onload="markColor();">
 <g:form id="gForm" name="gForm" action="commitLoanAppReceipts" controller="loanAppReceipts" method="post">
 <input type="hidden" name="act" value="update">
-<table width="100%"  height="430" border="0" cellpadding="0" cellspacing="0">
+<table width="100%"  height="500" border="0" cellpadding="0" cellspacing="0">
     <tr>
         <td colspan="9" align="center" height="40"><h2>借款单</h2></td>
     </tr>
@@ -222,10 +232,11 @@
             <table width="100%" height="60"  border="1" cellpadding="0" cellspacing="0">
                 <tr align="center">
                     <td height="30" width="10%">序号</td>
-                    <td width="30%">审批时间</td>
+                    <td width="15%">审批时间</td>
                     <td width="20%">审批人职位</td>
                     <td width="15%">审批人</td>
                     <td width="20%">审批意见</td>
+                    <td width="15%">原因</td>
                 </tr>
                 <g:each in="${historyLists}" var="item" status="index">
                     <tr align="center">
@@ -236,6 +247,7 @@
                         <td>${item.examAppNamePosition}</td>
                         <td>${item.assignee}</td>
                         <td>${item.result}</td>
+                        <td>${item.remark}</td>
                     </tr>
                 </g:each>
             </table>
@@ -259,7 +271,7 @@
                 <tr align="center">
                     <td height="30" width="10%">1<input type="hidden" name="taskId" value="${taskId}"></td>
                     <td width="30%">${nowDate}</td>
-                    <td width="20%">${user.empPosition}></td>
+                    <td width="20%">${user.empPosition}</td>
                     <td width="15%">${user.userName}</td>
                     <td  width="20%">
                         <select id="examAppIdea" width="20%" name="examAppIdea" onchange="changeIdea();">
@@ -279,8 +291,8 @@
         <td>&nbsp;&nbsp;</td>
         %{--<td height="30"><input type="button" value="保存"  onclick="commForm(0);"></td>--}%
         <td height="30">&nbsp;&nbsp;&nbsp;</td>
-        <td><input type="button" id="comm" value="提交"  onclick="commForm();"></td>
-        <td><input type="button" id="goBack" value="退回" onclick="commForm();"></td>
+        <td><input type="button" id="comm" value="提交"  onclick="commForm(0);"></td>
+        <td><input type="button" id="goBack" value="退回" onclick="commForm(1);"></td>
         %{--<td><input type="button" value="返回" onclick="location='../processes/initProcess'"></td>--}%
         <td><input type="button" value="执行过账" disabled></td>
         <td>
@@ -294,6 +306,13 @@
         <td>&nbsp;&nbsp;</td>
         <td>&nbsp;&nbsp;</td>
     </tr>
+    <div id="ideaRemark" name="ideaRemark" style="width:100px;height:50px" >
+    <tr>
+        <td>&nbsp;&nbsp;</td>
+        <td colspan="2" height="60" align="right">请填写退回原因：</td>
+        <td colspan="5" height="60"><textarea id="approveRemark" name="approveRemark" rows="3" cols="30" onblur="emptyVerify('approveRemark');" readonly></textarea></td>
+    </tr>
+    </div>
 </table>
 </g:form>
 <script>document.getElementById("loanEmpNo").value = "${loanAppReceipts.loanEmpNo}";</script>
