@@ -364,7 +364,9 @@ class BootStrap {
         new Menu(menuName:'员工信息',sortIndex:8,actionUrl:'../empInformation/empInformation',menuCategory:mc2).save(flush: true)
 
         def mc3 =new MenuCategory(categoryName:'流程管理',sortIndex:3).save(flush: true)
-        new Menu(menuName:'流程配置',sortIndex:1,actionUrl:'#',menuCategory:mc3).save(flush: true)
+        new Menu(menuName:'流程配置',sortIndex:1,actionUrl:'../flowConfig/flowConfig',menuCategory:mc3).save(flush: true)
+        new Menu(menuName:'流程查看',sortIndex:1,actionUrl:'../flowLookUp/flowLookUp',menuCategory:mc3).save(flush: true)
+        new Menu(menuName:'流程发布',sortIndex:1,actionUrl:'../flowSheetInfuse/flowSheetInfuse',menuCategory:mc3).save(flush: true)
         new Menu(menuName:'费用报销核算流程',sortIndex:2,actionUrl:'#',menuCategory:mc3).save(flush: true)
         new Menu(menuName:'员工借款核算流程',sortIndex:3,actionUrl:'#',menuCategory:mc3).save(flush: true)
 
