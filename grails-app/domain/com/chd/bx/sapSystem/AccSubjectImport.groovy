@@ -5,9 +5,9 @@ class AccSubjectImport {
     String subjectNo    ;//科目编号
     String subjectDes;//科目描述
     static constraints = {
-        companyCode nullable: false, maxSize: 20
-        subjectNo nullable: false, maxSize: 20
-        subjectDes nullable: false, maxSize: 100
+        companyCode nullable: false, maxSize: 4
+        subjectNo nullable: false, maxSize: 10
+        subjectDes nullable: false, maxSize: 35
     }
     static mapping = {
         table 'TI_ACC_SUBJECT_IMPORT'

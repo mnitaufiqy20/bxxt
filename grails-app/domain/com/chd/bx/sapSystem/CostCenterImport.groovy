@@ -5,9 +5,9 @@ class CostCenterImport {
     String costCenterNo;//成本中心编码
     String costCenterDes;//成本中心描述
     static constraints = {
-        companyCode nullable: false, maxSize: 20
-        costCenterNo nullable: false, maxSize: 20
-        costCenterDes nullable: false, maxSize: 100
+        companyCode nullable: false, maxSize: 4
+        costCenterNo nullable: false, maxSize: 10
+        costCenterDes nullable: false, maxSize: 35
     }
     static mapping = {
         table 'TI_COST_CENTER_IMPORT'
