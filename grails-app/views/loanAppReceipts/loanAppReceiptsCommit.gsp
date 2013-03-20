@@ -239,7 +239,7 @@
         <td><input type="button" value="提交" disabled></td>
         <td><input type="button" value="返回" onclick="location='../loanAppReceipts/loanAppReceiptsQuery'"></td>
         <g:if test="${loanAppReceipts.loanStatus=="已审核" && user.empPosition=="过账会计"}">
-            <td><input type="button" value="执行过账" onclick="location='../loanCerIntegration/loanCerIntegration'"></td>
+            <td><input type="button" value="执行过账" onclick="location='../loanCerIntegration/loanCerIntegration?type=loan'"></td>
         </g:if>
         <g:else>
             <td><input type="button" value="执行过账" disabled></td>

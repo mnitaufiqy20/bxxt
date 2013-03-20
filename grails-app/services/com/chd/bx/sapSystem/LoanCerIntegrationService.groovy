@@ -7,6 +7,8 @@ import com.capgemini.eis.adapter.framework.message.impl.MsgObject
 import com.capgemini.eis.adapter.framework.message.impl.GroupRecord
 import com.capgemini.eis.adapter.framework.message.implcom.MsgConstants
 import sapSystem.LoanCerIntegrationOutput
+import com.chd.bx.expenseAccount.LoanAppReceipts
+import com.chd.bx.accSubSafeguard.AccSubSafeguard
 
 class LoanCerIntegrationService {
 
@@ -74,5 +76,13 @@ class LoanCerIntegrationService {
             msg = "请求查询失败，错误信息：[未知错误]";
         }
         return msg;
+    }
+
+    def getAccSubSafeguardLoan(def type){
+        String strSql = "from AccSubSafeguard where appType='"+type+"' order by id asc "
+        List<AccSubSafeguard> list = AccSubSafeguard.findAll(strSql)
+        if (list != null && list.size() > 0) {
+            return list
+        }
     }
 }
