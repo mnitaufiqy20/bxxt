@@ -2,11 +2,13 @@ package com.chd.bx.security
 
 class RoleMenu {
 
-    Long roleId
+    String roleId
+    String roleRight
     Menu menu
 
     static constraints = {
         roleId blank: false
+        roleRight  blank: true
     }
 
     static mapping = {
