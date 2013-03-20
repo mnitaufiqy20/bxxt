@@ -22,12 +22,12 @@
          <tr>
              <td colspan="6" ></td>
              <td>组织代码：</td>
-             <td>${companyCode}</td>
+             <td>${orgCode}</td>
          </tr>
          <tr>
              <td colspan="6" ></td>
              <td>组织名称：</td>
-             <td>${companyName}</td>
+             <td>${orgName}</td>
          </tr>
          <tr>
              <td colspan="8" >&nbsp;</td>

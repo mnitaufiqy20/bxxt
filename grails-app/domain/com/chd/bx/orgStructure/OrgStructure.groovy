@@ -6,11 +6,13 @@ class OrgStructure {
     String deptCode
     String deptName
     String orgKey
+    String orgName  //组织名称
     String mark
     String sendDate
     String sendPerson
     static constraints = {
         orgKey unique: true,maxSize: 50 ,nullable: false
+        orgName  nullable:false
         companyCode  nullable: false,maxSize:50
         companyName nullable: false,maxSize: 50
         deptCode nullable: false,maxSize: 50
