@@ -4,6 +4,7 @@ class Role {
 
 	String authority
     String description
+    String roleCode
     static hasMany = [user:User]
 
 	static mapping = {
@@ -14,5 +15,6 @@ class Role {
 	static constraints = {
 		authority blank: false, unique: true
         description blank: true
+        roleCode  blank: false
 	}
 }
