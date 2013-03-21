@@ -82,7 +82,7 @@ class LoanCerIntegrationService {
         String strSql = "from AccSubSafeguard where appType='"+type+"' order by id asc "
         List<AccSubSafeguard> list = AccSubSafeguard.findAll(strSql)
         if (list != null && list.size() > 0) {
-            return list
+            return list.get(0)
         }
     }
 }

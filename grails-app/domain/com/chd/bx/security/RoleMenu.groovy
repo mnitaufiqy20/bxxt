@@ -2,7 +2,7 @@ package com.chd.bx.security
 
 class RoleMenu {
 
-    String roleId
+    int roleId
     String roleRight
     Menu menu
 

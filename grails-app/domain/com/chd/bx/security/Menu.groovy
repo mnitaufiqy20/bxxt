@@ -12,7 +12,7 @@ class Menu {
         menuName(blank: false,unique: true, maxSize: 50 )
         actionUrl(blank: false, maxSize: 200)
         sortIndex(blank: false)
-        menuCode         nullable: false ,maxSize: 10
+        menuCode         nullable: true ,maxSize: 10
         menuRight       nullable: true ,maxSize: 20
     }
 

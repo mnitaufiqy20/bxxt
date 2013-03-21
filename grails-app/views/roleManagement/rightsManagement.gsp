@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Administrator
+  User: mengmin
   Date: 13-3-14
   Time: 下午6:32
   To change this template use File | Settings | File Templates.
@@ -35,10 +35,10 @@
                       <select name="roleName" id="roleName" onchange="getRoleCode();">
                           <g:each in="${roleList}" var="item" status="index">
                               <g:if test="${roleCode==item.roleCode}">
-                                  <option value="${item.roleCode}" selected="true">${item.roleName}</option>
+                                  <option value="${item.roleCode}" selected="true">${item.authority}</option>
                               </g:if>
                               <g:else>
-                                  <option value="${item.roleCode}">${item.roleName}</option>
+                                  <option value="${item.roleCode}">${item.authority}</option>
                               </g:else>
                           </g:each>
                       </select>

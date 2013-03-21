@@ -5,7 +5,7 @@ class Role {
 	String authority
     String description
     String roleCode
-    static hasMany = [user:User]
+//    static hasMany = [user:User]
 
 	static mapping = {
         table 'S_ROLE'

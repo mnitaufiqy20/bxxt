@@ -4,7 +4,6 @@ import com.chd.bx.security.Menu
 import com.chd.bx.security.MenuCategory
 import com.chd.bx.security.RoleMenu
 import com.chd.bx.security.User
-import com.chd.bx.security.Role
 
 class WorkbenchController {
 
@@ -36,12 +35,12 @@ class WorkbenchController {
             MenuItem item=new MenuItem(categoryName:key,menus:map.get(key));
             menuItems.add(item);
         }
-        String isAuth="1";
-        Role role=currentUser.getRole();
-        String    authority=role.authority;
-        if (authority.equals("系统管理员")){
-            isAuth="0"
-        }
+//        String isAuth="1";
+//        Role role=currentUser.getRole();
+//        String    authority=role.authority;
+//        if (authority.equals("系统管理员")){
+            String isAuth="0"
+//        }
         render view: 'index', model: ['menuItems': menuItems,isAuth:isAuth];
     }
 

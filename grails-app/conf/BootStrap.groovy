@@ -2,7 +2,6 @@ import com.chd.bx.security.Menu
 import com.chd.bx.security.MenuCategory
 import com.chd.bx.security.Role
 import com.chd.bx.security.User
-import com.chd.bx.security.RoleMenu
 
 class BootStrap {
 
@@ -350,8 +349,9 @@ class BootStrap {
         //初始化菜单数据
         def mc1 = new MenuCategory(categoryName:'系统配置',sortIndex:1).save(flush: true)
         new Menu(menuName:'菜单管理',sortIndex:1,actionUrl:'../menu/index',menuCategory:mc1).save(flush: true)
-        new Menu(menuName:'角色管理',sortIndex:2,actionUrl:'../role/index',menuCategory:mc1).save(flush: true)
+        new Menu(menuName:'角色管理',sortIndex:2,actionUrl:'../roleManagement/index',menuCategory:mc1).save(flush: true)
         new Menu(menuName:'用户管理',sortIndex:3,actionUrl:'../user/index',menuCategory:mc1).save(flush: true)
+        new Menu(menuName:'系统权限管理',sortIndex:4,actionUrl:'../rightsManagement/index',menuCategory:mc1).save(flush: true)
 
         def mc2 =new MenuCategory(categoryName:'主数据',sortIndex:2).save(flush: true)
         new Menu(menuName:'组织架构',sortIndex:1,actionUrl:'../orgStructure/index',menuCategory:mc2).save(flush: true)
