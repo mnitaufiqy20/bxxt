@@ -152,30 +152,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RightsManagementService.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig_service/RightsManagementService.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="59" selection-start="273" selection-end="273" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#33#64#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BootStrap.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="BootStrap.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/conf/BootStrap.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="369" column="103" selection-start="15347" selection-end="15347" vertical-scroll-proportion="0.7906336">
+            <state line="370" column="123" selection-start="15458" selection-end="15458" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AccSubSafeguardController.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/accSubSafeguard/AccSubSafeguardController.groovy">
+      <file leaf-file-name="UserRoleController.groovy" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/UserRoleController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="58" selection-start="341" selection-end="385" vertical-scroll-proportion="0.0">
+            <state line="81" column="0" selection-start="3058" selection-end="3058" vertical-scroll-proportion="0.3315508">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserRoleService.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/UserRoleService.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="0" selection-start="672" selection-end="672" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -248,7 +246,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/grails-app/views/loanAppReceipts/loanAppReceiptsExamine.gsp" />
         <option value="$PROJECT_DIR$/grails-app/domain/com/chd/bx/sapSystem/LoanCerIntegrationImport.groovy" />
         <option value="$PROJECT_DIR$/grails-app/domain/com/chd/bx/sapSystem/CostCenterImport.groovy" />
         <option value="$PROJECT_DIR$/grails-app/domain/com/chd/bx/sapSystem/AccSubjectImport.groovy" />
@@ -264,6 +261,7 @@
         <option value="$PROJECT_DIR$/grails-app/services/com/chd/bx/sapSystem/LoanCerIntegrationService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig_service/RightsManagementService.groovy" />
         <option value="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/UserRoleService.groovy" />
       </list>
     </option>
   </component>
@@ -407,6 +405,60 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="groovy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="systemConfig" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="groovy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -531,7 +583,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="systemConfig_service" />
+              <option name="myItemId" value="systemConfig" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -719,7 +771,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="systemConfig_contraller" />
+              <option name="myItemId" value="systemConfig" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1021,8 +1073,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="870" extended-state="1" />
-    <editor active="true" />
+    <frame x="0" y="0" width="1440" height="870" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32963988" sideWeight="0.4969697" order="7" side_tool="false" content_ui="tabs" />
@@ -1030,7 +1082,7 @@
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37815127" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37815127" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32825485" sideWeight="0.5007184" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1114,11 +1166,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/empInformation/EmpInformationController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="6" selection-start="113" selection-end="113" vertical-scroll-proportion="-0.55368096" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/accSubSafeguard/AccSubSafeguardService.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="0" selection-start="145" selection-end="145" vertical-scroll-proportion="0.296875" />
@@ -1210,18 +1257,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig_service/RightsManagementService.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/conf/BootStrap.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="59" selection-start="273" selection-end="273" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#33#64#0" expanded="true" />
-          </folding>
+        <state line="370" column="123" selection-start="15458" selection-end="15458" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/conf/BootStrap.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/UserRoleService.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="369" column="103" selection-start="15347" selection-end="15347" vertical-scroll-proportion="0.7906336">
+        <state line="24" column="0" selection-start="672" selection-end="672" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/UserRoleController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="0" selection-start="3058" selection-end="3058" vertical-scroll-proportion="0.3315508">
           <folding />
         </state>
       </provider>

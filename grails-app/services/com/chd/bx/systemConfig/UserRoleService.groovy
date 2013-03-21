@@ -21,8 +21,13 @@ class UserRoleService {
         userRole.delete()
     }
     def getUser(String userId){
-        def strSql = "\n" +
-                "SELECT ID,EMP_NO,NAME FROM S_USER  WHERE ID not in ("+userId+")"
+        def strSql=""
+        if(userId==null||userId==""){
+             strSql = "SELECT ID,EMP_NO,NAME FROM S_USER"
+        } else{
+             strSql = "SELECT ID,EMP_NO,NAME FROM S_USER  WHERE ID not in ("+userId+")"
+        }
+
         def conn = null;
         try {
             org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy ds = SpringUtil.getBean("dataSource");
