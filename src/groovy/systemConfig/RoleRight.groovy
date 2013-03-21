@@ -8,19 +8,11 @@ package systemConfig
  * To change this template use File | Settings | File Templates.
  */
 class RoleRight {
-    int id
     String functionCode                     //栏目Code
     String roleCode                          //角色Code
     String roleRight                         //角色权限
     String functionName                      //栏目name
     String roleName                           //角色name
-    int getId() {
-        return id
-    }
-
-    void setId(int id) {
-        this.id = id
-    }
 
     String getFunctionCode() {
         return functionCode

@@ -352,6 +352,7 @@ class BootStrap {
         new Menu(menuName:'角色管理',sortIndex:2,actionUrl:'../roleManagement/index',menuCategory:mc1).save(flush: true)
         new Menu(menuName:'用户管理',sortIndex:3,actionUrl:'../user/index',menuCategory:mc1).save(flush: true)
         new Menu(menuName:'系统权限管理',sortIndex:4,actionUrl:'../rightsManagement/index',menuCategory:mc1).save(flush: true)
+        new Menu(menuName:'用户角色管理',sortIndex:5,actionUrl:'../userRole/index',menuCategory:mc1).save(flush: true)
 
         def mc2 =new MenuCategory(categoryName:'主数据',sortIndex:2).save(flush: true)
         new Menu(menuName:'组织架构',sortIndex:1,actionUrl:'../orgStructure/index',menuCategory:mc2).save(flush: true)

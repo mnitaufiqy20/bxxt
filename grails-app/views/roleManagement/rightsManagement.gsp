@@ -56,8 +56,8 @@
           </table>
           <table id="table1" width="100%"  border="0" cellpadding="0" cellspacing="0">
                 <tr style="background-color: #f5f5dc;" align="center">
-                    <td width="20%"></td>
-                    <td width="20%"></td>
+                    <td width="20%">&nbsp;</td>
+                    <td width="20%">&nbsp;</td>
                     <td width="12%">查看/执行</td>
                     <td width="12%">新增</td>
                     <td width="12%">修改</td>
