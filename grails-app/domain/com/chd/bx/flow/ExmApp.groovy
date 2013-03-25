@@ -13,16 +13,16 @@ class ExmApp {
     String payTeller             //付款出纳
 
     static constraints = {
-        receiptsType  nullable: false, minSize: 25
-        companyNo  nullable: false, minSize: 25
-        empRole  nullable: false, minSize: 25
-        firstName  nullable: false, minSize: 25
-        secondName  nullable: true, minSize: 25
-        thirdName  nullable: true, minSize: 25
-        fourthName  nullable: true, minSize: 25
-        fifthName  nullable: true, minSize: 25
-        postAcc  nullable: true, minSize: 25
-        payTeller  nullable: true, minSize: 25
+        receiptsType  nullable: false, maxSize: 25
+        companyNo  nullable: false, maxSize: 25
+        empRole  nullable: false, maxSize: 25
+        firstName  nullable: false, maxSize: 25
+        secondName  nullable: true, maxSize: 25
+        thirdName  nullable: true, maxSize: 25
+        fourthName  nullable: true, maxSize: 25
+        fifthName  nullable: true, maxSize: 25
+        postAcc  nullable: true, maxSize: 25
+        payTeller  nullable: true, maxSize: 25
     }
     static mapping = {
         table 'TT_EXA_APP'

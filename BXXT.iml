@@ -33,7 +33,10 @@
     </facet>
     <facet type="hibernate" name="Hibernate">
       <configuration>
-        <datasource-map />
+        <datasource-map>
+          <unit-entry name="Gorm" />
+          <unit-entry name="sessionFactory" />
+        </datasource-map>
       </configuration>
     </facet>
   </component>
@@ -57,8 +60,6 @@
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="inheritedJdk" />
-    <orderEntry type="library" name="com.springsource.sts.grails.core.CLASSPATH_CONTAINER" level="application" />
-    <orderEntry type="library" name="grails-2.2.1" level="application" />
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library (BXXT)">
         <CLASSES>

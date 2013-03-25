@@ -251,7 +251,7 @@ class LoanAppReceiptsController {
         }else if ("B".equals(type)){
             render(view: '/bxReceipt/bxHandle', model: [nowDate:nowDate,user:user,loanAppReceipts: loanAppReceipts,taskId:taskId,historyLists:historyLists])
         }
-
+//        render(view: '/loanAppReceipts/loan')
     }
 
     /**
@@ -292,13 +292,21 @@ class LoanAppReceiptsController {
             loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
             sendEmail(loanUser.getUserName(),params["loanAppReceiptsId"],loanUser.empEmail,0);//用户需要邮箱
         }else{
+            def type = params["type"]
+            if (type.equals("1")){
+                loanAppReceipts.loanStatus = "已保存"
+                loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
+            }else{
+                loanAppReceipts.loanStatus = "已提交"
+                loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
+            }
             def exmAppTask = list.get(0)
             def nextUserId = exmAppTask.assignId
             def nextUser = UserLogin.findByUserId(nextUserId)
             if (params["examAppIdea"].equals("approve")) {
-                sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱
+                sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱  通过
             }else{
-                sendEmail(loanUser.getUserName(),params["loanAppReceiptsId"],loanUser.empEmail,2);//用户需要邮箱
+                sendEmail(loanUser.getUserName(),params["loanAppReceiptsId"],loanUser.empEmail,2);//用户需要邮箱  不通过
             }
         }
         //发送邮件给下一个办理人

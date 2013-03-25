@@ -12,7 +12,7 @@ class LoanCerIntegrationController {
     def loanCerIntegration(params){
         def type = params["type"]
         def accSubSafeguard = new AccSubSafeguard()
-        if (type.equase("loan")){
+        if (type.equals("loan")){
             accSubSafeguard =  loanCerIntegrationService.getAccSubSafeguardLoan(type)
         }
         render(view: '/loanCerIntegration/loanCerIntegration')

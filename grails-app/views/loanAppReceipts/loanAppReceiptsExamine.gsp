@@ -11,6 +11,24 @@
     %{--<meta name="layout" content="main"/>--}%
     <title>华电集团报销系统</title>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'mark.css')}" type="text/css">
+    <style type="text/css" mce_bogus="1">
+        /*.table {*/
+            /*background: blue;*/
+        /*}*/
+        /*.table tr,td {*/
+            /*background: white;*/
+        /*}*/
+        #table1{
+            border-top:1px solid black;
+            border-left:1px solid black;
+            cursor:default;
+        }
+        #table1 td{
+            border-bottom:1px solid black;
+            border-right:1px solid black;
+            height:23px;
+        }
+    </style>
     <script src="${resource(dir: 'js/calendar', file: 'jsdate.js')}"></script>
     <script src="${resource(dir: 'js/calendar', file: 'WdatePicker.js')}"></script>
     <script src="${resource(dir: 'js/calendar', file: 'main.js')}"></script>
@@ -59,15 +77,21 @@
         function commForm(id){
             if(id==1){
                 var approveRemark = document.getElementById("approveRemark").value;
-                if(approveRemark=="" || approveRemark.trim()==""){
+                if(approveRemark==null || approveRemark==""){
                     alert("请输入退回原因！");
                     return;
+                }else{
+                    var gForm = document.getElementById("gForm");
+                    gForm.action = "examineSave?type=1";
+                    gForm.controller = "loanAppReceipts";
+                    gForm.submit();
                 }
+            }else{
+                var gForm = document.getElementById("gForm");
+                gForm.action = "examineSave?type=0";
+                gForm.controller = "loanAppReceipts";
+                gForm.submit();
             }
-            var gForm = document.getElementById("gForm");
-            gForm.action = "examineSave";
-            gForm.controller = "loanAppReceipts";
-            gForm.submit();
         }
     </script>
 </head>
@@ -231,7 +255,7 @@
         <td colspan="7">
             <table width="100%" height="60"  border="1" cellpadding="0" cellspacing="0">
                 <tr align="center">
-                    <td height="30" width="10%">序号</td>
+                    <td height="30">序号</td>
                     <td width="15%">审批时间</td>
                     <td width="20%">审批人职位</td>
                     <td width="15%">审批人</td>
@@ -247,7 +271,7 @@
                         <td>${item.examAppNamePosition}</td>
                         <td>${item.assignee}</td>
                         <td>${item.result}</td>
-                        <td>${item.remark}</td>
+                        <td>${item.remark}&nbsp;</td>
                     </tr>
                 </g:each>
             </table>
@@ -310,7 +334,7 @@
     <tr>
         <td>&nbsp;&nbsp;</td>
         <td colspan="2" height="60" align="right">请填写退回原因：</td>
-        <td colspan="5" height="60"><textarea id="approveRemark" name="approveRemark" rows="3" cols="30" onblur="emptyVerify('approveRemark');" readonly></textarea></td>
+        <td colspan="5" height="60"><textarea id="approveRemark" name="approveRemark" rows="3" cols="30" onblur="emptyVerify('approveRemark');"></textarea></td>
     </tr>
     </div>
 </table>
