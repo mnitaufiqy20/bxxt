@@ -23,6 +23,9 @@ environments {
             username = "peihao"
             password = "peihao"
             url = "jdbc:oracle:thin:@192.168.1.190:1521:ORCL"
+//            username = "jing"
+//            password = "jing"
+//            url = "jdbc:oracle:thin:@localhost:1521:ORCL"
 //            url = "jdbc:mysql://192.168.1.191:3306/ers"
         }
     }

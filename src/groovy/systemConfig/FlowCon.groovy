@@ -1,6 +1,7 @@
 package systemConfig
 
 import com.chd.bx.security.UserRole
+import com.chd.bx.security.Role
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,6 +14,7 @@ class FlowCon {
     String receiptsType;     //流程类型
     String companyNo;         //公司编码
     String empRole;           //角色
+    List<Role> empRoleList
     List<UserRole> firstName;  //第一审批人
     List<UserRole> secondName;        //第二审批人
     List<UserRole> thirdName;          //第三审批人
@@ -50,6 +52,14 @@ class FlowCon {
 
     void setEmpRole(String empRole) {
         this.empRole = empRole
+    }
+
+    List<Role> getEmpRoleList() {
+        return empRoleList
+    }
+
+    void setEmpRoleList(List<Role> empRoleList) {
+        this.empRoleList = empRoleList
     }
 
     List<UserRole> getFirstName() {

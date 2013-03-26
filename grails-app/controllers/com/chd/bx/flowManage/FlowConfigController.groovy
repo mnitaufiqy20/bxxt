@@ -53,6 +53,7 @@ class FlowConfigController {
         List<FlowCon> list2 = new ArrayList<FlowCon>()
         list = initExmApp(user,"FYBX")
         list2 = initExmApp(user,"LOAN")
+//        def roleList = Role.findAll();
         render(view: '/flowConfig/flowConfigIndex',model: [user:user,list:list,list2:list2])
     }
 
@@ -111,12 +112,7 @@ class FlowConfigController {
     }
     def initExmApp(UserLogin userLogin,String type){
         List listRoleName = new ArrayList()
-        listRoleName.add(0,"公司领导")
-        listRoleName.add(1,"公司分管领导")
-        listRoleName.add(2,"公司责任部门领导")
-        listRoleName.add(3,"部门领导")
-        listRoleName.add(4,"分部领导")
-        listRoleName.add(5,"员工")
+
         List<FlowCon> list = new ArrayList<FlowCon>()
         List<UserRole> listStr = new ArrayList<UserRole>()
         UserRole userRole2 = new UserRole()
@@ -125,10 +121,38 @@ class FlowConfigController {
         user1.name = "无"
         userRole2.user = user1;
         listStr.add(userRole2);
-        def userRoleList1=UserRole.findAllByRole(Role.findByAuthority("过账会计"))
-        def userRoleList2=UserRole.findAllByRole(Role.findByAuthority("出纳"))
+        def roleList;
+        def userRoleList1;
+        def userRoleList2
+        if (type.equals("FYBX")){
+            listRoleName.add(0,"报销单－审批人－公司领导")
+            listRoleName.add(1,"报销单－审批人－公司分管领导")
+            listRoleName.add(2,"报销单－审批人－公司分管部门领导")
+            listRoleName.add(3,"报销单－审批人－部门领导")
+            roleList = Role.findAllByDescription("BXSQ");
+//            listRoleName.add(4,"分部领导")
+//            listRoleName.add(5,"员工")
+            userRoleList1 = UserRole.findAllByRole(Role.findByDescription("BXKJ"))
+            userRoleList2 = UserRole.findAllByRole(Role.findByDescription("BXCN"))
+        }else{
+            listRoleName.add(0,"借款单－审批人－公司领导")
+            listRoleName.add(1,"借款单－审批人－公司分管领导")
+            listRoleName.add(2,"借款单－审批人－公司分管部门领导")
+            listRoleName.add(3,"借款单－审批人－部门领导")
+            roleList = Role.findAllByDescription("JKSQ");
+//            listRoleName.add(4,"分部领导")
+//            listRoleName.add(5,"员工")
+            userRoleList1 = UserRole.findAllByRole(Role.findByDescription("JKKJ"))
+            userRoleList2 = UserRole.findAllByRole(Role.findByDescription("JKCN"))
+        }
+
         for (int i=0;i<listRoleName.size();i++){
             FlowCon flowCon = new FlowCon()
+            if (roleList==null || roleList.size()==0){
+                flowCon.empRoleList = null
+            }else{
+                flowCon.empRoleList = roleList
+            }
             flowCon.empRole = listRoleName.get(i)
             ExmApp exmApp = new ExmApp()
             exmApp = ExmApp.findByCompanyNoAndReceiptsTypeAndEmpRole(userLogin.companyNo,type,listRoleName.get(i))
@@ -149,22 +173,22 @@ class FlowConfigController {
                 flowCon.posId = exmApp.postAcc
                 flowCon.payId = exmApp.payTeller
             }
-            if (i ==5){
-                flowCon.firstName = UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-1)))
+            if (i==3){
+                flowCon.firstName = UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i)))
             }else{
                 flowCon.firstName = UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i)))
             }
-            if (i ==5){
-                flowCon.secondName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-2)))
-            } else{
-                if (i ==0){
+            if (i==3){
+                flowCon.secondName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-1)))
+            }else{
+                if (i==0){
                     flowCon.secondName =  listStr;
                 }else{
                     flowCon.secondName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-1)))
                 }
             }
-            if (i ==5){
-                flowCon.thirdName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-3)))
+            if (i==3){
+                flowCon.thirdName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-2)))
             } else{
                 if (i ==0 || i == 1){
                     flowCon.thirdName =  listStr;
@@ -172,24 +196,24 @@ class FlowConfigController {
                     flowCon.thirdName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-2)))
                 }
             }
-            if (i ==5){
-                flowCon.fourthName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-4)))
+            if (i==3){
+                flowCon.fourthName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-3)))
             } else{
                 if (i ==0 || i == 1 || i == 2){
                     flowCon.fourthName =  listStr;
                 }else{
-                    flowCon.fourthName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-3)))
+                    flowCon.fourthName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-2)))
                 }
             }
-            if (i ==5){
-                flowCon.fifthName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-5)))
-            } else{
-                if (i ==0 || i == 1 || i == 2 || i == 3){
-                    flowCon.fifthName =  listStr;
-                }else{
-                    flowCon.fifthName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-4)))
-                }
-            }
+//            if (i ==5){
+//                flowCon.fifthName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-5)))
+//            } else{
+//                if (i ==0 || i == 1 || i == 2 || i == 3){
+//                    flowCon.fifthName =  listStr;
+//                }else{
+//                    flowCon.fifthName =  UserRole.findAllByRole(Role.findByAuthority(listRoleName.get(i-4)))
+//                }
+//            }
             flowCon.postAcc = userRoleList1
             flowCon.payTeller = userRoleList2
             list.add(flowCon)

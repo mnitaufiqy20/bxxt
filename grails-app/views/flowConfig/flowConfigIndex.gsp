@@ -75,11 +75,16 @@
                                                     </tr>
                                                     <g:each in="${list}" var="item" status="index">
                                                         <tr>
-                                                            <td width="15%">
-                                                                <input name="empRole" style="width: 100%;height:100%;" value="${item.empRole}" readonly>
+                                                            <td width="25%">
+                                                                <select style="width: 100%;height:100%;" name="empRole">
+                                                                    <g:each in="${item.empRoleList}" var="role">
+                                                                            <option value="${role.roleCode}">${role.authority}</option>
+                                                                    </g:each>
+                                                                </select>
+                                                                %{--<input name="empRole" style="width: 100%;height:100%;" value="${item.empRole}" readonly>--}%
                                                                 <input type="hidden" name="typeBX" value="FYBX">
                                                             </td>
-                                                            <td width="10%">
+                                                            <td width="8%">
                                                                 <select style="width: 100%;height:100%;" name="firstName">
                                                                     <g:each in="${item.firstName}" var="fir" status="ind">
                                                                         <g:if test="${fir.user.userId==item.firId}">
@@ -91,7 +96,7 @@
                                                                     </g:each>
                                                                 </select>
                                                             </td>
-                                                            <td width="10%">
+                                                            <td width="8%">
                                                                 <select style="width: 100%;height:100%;" name="secondName">
                                                                     <g:each in="${item.secondName}" var="fir2">
                                                                         <g:if test="${fir2.user.userId==item.secId}">
@@ -103,7 +108,7 @@
                                                                     </g:each>
                                                                 </select>
                                                             </td>
-                                                            <td width="10%">
+                                                            <td width="8%">
                                                                 <select style="width: 100%;height:100%;" name="thirdName">
                                                                     <g:each in="${item.thirdName}" var="fir3">
                                                                         <g:if test="${fir3.user.userId==item.thiId}">
@@ -115,7 +120,7 @@
                                                                     </g:each>
                                                                 </select>
                                                             </td>
-                                                            <td width="10%">
+                                                            <td width="8%">
                                                                 <select style="width: 100%;height:100%;" name="fourthName">
                                                                     <g:each in="${item.fourthName}" var="fir4">
                                                                         <g:if test="${fir4.user.userId==item.fouId}">
@@ -127,7 +132,7 @@
                                                                     </g:each>
                                                                 </select>
                                                             </td>
-                                                            <td width="10%">
+                                                            <td width="8%">
                                                                 <select style="width: 100%;height:100%;" name="fifthName">
                                                                     <g:each in="${item.fifthName}" var="fir5">
                                                                         <g:if test="${fir5.user.userId==item.fifId}">
@@ -139,7 +144,7 @@
                                                                     </g:each>
                                                                 </select>
                                                             </td>
-                                                            <td width="10%">
+                                                            <td width="8%">
                                                                 <select style="width: 100%;height:100%;" name="postAcc">
                                                                     <g:each in="${item.postAcc}" var="fir6">
                                                                         <g:if test="${fir6.user.userId==item.posId}">
@@ -184,11 +189,16 @@
                                                 </tr>
                                                 <g:each in="${list2}" var="item" status="index">
                                                     <tr>
-                                                        <td width="15%">
-                                                            <input name="empRole" style="width: 100%;height:100%;" value="${item.empRole}" readonly>
+                                                        <td width="25%">
+                                                            <select style="width: 100%;height:100%;" name="empRole">
+                                                                <g:each in="${item.empRoleList}" var="role">
+                                                                    <option value="${role.roleCode}">${role.authority}</option>
+                                                                </g:each>
+                                                            </select>
+                                                            %{--<input name="empRole" style="width: 100%;height:100%;" value="${item.empRole}" readonly>--}%
                                                             <input type="hidden" name="typeBX" value="LOAN">
                                                         </td>
-                                                        <td width="10%">
+                                                        <td width="8%">
                                                             <select style="width: 100%;height:100%;" name="firstName">
                                                                 <g:each in="${item.firstName}" var="fir" status="ind">
                                                                     <g:if test="${fir.user.userId==item.firId}">
@@ -200,7 +210,7 @@
                                                                 </g:each>
                                                             </select>
                                                         </td>
-                                                        <td width="10%">
+                                                        <td width="8%">
                                                             <select style="width: 100%;height:100%;" name="secondName">
                                                                 <g:each in="${item.secondName}" var="fir2">
                                                                     <g:if test="${fir2.user.userId==item.secId}">
@@ -212,7 +222,7 @@
                                                                 </g:each>
                                                             </select>
                                                         </td>
-                                                        <td width="10%">
+                                                        <td width="8%">
                                                             <select style="width: 100%;height:100%;" name="thirdName">
                                                                 <g:each in="${item.thirdName}" var="fir3">
                                                                     <g:if test="${fir3.user.userId==item.thiId}">
@@ -224,7 +234,7 @@
                                                                 </g:each>
                                                             </select>
                                                         </td>
-                                                        <td width="10%">
+                                                        <td width="8%">
                                                             <select style="width: 100%;height:100%;" name="fourthName">
                                                                 <g:each in="${item.fourthName}" var="fir4">
                                                                     <g:if test="${fir4.user.userId==item.fouId}">
@@ -236,7 +246,7 @@
                                                                 </g:each>
                                                             </select>
                                                         </td>
-                                                        <td width="10%">
+                                                        <td width="8%">
                                                             <select style="width: 100%;height:100%;" name="fifthName">
                                                                 <g:each in="${item.fifthName}" var="fir5">
                                                                     <g:if test="${fir5.user.userId==item.fifId}">
@@ -248,7 +258,7 @@
                                                                 </g:each>
                                                             </select>
                                                         </td>
-                                                        <td width="10%">
+                                                        <td width="8%">
                                                             <select style="width: 100%;height:100%;" name="postAcc">
                                                                 <g:each in="${item.postAcc}" var="fir6">
                                                                     <g:if test="${fir6.user.userId==item.posId}">

@@ -29,11 +29,14 @@ class RoleManagementService {
 //        String sql = "from RoleManagement where functionCode = 'FN020003'"
 //        List<RoleManagement> list =    RoleManagement.findAll(sql)
 //        print(list.size())
-        def strSql = "SELECT SM.MENU_CODE,SM.MENU_NAME,SR.ROLE_CODE,SR.AUTHORITY FROM S_MENU SM,S_ROLE SR,S_ROLE_MENU SRM \n" +
-                "WHERE SM.ID = SRM.MENU_ID \n" +
-                "AND SR.ID = SRM.ROLE_ID \n" +
-                "AND SM.MENU_NAME = '"+receiptType+"'"
         def conn = null;
+        String a = receiptType.charAt(0)
+        def strSql = "SELECT SM.MENU_CODE,SM.MENU_NAME,SR.ROLE_CODE,SR.AUTHORITY FROM S_MENU SM,S_ROLE SR,S_ROLE_MENU SRM \n" +
+                " WHERE SM.ID = SRM.MENU_ID \n" +
+                " AND SR.ID = SRM.ROLE_ID \n" +
+                " AND SM.MENU_NAME = '"+receiptType+"'" +
+                " AND  SR.AUTHORITY LIKE '"+a+"%'"
+
         if(roleCode != null && roleCode!=""){
             strSql += " AND SR.ROLE_CODE = '"+roleCode+"'"
         }else if (roleName !=null && roleName !=""){

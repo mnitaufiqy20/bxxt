@@ -33,8 +33,8 @@
     <tr align="center">
         <td>应用系统：
             <select name="menu">
-            <option value="借款申请单">借款申请单</option>
-            <option value="费用报销单">费用报销单</option>
+                <option value="借款申请单">借款申请单</option>
+                <option value="费用报销单">费用报销单</option>
             </select>
         </td>
         <td >角色编码：<g:textField name="roleCode" value="${roleCode}"   maxlength="30"/></td>

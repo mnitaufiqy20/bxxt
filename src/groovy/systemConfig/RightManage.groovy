@@ -18,6 +18,7 @@ class RightManage {
     boolean rightAdd  = false                //新增
     boolean rightDelete = false            //删除
     boolean rightUpdate = false          //修改
+    boolean rightCheck = false            //审核
     boolean rightArea = false               //被授权区域
     int getId() {
         return id
@@ -97,5 +98,13 @@ class RightManage {
 
     void setRightArea(boolean rightArea) {
         this.rightArea = rightArea
+    }
+
+    boolean getRightCheck() {
+        return rightCheck
+    }
+
+    void setRightCheck(boolean rightCheck) {
+        this.rightCheck = rightCheck
     }
 }

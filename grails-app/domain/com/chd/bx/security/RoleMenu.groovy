@@ -8,7 +8,7 @@ class RoleMenu {
 
     static constraints = {
         roleId blank: false
-        roleRight  blank: true
+        roleRight nullable: true
     }
 
     static mapping = {

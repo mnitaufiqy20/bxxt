@@ -46,6 +46,8 @@ class RightsManagementController {
                              rightManage.setRightUpdate(true)
                          }else if (str[i]=="D"){                  //删除
                              rightManage.setRightDelete(true)
+                         }else if (str[i]=="C"){                  //审核
+                             rightManage.setRightCheck(true)
                          }else if (str[i]=="S"){                  //授权范围
                              rightManage.setRightArea(true)
                          }
@@ -115,6 +117,8 @@ class RightsManagementController {
         String [] update = updateString.split(",")
         String deleteString = params["deleteString"]
         String [] delete = deleteString.split(",")
+        String checkString = params["checkString"]
+        String [] check = checkString.split(",")
         String areaString = params["areaString"]
         String [] area = areaString.split(",")
         for(int i=0;i<functionCodeList.size();i++){
@@ -131,6 +135,9 @@ class RightsManagementController {
             if (delete[i]=="true"){
                 roleRight=roleRight+"D"
             }
+            if (check[i]=="true"){
+                roleRight=roleRight+"C"
+            }
             if (area[i]=="true"){
                 roleRight=roleRight+"S"
             }
@@ -140,13 +147,17 @@ class RightsManagementController {
                 roleMenu.roleRight=roleRight
                 rightsManagementService.roleManagementSave(roleMenu)
             }else{
-                roleMenu = new RoleMenu();
-                roleMenu.menu = Menu.findById(Integer.parseInt(functionCodeList.getAt(i)))
-                roleMenu.roleId=roleId
-                roleMenu.roleRight=roleRight
-                rightsManagementService.roleManagementSave(roleMenu)
+                if (roleRight!=null||roleRight!=""){
+                    roleMenu = new RoleMenu();
+                    roleMenu.menu = Menu.findById(Integer.parseInt(functionCodeList.getAt(i)))
+                    roleMenu.roleId=roleId
+                    roleMenu.roleRight=roleRight
+                    rightsManagementService.roleManagementSave(roleMenu)
+                }
+
             }
         }
+        render(view: '../workbench/index')
     }
 
 }

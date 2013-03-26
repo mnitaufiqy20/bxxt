@@ -24,7 +24,7 @@ class RoleManagementController {
 //        List<RoleRight> listMenu = roleManagementService.getMenu()
         String receiptType = params["menu"]
         if (receiptType ==null ||receiptType ==""){
-            receiptType = "费用报销单"
+            receiptType = "借款申请单"
         }
         String roleCode = params["roleCode"]
         String roleName = params["roleName"]
