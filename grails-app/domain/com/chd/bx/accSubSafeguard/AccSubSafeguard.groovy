@@ -10,7 +10,7 @@ class AccSubSafeguard {
         appType nullable: false, maxSize: 15
         costKind nullable: true, maxSize: 15
         costType nullable: true, maxSize: 15
-        appSub nullable: false, maxSize: 15
+        appSub nullable: true, maxSize: 20
         encoding nullable: false, maxSize: 2
     }
     static mapping = {

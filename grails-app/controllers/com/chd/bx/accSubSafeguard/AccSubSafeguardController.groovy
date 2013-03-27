@@ -7,13 +7,22 @@ class AccSubSafeguardController {
         redirect(action: "list", params: params)
     }
     def accSubSafeguard(){
-        render(view: '/accSubSafeguard/accSubSafeguard')
+        def accSubSafeguardList = new ArrayList<AccSubSafeguard>()
+        accSubSafeguardList = AccSubSafeguard.findAll()
+        render(view: '/accSubSafeguard/accSubSafeguard',model: [accSubSafeguardList:accSubSafeguardList])
+//        render(view: '/accSubSafeguard/accSubSafeguard')
     }
     def accSubSafeguardSave(params){
-        def accSubSafeguard1 = new AccSubSafeguard()
-        accSubSafeguard1 = setAccSubSafeguardLoan(params,accSubSafeguard1)
-        accSubSafeguardService.accSubSafeguardSave(accSubSafeguard1)
-        render(view: '/accSubSafeguard/accSubSafeguard',model: [accSubSafeguard1:accSubSafeguard1])
+        def accSubSafeguardList = new ArrayList<AccSubSafeguard>()
+        accSubSafeguardList = AccSubSafeguard.findAll()
+        for (int i=0;i<accSubSafeguardList.size();i++){
+            def accSubSafeguard = new AccSubSafeguard()
+            accSubSafeguard = accSubSafeguardList.get(i)
+            accSubSafeguard.appSub = params["appSub"][i]
+            accSubSafeguardService.accSubSafeguardSave(accSubSafeguard)
+        }
+        accSubSafeguardList = AccSubSafeguard.findAll()
+        render(view: '/accSubSafeguard/accSubSafeguard',model: [accSubSafeguardList:accSubSafeguardList])
     }
     def setAccSubSafeguardLoan(params,AccSubSafeguard accSubSafeguard){
         accSubSafeguard.appType = "LOAN"

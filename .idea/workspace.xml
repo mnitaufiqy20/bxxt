@@ -68,46 +68,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/accSubSafeguard/AccSubSafeguardController.groovy" line="12" class="com.chd.bx.accSubSafeguard.AccSubSafeguardController" package="com.chd.bx.accSubSafeguard">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/accSubSafeguard/AccSubSafeguardController.groovy" line="14" class="com.chd.bx.accSubSafeguard.AccSubSafeguardController" package="com.chd.bx.accSubSafeguard">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/accSubSafeguard/AccSubSafeguardController.groovy" line="18" class="com.chd.bx.accSubSafeguard.AccSubSafeguardController" package="com.chd.bx.accSubSafeguard">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/accSubSafeguard/AccSubSafeguardController.groovy" line="15" class="com.chd.bx.accSubSafeguard.AccSubSafeguardController" package="com.chd.bx.accSubSafeguard">
+      <breakpoint url="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/accSubSafeguard/AccSubSafeguardController.groovy" line="27" class="com.chd.bx.accSubSafeguard.AccSubSafeguardController" package="com.chd.bx.accSubSafeguard">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -208,48 +169,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="roleList.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/roleManagement/roleList.gsp">
+      <file leaf-file-name="AccSubSafeguardController.groovy" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/accSubSafeguard/AccSubSafeguardController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="71" selection-start="2781" selection-end="2781" vertical-scroll-proportion="-2.6078432">
-              <folding>
-                <marker date="1364349792656" expanded="true" signature="1165:1178" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserRoleController.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/UserRoleController.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="0" selection-start="1750" selection-end="1750" vertical-scroll-proportion="-4.0869565">
+            <state line="23" column="55" selection-start="1050" selection-end="1050" vertical-scroll-proportion="0.71276593">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BudgetReportReceiptsController.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/expenseAccount/BudgetReportReceiptsController.groovy">
+      <file leaf-file-name="AccSubSafeguardService.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/accSubSafeguard/AccSubSafeguardService.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="57" column="43" selection-start="2290" selection-end="2290" vertical-scroll-proportion="-0.4375">
+            <state line="4" column="36" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="budgetDetail.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/businessInfo/budgetDetail.gsp">
+      <file leaf-file-name="AccSubSafeguard.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/domain/com/chd/bx/accSubSafeguard/AccSubSafeguard.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="85" column="3" selection-start="4964" selection-end="4964" vertical-scroll-proportion="-1.4901961">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Menu.groovy" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/com/chd/bx/security/Menu.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="51" selection-start="420" selection-end="420" vertical-scroll-proportion="0.14559387">
+            <state line="12" column="42" selection-start="426" selection-end="426" vertical-scroll-proportion="-5.181818">
               <folding />
             </state>
           </provider>
@@ -258,46 +199,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="budgetReportReceiptsExit.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/expenseAccount/budgetReportReceiptsExit.gsp">
+      <file leaf-file-name="accSubSafeguard.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/accSubSafeguard/accSubSafeguard.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="286" column="44" selection-start="17677" selection-end="17677" vertical-scroll-proportion="35.39216">
+            <state line="114" column="27" selection-start="8266" selection-end="8266" vertical-scroll-proportion="-2.1176472">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="budgetReportReceiptsExit.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/budgetReportReceipts/budgetReportReceiptsExit.gsp">
+      <file leaf-file-name="rightsManagement.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/roleManagement/rightsManagement.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="289" column="138" selection-start="18175" selection-end="18175" vertical-scroll-proportion="34.72549">
-              <folding />
+            <state line="35" column="77" selection-start="1105" selection-end="1156" vertical-scroll-proportion="-0.74509805">
+              <folding>
+                <marker date="1364286255887" expanded="true" signature="1806:1832" placeholder="{...}" />
+                <marker date="1364286255887" expanded="true" signature="2192:2218" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserRoleList.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/groovy/systemConfig/UserRoleList.groovy">
+      <file leaf-file-name="loan.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/loanAppReceipts/loan.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="6" selection-start="188" selection-end="188" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserRoleService.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/UserRoleService.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="8" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="userRole.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/userRole/userRole.gsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="16" selection-start="1119" selection-end="1119" vertical-scroll-proportion="-1.4117647">
+            <state line="43" column="12" selection-start="1148" selection-end="1148" vertical-scroll-proportion="-9.313725">
               <folding />
             </state>
           </provider>
@@ -313,9 +239,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/groovy/systemConfig/RightManage.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/views/roleManagement/rightsManagement.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/domain/com/chd/bx/security/RoleMenu.groovy" />
         <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/RightsManagementController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" />
         <option value="$PROJECT_DIR$/grails-app/conf/jbpm.hibernate.cfg.xml" />
@@ -329,6 +252,9 @@
         <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/UserRoleController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/views/businessInfo/budgetDetail.gsp" />
         <option value="$PROJECT_DIR$/grails-app/domain/com/chd/bx/security/Menu.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/domain/com/chd/bx/accSubSafeguard/AccSubSafeguard.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/accSubSafeguard/accSubSafeguard.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/accSubSafeguard/AccSubSafeguardController.groovy" />
       </list>
     </option>
   </component>
@@ -579,28 +505,6 @@
               <option name="myItemId" value="grails-app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="budgetReportReceipts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bxxt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bxxt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="grails-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -773,6 +677,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="empInformation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="accSubSafeguard" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1056,8 +986,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="1" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32963988" sideWeight="0.4969697" order="7" side_tool="false" content_ui="tabs" />
@@ -1065,7 +995,7 @@
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2663126" sideWeight="0.23648648" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4054054" sideWeight="0.4939302" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4054054" sideWeight="0.4939302" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4054054" sideWeight="0.5007587" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
@@ -1149,56 +1079,9 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/WorkbenchController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="69" selection-start="582" selection-end="582" vertical-scroll-proportion="-2.3043478">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/conf/BootStrap.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="398" column="35" selection-start="18659" selection-end="18659" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/loanAppReceipts/loanAppReceiptsUpdate.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="35" selection-start="2283" selection-end="2345" vertical-scroll-proportion="-1.5686275">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/UserRoleService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="8" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/roleManagement/roleList.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="71" selection-start="2781" selection-end="2781" vertical-scroll-proportion="-2.6078432">
-          <folding>
-            <marker date="1364349792656" expanded="true" signature="1165:1178" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/com/chd/bx/security/UserRole.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="6" selection-start="91" selection-end="91" vertical-scroll-proportion="0.07279693">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/groovy/systemConfig/UserRoleList.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="6" selection-start="188" selection-end="188" vertical-scroll-proportion="0.0">
+        <state line="9" column="6" selection-start="188" selection-end="188" vertical-scroll-proportion="0.30981594">
           <folding />
         </state>
       </provider>
@@ -1240,27 +1123,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/UserRoleController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="0" selection-start="1750" selection-end="1750" vertical-scroll-proportion="-4.0869565">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/expenseAccount/BudgetReportReceiptsController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="43" selection-start="2290" selection-end="2290" vertical-scroll-proportion="-0.4375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/businessInfo/budgetDetail.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="3" selection-start="4964" selection-end="4964" vertical-scroll-proportion="-1.4901961">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/domain/com/chd/bx/security/Menu.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="51" selection-start="420" selection-end="420" vertical-scroll-proportion="0.14559387">
@@ -1269,6 +1131,75 @@
       </provider>
       <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/businessInfo/budgetDetail.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="3" selection-start="4964" selection-end="4964" vertical-scroll-proportion="1.0248963">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/expenseAccount/BudgetReportReceiptsController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="43" selection-start="2290" selection-end="2290" vertical-scroll-proportion="0.5252918">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/UserRoleController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="0" selection-start="1750" selection-end="1750" vertical-scroll-proportion="0.31023103">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/accSubSafeguard/AccSubSafeguardService.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="36" selection-start="104" selection-end="104" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/loanAppReceipts/loan.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="12" selection-start="1148" selection-end="1148" vertical-scroll-proportion="-9.313725">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/com/chd/bx/accSubSafeguard/AccSubSafeguard.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="42" selection-start="426" selection-end="426" vertical-scroll-proportion="-5.181818">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/roleManagement/rightsManagement.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="77" selection-start="1105" selection-end="1156" vertical-scroll-proportion="-0.74509805">
+          <folding>
+            <marker date="1364286255887" expanded="true" signature="1806:1832" placeholder="{...}" />
+            <marker date="1364286255887" expanded="true" signature="2192:2218" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/accSubSafeguard/accSubSafeguard.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="114" column="27" selection-start="8266" selection-end="8266" vertical-scroll-proportion="-2.1176472">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/accSubSafeguard/AccSubSafeguardController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="55" selection-start="1050" selection-end="1050" vertical-scroll-proportion="0.71276593">
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>
