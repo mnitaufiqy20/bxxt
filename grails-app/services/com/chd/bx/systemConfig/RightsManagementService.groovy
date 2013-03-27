@@ -20,7 +20,7 @@ class RightsManagementService {
      * @return   list
      */
     def getMenu(){
-        def strSql = "SELECT SM.ID ,SM.MENU_NAME,SMC.CATEGORY_NAME FROM S_MENU SM,S_MENU_CATEGORY SMC WHERE SM.MENU_CATEGORY_ID = SMC.ID"
+        def strSql = "SELECT SM.ID ,SM.MENU_NAME,SMC.CATEGORY_NAME FROM S_MENU SM,S_MENU_CATEGORY SMC WHERE SM.MENU_CATEGORY_ID = SMC.ID ORDER BY SMC.ID,SM.MENU_CATEGORY_ID"
         def conn = null;
         try {
             org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy ds = SpringUtil.getBean("dataSource");

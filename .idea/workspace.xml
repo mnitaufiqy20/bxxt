@@ -5,8 +5,8 @@
     <ignored path="bxxt.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$USER_HOME$/.grails/" />
-    <file path="/a.dummy" changelist="affe2900-3de8-4d89-bb50-0fd6578e784d" time="1362102740733" ignored="false" />
     <file path="/Dummy.txt" changelist="affe2900-3de8-4d89-bb50-0fd6578e784d" time="1362107756729" ignored="false" />
+    <file path="/a.dummy" changelist="affe2900-3de8-4d89-bb50-0fd6578e784d" time="1362102740733" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,96 +208,96 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RoleManagementController.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/RoleManagementController.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="48" selection-start="741" selection-end="741" vertical-scroll-proportion="-8.26087">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="roleList.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/roleManagement/roleList.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="73" selection-start="1271" selection-end="1271" vertical-scroll-proportion="0.0">
+            <state line="82" column="71" selection-start="2781" selection-end="2781" vertical-scroll-proportion="-2.6078432">
               <folding>
-                <marker date="1364292518376" expanded="true" signature="1155:1168" placeholder="{...}" />
+                <marker date="1364349792656" expanded="true" signature="1165:1178" placeholder="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RoleManagementService.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/RoleManagementService.groovy">
+      <file leaf-file-name="UserRoleController.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/UserRoleController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="104" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0">
+            <state line="51" column="0" selection-start="1750" selection-end="1750" vertical-scroll-proportion="-4.0869565">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DataSource.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/conf/DataSource.groovy">
+      <file leaf-file-name="BudgetReportReceiptsController.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/expenseAccount/BudgetReportReceiptsController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="17" selection-start="802" selection-end="869" vertical-scroll-proportion="0.0">
+            <state line="57" column="43" selection-start="2290" selection-end="2290" vertical-scroll-proportion="-0.4375">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="jbpm.hibernate.cfg.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/grails-app/conf/jbpm.hibernate.cfg.xml">
+      <file leaf-file-name="budgetDetail.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/businessInfo/budgetDetail.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="60" selection-start="693" selection-end="693" vertical-scroll-proportion="0.40714285">
+            <state line="85" column="3" selection-start="4964" selection-end="4964" vertical-scroll-proportion="-1.4901961">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RoleMenu.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/com/chd/bx/security/RoleMenu.groovy">
+      <file leaf-file-name="Menu.groovy" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grails-app/domain/com/chd/bx/security/Menu.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="57" selection-start="215" selection-end="215" vertical-scroll-proportion="0.0">
+            <state line="14" column="51" selection-start="420" selection-end="420" vertical-scroll-proportion="0.14559387">
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="budgetReportReceiptsExit.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/expenseAccount/budgetReportReceiptsExit.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="286" column="44" selection-start="17677" selection-end="17677" vertical-scroll-proportion="35.39216">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RightsManagementService.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/RightsManagementService.groovy">
+      <file leaf-file-name="budgetReportReceiptsExit.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/budgetReportReceipts/budgetReportReceiptsExit.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="0" selection-start="2642" selection-end="2642" vertical-scroll-proportion="0.0">
+            <state line="289" column="138" selection-start="18175" selection-end="18175" vertical-scroll-proportion="34.72549">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RightManage.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/groovy/systemConfig/RightManage.groovy">
+      <file leaf-file-name="UserRoleList.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/groovy/systemConfig/UserRoleList.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="102" column="29" selection-start="2186" selection-end="2186" vertical-scroll-proportion="0.0">
+            <state line="9" column="6" selection-start="188" selection-end="188" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rightsManagement.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/roleManagement/rightsManagement.gsp">
+      <file leaf-file-name="UserRoleService.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/UserRoleService.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="53" selection-start="3078" selection-end="3082" vertical-scroll-proportion="0.0">
-              <folding>
-                <marker date="1364286255887" expanded="true" signature="1806:1832" placeholder="{...}" />
-                <marker date="1364286255887" expanded="true" signature="2192:2218" placeholder="{...}" />
-              </folding>
+            <state line="11" column="8" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FlowConfigController.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/flowManage/FlowConfigController.groovy">
+      <file leaf-file-name="userRole.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/userRole/userRole.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="44" selection-start="2585" selection-end="2585" vertical-scroll-proportion="0.0">
+            <state line="44" column="16" selection-start="1119" selection-end="1119" vertical-scroll-proportion="-1.4117647">
               <folding />
             </state>
           </provider>
@@ -313,22 +313,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/grails-app/views/loanAppReceipts/loanAppReceiptsExamine.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/expenseAccount/LoanAppReceiptsController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/sapSystem/LoanCerIntegrationController.groovy" />
-        <option value="$PROJECT_DIR$/src/groovy/systemConfig/FlowCon.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/views/flowConfig/flowConfigIndex.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/flowManage/FlowConfigController.groovy" />
         <option value="$PROJECT_DIR$/src/groovy/systemConfig/RightManage.groovy" />
         <option value="$PROJECT_DIR$/grails-app/views/roleManagement/rightsManagement.gsp" />
         <option value="$PROJECT_DIR$/grails-app/domain/com/chd/bx/security/RoleMenu.groovy" />
         <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/RightsManagementController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/RoleManagementController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/RoleManagementService.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/views/roleManagement/roleList.gsp" />
         <option value="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" />
         <option value="$PROJECT_DIR$/grails-app/conf/jbpm.hibernate.cfg.xml" />
+        <option value="$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/RightsManagementService.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/RoleManagementService.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/RoleManagementController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/roleManagement/roleList.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/workbench/index.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/conf/BootStrap.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/userRole/userRole.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/UserRoleController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/businessInfo/budgetDetail.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/domain/com/chd/bx/security/Menu.groovy" />
       </list>
     </option>
   </component>
@@ -491,6 +491,116 @@
               <option name="myItemId" value="grails-app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="userRole" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="roleManagement" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="loanAppReceipts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="expenseAccount" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="budgetReportReceipts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -555,6 +665,114 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="systemConfig" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sapSystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="expenseAccount" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empInformation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -627,6 +845,17 @@
     </key>
   </component>
   <component name="RunManager" selected="Grails.Grails:bxxt">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
       <module name="" />
       <setting name="vmparams" value="" />
@@ -635,17 +864,6 @@
       <setting name="passParentEnv" value="true" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <setting name="launchBrowser" value="true" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
-      <option name="PROGRAM_PARAMETERS" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -662,24 +880,6 @@
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -709,6 +909,24 @@
       <envs />
       <properties />
       <listeners />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -838,8 +1056,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="1" />
+    <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32963988" sideWeight="0.4969697" order="7" side_tool="false" content_ui="tabs" />
@@ -847,20 +1065,20 @@
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2663126" sideWeight="0.23648648" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4054054" sideWeight="0.4969651" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4054054" sideWeight="0.4939302" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40202704" sideWeight="0.49772382" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4054054" sideWeight="0.5007587" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852808" sideWeight="0.6587838" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928678" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3918919" sideWeight="0.49425286" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26858878" sideWeight="0.23648648" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32963988" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26858878" sideWeight="0.5945946" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28907436" sideWeight="0.5945946" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4695291" sideWeight="0.4969697" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47635135" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -931,50 +1149,46 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/grails-app/views/welcome.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/WorkbenchController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-6.4816055" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/UserRoleController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="194" selection-end="194" vertical-scroll-proportion="0.2519894" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/UserRoleService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="6" selection-start="215" selection-end="215" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar://D:/LearnTools/Groovy/grails-2.1.1/lib/cglib/cglib/jars/cglib-2.2.jar!/net/sf/cglib/proxy/MethodProxy.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="28" selection-start="1437" selection-end="1437" vertical-scroll-proportion="0.37104073" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/RightsManagementController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="150" column="73" selection-start="6034" selection-end="6081" vertical-scroll-proportion="0.0">
+        <state line="15" column="69" selection-start="582" selection-end="582" vertical-scroll-proportion="-2.3043478">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/conf/BootStrap.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="365" column="79" selection-start="15425" selection-end="15430" vertical-scroll-proportion="0.0" />
+        <state line="398" column="35" selection-start="18659" selection-end="18659" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/loanAppReceipts/loanAppReceiptsUpdate.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="35" selection-start="2283" selection-end="2345" vertical-scroll-proportion="-1.5686275">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/UserRoleService.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="8" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/roleManagement/roleList.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="73" selection-start="1271" selection-end="1271" vertical-scroll-proportion="0.0">
+        <state line="82" column="71" selection-start="2781" selection-end="2781" vertical-scroll-proportion="-2.6078432">
           <folding>
-            <marker date="1364292518376" expanded="true" signature="1155:1168" placeholder="{...}" />
+            <marker date="1364349792656" expanded="true" signature="1165:1178" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/com/chd/bx/security/RoleMenu.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/com/chd/bx/security/UserRole.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="57" selection-start="215" selection-end="215" vertical-scroll-proportion="0.0">
+        <state line="4" column="6" selection-start="91" selection-end="91" vertical-scroll-proportion="0.07279693">
           <folding />
         </state>
       </provider>
@@ -982,59 +1196,79 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/groovy/systemConfig/RightManage.groovy">
+    <entry file="file://$PROJECT_DIR$/src/groovy/systemConfig/UserRoleList.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="29" selection-start="2186" selection-end="2186" vertical-scroll-proportion="0.0" />
+        <state line="9" column="6" selection-start="188" selection-end="188" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/roleManagement/rightsManagement.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/userRole/userRole.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="53" selection-start="3078" selection-end="3082" vertical-scroll-proportion="0.0">
+        <state line="44" column="16" selection-start="1119" selection-end="1119" vertical-scroll-proportion="-1.4117647">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Documents and Settings/Administrator/.grails/2.1.1/projects/BXXT/plugins/cache-1.0.0/src/java/grails/plugin/cache/web/ProxyAwareMixedGrailsControllerHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding>
-            <marker date="1364286255887" expanded="true" signature="1806:1832" placeholder="{...}" />
-            <marker date="1364286255887" expanded="true" signature="2192:2218" placeholder="{...}" />
+            <element signature="e#0#1845#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/flowManage/FlowConfigController.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/expenseAccount/budgetReportReceiptsExit.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="44" selection-start="2585" selection-end="2585" vertical-scroll-proportion="0.0">
+        <state line="286" column="44" selection-start="17677" selection-end="17677" vertical-scroll-proportion="35.39216">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/RightsManagementService.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/budgetReportReceipts/budgetReportReceiptsExit.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="0" selection-start="2642" selection-end="2642" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/com/chd/bx/systemConfig/RoleManagementService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="104" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0">
+        <state line="289" column="138" selection-start="18175" selection-end="18175" vertical-scroll-proportion="34.72549">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/RoleManagementController.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/expenseAccount/BudgetAdjustReceiptsController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="48" selection-start="741" selection-end="741" vertical-scroll-proportion="-8.26087">
+        <state line="2" column="6" selection-start="41" selection-end="41" vertical-scroll-proportion="-9.41129">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/conf/DataSource.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/UserRoleController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="17" selection-start="802" selection-end="869" vertical-scroll-proportion="0.0">
+        <state line="51" column="0" selection-start="1750" selection-end="1750" vertical-scroll-proportion="-4.0869565">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/conf/jbpm.hibernate.cfg.xml">
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/expenseAccount/BudgetReportReceiptsController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="60" selection-start="693" selection-end="693" vertical-scroll-proportion="0.40714285">
+        <state line="57" column="43" selection-start="2290" selection-end="2290" vertical-scroll-proportion="-0.4375">
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/businessInfo/budgetDetail.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="3" selection-start="4964" selection-end="4964" vertical-scroll-proportion="-1.4901961">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/com/chd/bx/security/Menu.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="51" selection-start="420" selection-end="420" vertical-scroll-proportion="0.14559387">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
       </provider>
     </entry>
   </component>

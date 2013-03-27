@@ -32,9 +32,9 @@
     </tr>
     <tr align="center">
         <td>应用系统：
-            <select name="menu">
-                <option value="借款申请单">借款申请单</option>
+            <select name="menu" id="menu">
                 <option value="费用报销单">费用报销单</option>
+                <option value="借款申请单">借款申请单</option>
             </select>
         </td>
         <td >角色编码：<g:textField name="roleCode" value="${roleCode}"   maxlength="30"/></td>
@@ -66,11 +66,14 @@
             <td  width="36%" align="center"> ${item.roleName}</td>
         </tr>
     </g:each>
-
-
 </table>
     <input type="hidden" id="ckString" name="ckString" value="">
 </g:form>
+<g:if test="${list!=null}">
+    <script>
+        document.getElementById("menu").value = "${receiptType}"
+    </script>
+</g:if>
 <script type="text/javascript">
     function commForm(id){
         var gForm = document.getElementById("gFrom");

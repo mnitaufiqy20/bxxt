@@ -24,13 +24,13 @@ class RoleManagementController {
 //        List<RoleRight> listMenu = roleManagementService.getMenu()
         String receiptType = params["menu"]
         if (receiptType ==null ||receiptType ==""){
-            receiptType = "借款申请单"
+            receiptType = "费用报销单"
         }
         String roleCode = params["roleCode"]
         String roleName = params["roleName"]
         List<RoleRight> list =roleManagementService.roleMenuList(receiptType,roleCode,roleName)
 
-        render(view: '../roleManagement/roleList',model: [list:list,roleCode:roleCode,roleName:roleName])
+        render(view: '../roleManagement/roleList',model: [list:list,receiptType:receiptType,roleCode:roleCode,roleName:roleName])
     }
 
     def addRoleRight(){

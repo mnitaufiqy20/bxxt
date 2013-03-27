@@ -30,7 +30,13 @@ class RoleManagementService {
 //        List<RoleManagement> list =    RoleManagement.findAll(sql)
 //        print(list.size())
         def conn = null;
-        String a = receiptType.charAt(0)
+        String a;
+        if(receiptType.equals("借款申请单")){
+            a = receiptType.charAt(0)
+        }else{
+            a = receiptType.charAt(2)
+        }
+
         def strSql = "SELECT SM.MENU_CODE,SM.MENU_NAME,SR.ROLE_CODE,SR.AUTHORITY FROM S_MENU SM,S_ROLE SR,S_ROLE_MENU SRM \n" +
                 " WHERE SM.ID = SRM.MENU_ID \n" +
                 " AND SR.ID = SRM.ROLE_ID \n" +

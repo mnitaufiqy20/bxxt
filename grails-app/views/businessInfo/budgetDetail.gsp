@@ -25,7 +25,7 @@
 <g:form id="gForm" name="gForm" action="budgetDetail" controller="budgetReportReceipts" method="post">
 <table width="100%"  height="200" border="0" cellpadding="0" cellspacing="0">
 <tr height="30">
-    <td colspan="18" align="center" ><h2>预算申报单</h2></td>
+    <td colspan="18" align="center" ><h2>预算费用</h2></td>
 </tr>
 <tr width="100%">
     <td colspan="18">

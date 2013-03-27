@@ -362,9 +362,9 @@ class BootStrap {
 
         //初始化菜单数据
         def mc1 = new MenuCategory(categoryName:'系统配置',sortIndex:1).save(flush: true)
-        new Menu(menuName:'菜单管理',sortIndex:1,actionUrl:'../menu/index',menuCategory:mc1).save(flush: true)
+//        new Menu(menuName:'菜单管理',sortIndex:1,actionUrl:'../menu/index',menuCategory:mc1).save(flush: true)
         new Menu(menuName:'角色管理',sortIndex:2,actionUrl:'../roleManagement/index',menuCategory:mc1).save(flush: true)
-        new Menu(menuName:'用户管理',sortIndex:3,actionUrl:'../user/index',menuCategory:mc1).save(flush: true)
+//        new Menu(menuName:'用户管理',sortIndex:3,actionUrl:'../user/index',menuCategory:mc1).save(flush: true)
         new Menu(menuName:'系统权限管理',sortIndex:4,actionUrl:'../rightsManagement/index',menuCategory:mc1).save(flush: true)
         new Menu(menuName:'用户角色管理',sortIndex:5,actionUrl:'../userRole/index',menuCategory:mc1).save(flush: true)
 
@@ -380,10 +380,10 @@ class BootStrap {
 
         def mc3 =new MenuCategory(categoryName:'流程管理',sortIndex:3).save(flush: true)
         new Menu(menuName:'流程配置',sortIndex:1,actionUrl:'../flowConfig/flowConfig',menuCategory:mc3).save(flush: true)
-        new Menu(menuName:'流程查看',sortIndex:1,actionUrl:'../flowLookUp/flowLookUp',menuCategory:mc3).save(flush: true)
+//        new Menu(menuName:'流程查看',sortIndex:1,actionUrl:'../flowLookUp/flowLookUp',menuCategory:mc3).save(flush: true)
         new Menu(menuName:'流程发布',sortIndex:1,actionUrl:'../flowSheetInfuse/flowSheetInfuse',menuCategory:mc3).save(flush: true)
-        new Menu(menuName:'费用报销核算流程',sortIndex:2,actionUrl:'#',menuCategory:mc3).save(flush: true)
-        new Menu(menuName:'员工借款核算流程',sortIndex:3,actionUrl:'#',menuCategory:mc3).save(flush: true)
+//        new Menu(menuName:'费用报销核算流程',sortIndex:2,actionUrl:'#',menuCategory:mc3).save(flush: true)
+//        new Menu(menuName:'员工借款核算流程',sortIndex:3,actionUrl:'#',menuCategory:mc3).save(flush: true)
 
         def mc4 =new MenuCategory(categoryName:'报销单',sortIndex:4).save(flush: true)
         new Menu(menuName:'借款申请单',sortIndex:1,actionUrl:'../loanAppReceipts/loanAppReceiptsQuery',menuCategory:mc4).save(flush: true)

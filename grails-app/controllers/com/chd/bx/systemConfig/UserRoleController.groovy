@@ -9,8 +9,12 @@ class UserRoleController {
     def userRoleService
 
     def index() {
+        def role = "0"
+        def user = "0"
         def listAll = new ArrayList<UserRoleList>()
         def list = userRoleService.getAllRoleName()
+        def roleList = Role.findAll();
+        def userList = User.findAll();
         for(int i=0;i<list.size();i++){
             def userRoleList = new UserRoleList()
             int roleId = list.get(i).id
@@ -38,7 +42,45 @@ class UserRoleController {
             }
             listAll.add(userRoleList)
         }
-        render(view:'../userRole/userRole',model: [list:listAll])
+        render(view:'../userRole/userRole',model: [list:listAll,roleList:roleList,userList:userList,roleId:role,userId:user])
+    }
+
+    def queryUserRole(){
+        def userRoleLists
+        def role
+        def user
+        def roleId = request.getParameter("role")
+        def userId = request.getParameter("user")
+
+        if (roleId=="0" && userId=="0"){
+            userRoleLists = UserRole.findAll()
+        }else if (roleId=="0" && userId!="0"){
+            user = User.findById(userId)
+            userRoleLists = UserRole.findAllByUser(user)
+        }else if (roleId!="0" && userId=="0"){
+            role = Role.findById(roleId)
+            userRoleLists = UserRole.findAllByRole(role)
+        } else{
+            role = Role.findById(roleId)
+            user = User.findById(userId)
+            userRoleLists = UserRole.findAllByUserAndRole(user,role)
+        }
+
+        def roleList = Role.findAll();
+        def userList = User.findAll();
+
+        def list = new ArrayList<UserRoleList>()
+        if (userRoleLists!=null || userRoleLists!=""){
+            for (int i=0;i<userRoleLists.size();i++){
+                 def userRoleList = new UserRoleList()
+                userRoleList.roleName = userRoleLists.get(i).role.authority
+                userRoleList.roleId = userRoleLists.get(i).role.id
+                userRoleList.userName = userRoleLists.get(i).user.name
+                userRoleList.userId = userRoleLists.get(i).user.userId
+                list.add(userRoleList)
+            }
+        }
+        render(view:'../userRole/userRole',model: [list:list,roleList:roleList,userList:userList,roleId:roleId,userId:userId])
     }
     /**
      * 查看详细--该角色下的所有用户
