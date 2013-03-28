@@ -12,8 +12,23 @@ class WorkbenchController {
     def index() {
         String currentUserId = springSecurityService.getPrincipal().username;
         User currentUser = User.findByUsername(currentUserId);
-        String queryString = "from RoleMenu where roleId=" + currentUser.role.id + " order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
+        String queryString = "from RoleMenu where roleId=" + currentUser.role.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
         List menus = RoleMenu.executeQuery(queryString)
+        def menuSecond = new ArrayList<RoleMenu>()
+        def menuThird = new ArrayList<RoleMenu>()
+        def menuForth = new ArrayList<RoleMenu>()
+        for (RoleMenu men:menus){
+            if (men.menu.parentId==0){
+                menuSecond.add(men)
+            }else {
+                def m = Menu.findById(men.menu.parentId)
+                if (m.parentId==0){
+                    menuThird.add(men)
+                }else{
+                    menuForth.add(men)
+                }
+            }
+        }
 
         Map<String, List<Menu>> map = new HashMap<String, List<Menu>>();
         List<String> keys=new ArrayList<String>();

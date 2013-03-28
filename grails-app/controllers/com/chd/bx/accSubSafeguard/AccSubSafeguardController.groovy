@@ -2,18 +2,18 @@ package com.chd.bx.accSubSafeguard
 
 class AccSubSafeguardController {
     def accSubSafeguardService = new AccSubSafeguardService()
-
+    def accSubSafeguardList
     def index() {
         redirect(action: "list", params: params)
     }
     def accSubSafeguard(){
-        def accSubSafeguardList = new ArrayList<AccSubSafeguard>()
+        accSubSafeguardList = new ArrayList<AccSubSafeguard>()
         accSubSafeguardList = AccSubSafeguard.findAll()
         render(view: '/accSubSafeguard/accSubSafeguard',model: [accSubSafeguardList:accSubSafeguardList])
 //        render(view: '/accSubSafeguard/accSubSafeguard')
     }
     def accSubSafeguardSave(params){
-        def accSubSafeguardList = new ArrayList<AccSubSafeguard>()
+        accSubSafeguardList = new ArrayList<AccSubSafeguard>()
         accSubSafeguardList = AccSubSafeguard.findAll()
         for (int i=0;i<accSubSafeguardList.size();i++){
             def accSubSafeguard = new AccSubSafeguard()

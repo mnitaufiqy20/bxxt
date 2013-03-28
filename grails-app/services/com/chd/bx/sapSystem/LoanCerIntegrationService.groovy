@@ -65,6 +65,17 @@ class LoanCerIntegrationService {
                 loanCerIntegrationImport.setLoanNo(gr.getFieldValue("JKDH"))
                 loanCerIntegrationImport.setLoanMesType(gr.getFieldValue("TYPE"))
                 loanCerIntegrationImport.setLoanMesDes(gr.getFieldValue("MESSAGE"))
+                try {
+                    if (loanCerIntegrationImport.save(flush: true)) {
+                        println("success")
+                    } else {
+                        println("error")
+                        msg = "请求查询失败，错误信息：[未知错误]";
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace()
+                    msg = "请求查询失败，错误信息：[未知错误]";
+                }
                 loanCerIntegrationList.add(loanCerIntegrationImport)
             }
 

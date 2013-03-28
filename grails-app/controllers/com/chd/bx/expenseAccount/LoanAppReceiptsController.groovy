@@ -95,7 +95,6 @@ class LoanAppReceiptsController {
         loanAppReceipts.loanAppReceiptsId = loanId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
         loanAppReceipts = loanAppRec(loanAppReceipts,params)
         loanAppReceipts.loanStatus = "已保存"
-        System.out.print(""+loanAppReceipts)
         loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts) ;
         def exmApp = loanAppReceiptsService.getProcessApprove(user.empPosition)
         String type = "";

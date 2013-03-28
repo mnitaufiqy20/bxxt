@@ -56,8 +56,7 @@
                                             <ul class="level2">
                                                 <g:each in="${menuItem.menus}" status="ii" var="menu">
                                                     <li class="level3"><a href="${menu.actionUrl}"
-                                                                          target="contentFrame">${menu.menuName}</a>
-
+                                                        target="contentFrame">${menu.menuName}</a>
                                                     </li>
                                                 </g:each>
                                             </ul>
