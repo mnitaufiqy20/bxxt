@@ -55,9 +55,23 @@
                                         <li class="level1"><a href="#">${menuItem.categoryName}</a>
                                             <ul class="level2">
                                                 <g:each in="${menuItem.menus}" status="ii" var="menu">
-                                                    <li class="level3"><a href="${menu.actionUrl}"
-                                                        target="contentFrame">${menu.menuName}</a>
-                                                    </li>
+                                                    <g:if test="${menu.list.size()==0}">
+                                                        <li class="level3"><a href="${menu.actionUrl}"
+                                                               target="contentFrame">${menu.menuName}</a>
+                                                        </li>
+                                                    </g:if>
+                                                    <g:else>
+                                                        <li class="level3"><a href="#">${menu.menuName}</a>
+                                                        <ul class="level2">
+                                                            <g:each in="${menu.list}" status="iii" var="men">
+                                                                <li class="level3"><a href="${men.actionUrl}"
+                                                                      target="contentFrame">${men.menuName}</a>
+                                                                </li>
+                                                            </g:each>
+                                                        </ul>
+                                                        </li>
+                                                    </g:else>
+
                                                 </g:each>
                                             </ul>
                                         </li>

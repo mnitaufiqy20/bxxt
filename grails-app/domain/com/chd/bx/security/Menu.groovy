@@ -1,5 +1,7 @@
 package com.chd.bx.security
 
+import javax.persistence.Transient
+
 class Menu {
     String menuCode
     String menuRight
@@ -8,6 +10,10 @@ class Menu {
     String actionUrl //菜单执行URL
     int parentId     //父ID
     MenuCategory menuCategory //菜单分类
+
+    @Transient
+    List<Menu> list;
+
 
     static constraints = {
         menuName(blank: false,unique: true, maxSize: 50 )
