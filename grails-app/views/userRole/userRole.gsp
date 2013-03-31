@@ -52,7 +52,7 @@
             <select name="user" id="user">
                 <option value="0">--请选择--</option>
                 <g:each in="${userList}" var="user" status="index">
-                    <option value="${user.id}">${user.name}</option>
+                    <option value="${user.id}">${user.username}</option>
                 </g:each>
             </select>
         </td>

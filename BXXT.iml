@@ -37,6 +37,7 @@
           <unit-entry name="Gorm" />
           <unit-entry name="sessionFactory" />
         </datasource-map>
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/grails-app/conf/jbpm.hibernate.cfg.xml" />
       </configuration>
     </facet>
   </component>

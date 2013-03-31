@@ -23,9 +23,9 @@ class UserRoleService {
     def getUser(String userId){
         def strSql=""
         if(userId==null||userId==""){
-             strSql = "SELECT ID,EMP_NO,NAME FROM S_USER"
+             strSql = "SELECT ID,EMP_NO,NAME,USERNAME FROM S_USER"
         } else{
-             strSql = "SELECT ID,EMP_NO,NAME FROM S_USER  WHERE ID not in ("+userId+")"
+             strSql = "SELECT ID,EMP_NO,NAME,USERNAME FROM S_USER  WHERE ID not in ("+userId+")"
         }
 
         def conn = null;
@@ -38,6 +38,7 @@ class UserRoleService {
             while(rs.next()){
                 def user = new User()
                 user.name= rs.getString("NAME")
+                user.username= rs.getString("USERNAME")
                 user.id = Integer.parseInt(rs.getString("ID"))
                 user.empNo = rs.getString("EMP_NO")
                 list.add(user)

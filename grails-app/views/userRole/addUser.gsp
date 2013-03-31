@@ -42,14 +42,14 @@
             <td width="10%"><g:checkBox name="checkAll" disabled="true"></g:checkBox></td>
             <td width="20%">序号</td>
             <td width="35%">员工编号</td>
-            <td width="35%">员工姓名</td>
+            <td width="35%">员工登录名</td>
         </tr>
         <g:each in="${userList}" var="item" status="index">
             <tr  align="center" onMouseOver="over()" onClick="change()" onMouseOut="out()">
                 <td width="10%"><g:checkBox name="checkRole" id="checkRole" checked="false" value="${item.id}"></g:checkBox></td>
                 <td width="20%">${index+1}</td>
                 <td width="35%">${item.empNo}</td>
-                <td width="35%">${item.name}</td>
+                <td width="35%">${item.username}</td>
             </tr>
         </g:each>
 

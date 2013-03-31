@@ -27,7 +27,7 @@ class UserRoleController {
                 for (int h=0;h<listUser.size();h++){
                     def userRole=listUser.get(h)
                     int uId=userRole.user.id
-                    String uName=userRole.user.name
+                    String uName=userRole.user.username
                     if (listUser.size()-1==h){
                         userId = userId+uId
                         userName = userName+uName
@@ -75,7 +75,7 @@ class UserRoleController {
                  def userRoleList = new UserRoleList()
                 userRoleList.roleName = userRoleLists.get(i).role.authority
                 userRoleList.roleId = userRoleLists.get(i).role.id
-                userRoleList.userName = userRoleLists.get(i).user.name
+                userRoleList.userName = userRoleLists.get(i).user.username
                 userRoleList.userId = userRoleLists.get(i).user.userId
                 list.add(userRoleList)
             }
@@ -111,7 +111,7 @@ class UserRoleController {
             for (int h=0;h<listUser.size();h++){
                 def userRole=listUser.get(h)
                 int uId=userRole.user.id
-                String uName=userRole.user.name
+                String uName=userRole.user.username
                 if (listUser.size()-1==h){
                     userId = userId+uId
                     userName = userName+uName

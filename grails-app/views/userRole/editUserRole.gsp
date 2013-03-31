@@ -33,7 +33,7 @@
                 <td width="45%">&nbsp;</td>
                 <td width="15%" align="left">
                     <input type="button" value="添加员工" onclick="commForm(0)">
-                    <input type="button" value="返回" onclick="javascript:history.back(-1);">
+                    <input type="button" value="返回" onclick="commForm(1);">
                 </td>
             </tr>
       </table>
@@ -42,7 +42,7 @@
                 <td width="12%">序号</td>
                 <td width="26%">角色</td>
                 <td width="25%">员工编号</td>
-                <td width="25%">员工姓名</td>
+                <td width="25%">员工登录名</td>
                 <td width="12%">操作</td>
             </tr>
            <g:each in="${list}" var="item" status="index">
@@ -50,7 +50,7 @@
                    <td width="12%">${index+1}</td>
                    <td width="26%">${item.role.authority}</td>
                    <td width="25%">${item.user.empNo}</td>
-                   <td width="25%">${item.user.name}</td>
+                   <td width="25%">${item.user.username}</td>
                    <td width="12%"><a href="../userRole/deleteUserRole?userId=${item.user.id}&roleId=${item.role.id}&roleName=${item.role.authority}">删除</a></td>
                </tr>
            </g:each>
@@ -65,6 +65,8 @@
         if(id==0){
             gForm.action = "getUser";
         }else if(id==1){
+            gForm.action = "index";
+        }else if(id==2){
             gForm.action = "addRoleRight";
         }
         gForm.controller = "userRole"

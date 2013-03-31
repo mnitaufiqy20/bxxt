@@ -37,17 +37,18 @@ class RoleManagementService {
             a = receiptType.charAt(2)
         }
 
-        def strSql = "SELECT SM.MENU_CODE,SM.MENU_NAME,SR.ROLE_CODE,SR.AUTHORITY FROM S_MENU SM,S_ROLE SR,S_ROLE_MENU SRM \n" +
-                " WHERE SM.ID = SRM.MENU_ID \n" +
-                " AND SR.ID = SRM.ROLE_ID \n" +
-                " AND SM.MENU_NAME = '"+receiptType+"'" +
-                " AND  SR.AUTHORITY LIKE '"+a+"%'"
-
-        if(roleCode != null && roleCode!=""){
-            strSql += " AND SR.ROLE_CODE = '"+roleCode+"'"
-        }else if (roleName !=null && roleName !=""){
-            strSql +=" AND SR.AUTHORITY = '"+roleName+"'"
-        }
+//        def strSql = "SELECT SM.MENU_CODE,SM.MENU_NAME,SR.ROLE_CODE,SR.AUTHORITY FROM S_MENU SM,S_ROLE SR,S_ROLE_MENU SRM \n" +
+//                " WHERE SM.ID = SRM.MENU_ID \n" +
+//                " AND SR.ID = SRM.ROLE_ID \n" +
+//                " AND SM.MENU_NAME = '"+receiptType+"'" +
+//                " AND  SR.AUTHORITY LIKE '"+a+"%'"
+//
+//        if(roleCode != null && roleCode!=""){
+//            strSql += " AND SR.ROLE_CODE = '"+roleCode+"'"
+//        }else if (roleName !=null && roleName !=""){
+//            strSql +=" AND SR.AUTHORITY = '"+roleName+"'"
+//        }
+        def strSql = "SELECT AUTHORITY, DESCRIPTION, ROLE_CODE FROM S_ROLE WHERE AUTHORITY LIKE '"+a+"%' ORDER BY ID"
         try {
             org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy ds = SpringUtil.getBean("dataSource");
             conn = ds.getConnection()
@@ -56,8 +57,8 @@ class RoleManagementService {
             List list = new ArrayList()
             while(rs.next()){
                 def roleRight = new RoleRight()
-                roleRight.setFunctionCode(rs.getString("MENU_CODE"))
-                roleRight.setFunctionName(rs.getString("MENU_NAME"))
+//                roleRight.setFunctionCode(rs.getString("MENU_CODE"))
+                roleRight.setFunctionName(receiptType)
                 roleRight.setRoleCode(rs.getString("ROLE_CODE"))
                 roleRight.setRoleName(rs.getString("AUTHORITY"))
                 list.add(roleRight)

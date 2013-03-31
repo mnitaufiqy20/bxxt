@@ -56,7 +56,6 @@ class LoanAppReceiptsService {
         List<LoanAppReceipts> list = LoanAppReceipts.findAll(strSql)
         if (list != null && list.size() > 0) {
             return list
-
         }
     }
 

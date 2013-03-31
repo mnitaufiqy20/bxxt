@@ -21,6 +21,9 @@ class RightsManagementController {
         for (int c=0;c<menuList.size();c++){
             def rightManage=menuList.get(c)
             rightManage = getAllRights(rightManage,0)
+            if (rightManage.functionName.equals("科目导入") || rightManage.functionName.equals("SAP系统")){
+                continue;
+            }
             reList.add(rightManage)
         }
         String roleCode = ""
@@ -55,7 +58,6 @@ class RightsManagementController {
                      rightManage.setRoleRight(functionRts.roleRight)
                  }
              }
-
         return rightManage
     }
     def getEdit(){
@@ -68,6 +70,9 @@ class RightsManagementController {
         for (int c=0;c<menuList.size();c++){
             def rightManage=menuList.get(c)
             rightManage = getAllRights(rightManage,roleId)
+            if (rightManage.functionName.equals("科目导入") || rightManage.functionName.equals("SAP系统")){
+                continue;
+            }
             reList.add(rightManage)
         }
         //得到角色列表ALL
@@ -154,7 +159,6 @@ class RightsManagementController {
                     roleMenu.roleRight=roleRight
                     rightsManagementService.roleManagementSave(roleMenu)
                 }
-
             }
         }
         render(view: '../workbench/index')
