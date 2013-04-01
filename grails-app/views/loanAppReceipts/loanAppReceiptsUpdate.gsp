@@ -97,7 +97,8 @@
                             <tr>
                                 <td height="30"><div style="width: 150px;background: #ADCDF4;">申请人填写：</div></td>
                                 <td colspan="3" height="30">单号：${loanAppReceipts.loanAppReceiptsId}
-                                <input type="hidden" name="loanAppReceiptsId" id="loanAppReceiptsId" value="${loanAppReceipts.loanAppReceiptsId}">
+                                    <input type="hidden" name="loanAppReceiptsId" id="loanAppReceiptsId" value="${loanAppReceipts.loanAppReceiptsId}">
+                                    <input type="hidden" name="menuId" value="${menuId}">
                                 </td>
                             </tr>
                             <tr>
@@ -269,7 +270,7 @@
         <td>&nbsp;&nbsp;</td>
         <td height="30"><input type="button" value="保存"  onclick="commForm(0);"></td>
         <td><input type="button" value="提交"  onclick="commForm(1);"></td>
-        <td><input type="button" value="返回" onclick="location='../loanAppReceipts/loanAppReceiptsQuery'"></td>
+        <td><input type="button" value="返回" onclick="location='../loanAppReceipts/loanAppReceiptsQuery?menuId=${menuId}'"></td>
         <td><input type="button" value="执行过账" disabled></td>
         <td>
             <span style="color: red">
@@ -278,7 +279,7 @@
                 <div>会计人员执行！</div>
             </span>
         </td>
-        <td>&nbsp;&nbsp;</td>
+        <td><input type="button" value="执行付款" disabled></td>
         <td>&nbsp;&nbsp;</td>
         <td>&nbsp;&nbsp;</td>
     </tr>

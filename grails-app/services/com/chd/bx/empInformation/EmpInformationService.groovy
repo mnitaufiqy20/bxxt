@@ -5,6 +5,7 @@ import com.chd.bx.login.UserLogin
 import java.sql.DriverManager
 import java.sql.ResultSet
 import java.sql.Statement
+import jbpm.SpringUtil
 
 class EmpInformationService {
 
@@ -24,10 +25,10 @@ class EmpInformationService {
                 "AND TRR.FUNCTION_CODE = TF.FUNCTION_CODE\n" +
                 "AND USERID = "+id+"\n" +
                 "ORDER BY TF.FUNCTION_CODE"
+        def conn = null
         try {
-            def conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.1.190:1521:ORCL","peihao","peihao")
-//            def pre = conn.prepareStatement(strSql)
-//            def rs = pre.executeQuery()
+            org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy ds = SpringUtil.getBean("dataSource");
+            conn = ds.getConnection()
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(strSql);
             List<EmpInformation> list = new ArrayList<EmpInformation>()

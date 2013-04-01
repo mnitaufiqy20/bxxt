@@ -61,7 +61,8 @@
                             <tr>
                                 <td height="30"><div style="width: 150px;background: #ADCDF4;">申请人填写：</div></td>
                                 <td colspan="3" height="30">单号：${loanAppReceipts.loanAppReceiptsId}
-                                <input type="hidden" name="loanAppReceiptsId" id="loanAppReceiptsId" value="${loanAppReceipts.loanAppReceiptsId}">
+                                    <input type="hidden" name="loanAppReceiptsId" id="loanAppReceiptsId" value="${loanAppReceipts.loanAppReceiptsId}">
+                                    <input type="hidden" name="menuId" value="${menuId}">
                                 </td>
                             </tr>
                             <tr>
@@ -237,7 +238,7 @@
         <td>&nbsp;&nbsp;</td>
         <td height="30"><input type="submit" value="保存" disabled></td>
         <td><input type="button" value="提交" disabled></td>
-        <td><input type="button" value="返回" onclick="location='../loanAppReceipts/loanAppReceiptsQuery'"></td>
+        <td><input type="button" value="返回" onclick="location='../loanAppReceipts/loanAppReceiptsQuery?menuId=${menuId}'"></td>
         <g:if test="${loanAppReceipts.loanStatus=="已审核" && user.empPosition=="过账会计"}">
             <td><input type="button" value="执行过账" onclick="location='../loanCerIntegration/loanCerIntegration?type=loan&loanAppReceiptsId=${loanAppReceipts.loanAppReceiptsId}'"></td>
         </g:if>
@@ -252,7 +253,7 @@
                 <div>会计人员执行！</div>
             </span>
         </td>
-        <td>&nbsp;&nbsp;</td>
+        <td><input type="button" value="执行付款" disabled></td>
         <td>&nbsp;&nbsp;</td>
         <td>&nbsp;&nbsp;</td>
     </tr>

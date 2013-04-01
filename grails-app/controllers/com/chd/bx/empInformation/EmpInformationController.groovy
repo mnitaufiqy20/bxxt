@@ -15,6 +15,7 @@ class EmpInformationController {
     def empInformation() {
         def userId = getEmpInformation()
         empInformation = new UserLogin()
+        emp_list = new ArrayList<EmpInformation>()
         empInformation = empInformationService.empInformationQuery(userId)
         emp_list  = empInformationService.empInformationQuery2(userId)
 //        print(emp_list.size())
@@ -31,17 +32,21 @@ class EmpInformationController {
 
     def saveEmpInformation(params){
         def userId = params["empId"]
+        def type = params["type"]
         def empInformation2 = new UserLogin();
-        empInformation2 = empInformationService.empInformationQuery(userId)
-        if (params["type"]=="1"){
+//        empInformation2 = empInformationService.empInformationQuery(userId)
+        empInformation2 = UserLogin.findById(userId)
+        if (type.equals("1")){
             def telephone = params["telephone"]
             empInformation2.telephone = telephone
-        }else if (params["type"]=="2"){
+        }else if (type.equals("2")){
             def pw = params["passwordNew"]
             empInformation2.userPwd = pw
         }
         empInformationService.saveEmpInformation(empInformation2)
-        empInformation()
+//        empInformation()
+        emp_list  = empInformationService.empInformationQuery2(userId)
+        render(view: '/empInformation/empInformation',model: [empInformation: empInformation2,emp_list:emp_list])
     }
     def editPwEmpInformation(){
         def userId = getEmpInformation()

@@ -56,25 +56,29 @@
           </table>
           <table id="table1" width="100%"  border="0" cellpadding="0" cellspacing="0">
                 <tr style="background-color: #f5f5dc;" align="center">
-                    <td width="15%">&nbsp;</td>
-                    <td width="15%">&nbsp;</td>
-                    <td width="11%">查看/执行</td>
-                    <td width="11%">新增</td>
-                    <td width="12%">修改</td>
-                    <td width="12%">删除</td>
-                    <td width="12%">审核</td>
-                    <td width="12%">被授权区域</td>
+                    <td width="8%">&nbsp;</td>
+                    <td width="12%">&nbsp;</td>
+                    <td width="10%">查看/执行</td>
+                    <td width="10%">新增</td>
+                    <td width="10%">修改</td>
+                    <td width="10%">删除</td>
+                    <td width="10%">审核</td>
+                    <td width="10%">执行过账</td>
+                    <td width="10%">执行付款</td>
+                    <td width="10%">被授权区域</td>
                 </tr>
                 <g:each in="${list}" var="item" status="index">
                       <tr align="center" onMouseOver="over()" onClick="change()" onMouseOut="out()">
-                          <td width="15%">${item.menuDesc}</td>
-                          <td width="15%">${item.functionName}</td>
-                          <td width="11%"><g:checkBox name="rightLook" value="${item.rightLook}" checked="${item.rightLook}"></g:checkBox></td>
-                          <td width="11%"><g:checkBox name="rightAdd" value="${item.rightAdd}" checked="${item.rightAdd}"></g:checkBox></td>
-                          <td width="12%"><g:checkBox name="rightUpdate" value="${item.rightUpdate}" checked="${item.rightUpdate}"></g:checkBox></td>
-                          <td width="12%"><g:checkBox name="rightDelete" value="${item.rightDelete}" checked="${item.rightDelete}"></g:checkBox></td>
-                          <td width="12%"><g:checkBox name="rightCheck" value="${item.rightCheck}" checked="${item.rightCheck}"></g:checkBox></td>
-                          <td width="12%"><g:checkBox name="rightArea" value="${item.rightArea}" checked="${item.rightArea}"></g:checkBox></td>
+                          <td width="8%">${item.menuDesc}</td>
+                          <td width="12%">${item.functionName}</td>
+                          <td width="10%"><g:checkBox name="rightLook" value="${item.rightLook}" checked="${item.rightLook}"></g:checkBox></td>
+                          <td width="10%"><g:checkBox name="rightAdd" value="${item.rightAdd}" checked="${item.rightAdd}"></g:checkBox></td>
+                          <td width="10%"><g:checkBox name="rightUpdate" value="${item.rightUpdate}" checked="${item.rightUpdate}"></g:checkBox></td>
+                          <td width="10%"><g:checkBox name="rightDelete" value="${item.rightDelete}" checked="${item.rightDelete}"></g:checkBox></td>
+                          <td width="10%"><g:checkBox name="rightCheck" value="${item.rightCheck}" checked="${item.rightCheck}"></g:checkBox></td>
+                          <td width="10%"><g:checkBox name="rightPost" value="${item.rightPost}" checked="${item.rightPost}"></g:checkBox></td>
+                          <td width="10%"><g:checkBox name="rightPay" value="${item.rightPay}" checked="${item.rightPay}"></g:checkBox></td>
+                          <td width="10%"><g:checkBox name="rightArea" value="${item.rightArea}" checked="${item.rightArea}"></g:checkBox></td>
                           <input type="hidden" value="${item.functionCode}" name="functionCode">
                           <input type="hidden" value="${index}" name="index">
                       </tr>
@@ -88,6 +92,8 @@
          <input type="hidden" id="updateString" name="updateString" value="">
          <input type="hidden" id="deleteString" name="deleteString" value="">
          <input type="hidden" id="checkString" name="checkString" value="">
+         <input type="hidden" id="postString" name="postString" value="">
+         <input type="hidden" id="payString" name="payString" value="">
          <input type="hidden" id="areaString" name="areaString" value="">
 
      </g:form>
@@ -176,6 +182,24 @@
                 checkList = checkList+"false"+"," ;
             }
         }
+        var checkPost=document.getElementsByName("rightPost") ;
+        var postList="";
+        for(var i=0;i<checkPost.length;i++){
+            if(checkPost[i].checked==true){
+                postList = postList+"true"+"," ;
+            }else{
+                postList = postList+"false"+"," ;
+            }
+        }
+        var checkPay=document.getElementsByName("rightPay") ;
+        var payList="";
+        for(var i=0;i<checkPay.length;i++){
+            if(checkPay[i].checked==true){
+                payList = payList+"true"+"," ;
+            }else{
+                payList = payList+"false"+"," ;
+            }
+        }
         var checkArea=document.getElementsByName("rightArea");
         var areaList="" ;
         for(var i=0;i<checkArea.length;i++){
@@ -190,6 +214,8 @@
         document.getElementById("updateString").value= updateList ;
         document.getElementById("deleteString").value= deleteList ;
         document.getElementById("checkString").value= checkList ;
+        document.getElementById("postString").value= postList ;
+        document.getElementById("payString").value= payList ;
         document.getElementById("areaString").value= areaList;
         var gForm = document.getElementById("gFrom");
         gForm.action = "updateRights";

@@ -58,7 +58,7 @@ class AccSubjectImportService {
                 }
                 accSubjectImportList.add(accSubjectImport)
             }
-            //接下来可以对kjkmOutCommandList进行处理或return
+            //接下来可以对accSubjectImportList进行处理或return
         } else {
             //未知错误
             msg = "请求查询失败，错误信息：[未知错误]";

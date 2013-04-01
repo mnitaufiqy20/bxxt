@@ -113,6 +113,7 @@
                                 <td height="30"><div style="width: 150px;background: #ADCDF4;">申请人填写：</div></td>
                                 <td colspan="3" height="30">单号：${loanAppReceipts.loanAppReceiptsId}
                                     <input type="hidden" name="loanAppReceiptsId" id="loanAppReceiptsId" value="${loanAppReceipts.loanAppReceiptsId}">
+                                    <input type="hidden" name="menuId" value="${menuId}">
                                 </td>
                             </tr>
                             <tr>
@@ -326,7 +327,7 @@
                 <div>会计人员执行！</div>
             </span>
         </td>
-        <td>&nbsp;&nbsp;</td>
+        <td><input type="button" value="执行付款" disabled></td>
         <td>&nbsp;&nbsp;</td>
         <td>&nbsp;&nbsp;</td>
     </tr>

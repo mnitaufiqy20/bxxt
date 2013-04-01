@@ -96,8 +96,19 @@
                                                 <td>&nbsp;</td>
                                             </tr>
                                             <tr>
-                                                <td height="30" colspan="3" align="right"><input type="button" value="查询" onclick="query();"></td>
-                                                <td colspan="2" align="right"><input type="button" value="新增" onclick="location='../loanAppReceipts/loanAppReceiptsAdd'"></td>
+
+                                                <g:if test="${a =="V"}">
+                                                    <td height="30" colspan="3" align="right"><input type="button" value="查询" onclick="query();"></td>
+                                                </g:if>
+                                                <g:else>
+                                                    <td height="30" colspan="3" align="right"><input type="button" value="查询" disabled></td>
+                                                </g:else>
+                                                <g:if test="${b =="N"}">
+                                                    <td colspan="2" align="right"><input type="button" value="新增" onclick="location='../loanAppReceipts/loanAppReceiptsAdd'"></td>
+                                                </g:if>
+                                                <g:else>
+                                                    <td colspan="2" align="right"><input type="button" value="新增" disabled></td>
+                                                </g:else>
                                                 <td>&nbsp;</td>
                                             </tr>
                                         </table>
@@ -139,6 +150,7 @@
                                                             <td height="30">
                                                                 ${index+1}
                                                                 <g:hiddenField name="loanAppReceiptsId" id="loanAppReceiptsId" value="${item.loanAppReceiptsId}"/>
+                                                                <input type="hidden" name="menuId" value="${menuId}">
                                                             </td>
                                                             <td>${item.loanAppReceiptsId}</td>
                                                             <td>${item.loanBegDate}</td>
@@ -146,18 +158,33 @@
                                                             <td>${item.loanStatus}</td>
                                                             <td>
                                                                 <g:if test="${item.loanStatus=='已保存'}">
-                                                                    <a href="../loanAppReceipts/editLoanAppReceipts?loanAppReceiptsId=${item.loanAppReceiptsId}">
-                                                                        修改
-                                                                    </a>
+                                                                    <g:if test="${c =="E"}">
+                                                                        <a href="../loanAppReceipts/editLoanAppReceipts?loanAppReceiptsId=${item.loanAppReceiptsId}&menuId=${menuId}">
+                                                                            修改
+                                                                        </a>
+                                                                    </g:if>
+                                                                    <g:else>
+                                                                        <a href="#">
+                                                                            修改
+                                                                        </a>
+                                                                    </g:else>
+
                                                                 </g:if>
 
                                                                     %{--<g:if test="!${item.loanStatus}.equals('已保存')">--}%
                                                                     %{--查看--}%
                                                                     %{--</g:if>--}%
                                                                 <g:else>
-                                                                    <a href="../loanAppReceipts/lookUpLoanAppReceipts?loanAppReceiptsId=${item.loanAppReceiptsId}">
-                                                                        查看
-                                                                    </a>
+                                                                    <g:if test="${a =="V"}">
+                                                                        <a href="../loanAppReceipts/lookUpLoanAppReceipts?loanAppReceiptsId=${item.loanAppReceiptsId}&menuId=${menuId}">
+                                                                            查看
+                                                                        </a>
+                                                                    </g:if>
+                                                                    <g:else>
+                                                                        <a href="#">
+                                                                            查看
+                                                                        </a>
+                                                                    </g:else>
                                                                 </g:else>
                                                             </td>
                                                         </tr>

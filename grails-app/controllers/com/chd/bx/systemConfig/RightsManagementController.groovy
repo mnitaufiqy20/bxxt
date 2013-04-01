@@ -51,6 +51,10 @@ class RightsManagementController {
                              rightManage.setRightDelete(true)
                          }else if (str[i]=="C"){                  //审核
                              rightManage.setRightCheck(true)
+                         }else if (str[i]=="P"){                  //过账
+                             rightManage.setRightPost(true)
+                         }else if (str[i]=="M"){                  //付款
+                             rightManage.setRightPay(true)
                          }else if (str[i]=="S"){                  //授权范围
                              rightManage.setRightArea(true)
                          }
@@ -124,6 +128,10 @@ class RightsManagementController {
         String [] delete = deleteString.split(",")
         String checkString = params["checkString"]
         String [] check = checkString.split(",")
+        String postString = params["postString"]
+        String [] post = postString.split(",")
+        String payString = params["payString"]
+        String [] pay = payString.split(",")
         String areaString = params["areaString"]
         String [] area = areaString.split(",")
         for(int i=0;i<functionCodeList.size();i++){
@@ -143,6 +151,12 @@ class RightsManagementController {
             if (check[i]=="true"){
                 roleRight=roleRight+"C"
             }
+            if (post[i]=="true"){
+                roleRight=roleRight+"P"
+            }
+            if (pay[i]=="true"){
+                roleRight=roleRight+"M"
+            }
             if (area[i]=="true"){
                 roleRight=roleRight+"S"
             }
@@ -158,6 +172,53 @@ class RightsManagementController {
                     roleMenu.roleId=roleId
                     roleMenu.roleRight=roleRight
                     rightsManagementService.roleManagementSave(roleMenu)
+                    if (roleMenu.menu.menuName.equals("科目维护")
+                            || roleMenu.menu.menuName.equals("凭证集成")) {
+                        def menu = Menu.findByMenuName("SAP系统")
+                        roleMenu = RoleMenu.findByRoleIdAndMenu(roleId,menu)
+                        if (roleMenu!=null){
+                            roleMenu.roleRight=roleRight
+                            rightsManagementService.roleManagementSave(roleMenu)
+                        }else{
+                            if (roleRight!=null||roleRight!=""){
+                                roleMenu = new RoleMenu();
+                                roleMenu.menu = menu
+                                roleMenu.roleId=roleId
+                                roleMenu.roleRight=roleRight
+                                rightsManagementService.roleManagementSave(roleMenu)
+                            }
+                        }
+                    }else if (roleMenu.menu.menuName.equals("成本中心导入") || roleMenu.menu.menuName.equals("会计科目导入")){
+                        def menu = Menu.findByMenuName("科目导入")
+                        roleMenu = RoleMenu.findByRoleIdAndMenu(roleId,menu)
+                        if (roleMenu!=null){
+                            roleMenu.roleRight=roleRight
+                            rightsManagementService.roleManagementSave(roleMenu)
+                        }else{
+                            if (roleRight!=null||roleRight!=""){
+                                roleMenu = new RoleMenu();
+                                roleMenu.menu = menu
+                                roleMenu.roleId=roleId
+                                roleMenu.roleRight=roleRight
+                                rightsManagementService.roleManagementSave(roleMenu)
+                            }
+                        }
+
+                        def menu2 = Menu.findByMenuName("SAP系统")
+                        RoleMenu roleMenu2 = RoleMenu.findByRoleIdAndMenu(roleId,menu2)
+                        if (roleMenu2!=null){
+                            roleMenu2.roleRight=roleRight
+                            rightsManagementService.roleManagementSave(roleMenu2)
+                        }else{
+                            if (roleRight!=null||roleRight!=""){
+                                roleMenu2 = new RoleMenu();
+                                roleMenu2.menu = menu2
+                                roleMenu2.roleId=roleId
+                                roleMenu2.roleRight=roleRight
+                                rightsManagementService.roleManagementSave(roleMenu2)
+                            }
+                        }
+                    }
                 }
             }
         }

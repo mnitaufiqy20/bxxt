@@ -19,6 +19,8 @@ class RightManage {
     boolean rightDelete = false            //删除
     boolean rightUpdate = false          //修改
     boolean rightCheck = false            //审核
+    boolean rightPost = false            //过账
+    boolean rightPay = false            //付款
     boolean rightArea = false               //被授权区域
     int getId() {
         return id
@@ -106,5 +108,21 @@ class RightManage {
 
     void setRightCheck(boolean rightCheck) {
         this.rightCheck = rightCheck
+    }
+
+    boolean getRightPost() {
+        return rightPost
+    }
+
+    void setRightPost(boolean rightPost) {
+        this.rightPost = rightPost
+    }
+
+    boolean getRightPay() {
+        return rightPay
+    }
+
+    void setRightPay(boolean rightPay) {
+        this.rightPay = rightPay
     }
 }
