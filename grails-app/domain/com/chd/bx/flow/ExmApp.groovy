@@ -15,7 +15,7 @@ class ExmApp {
     static constraints = {
         receiptsType  nullable: false, maxSize: 25
         companyNo  nullable: false, maxSize: 25
-        empRole  nullable: false, maxSize: 25
+        empRole  nullable: false, maxSize: 100
         firstName  nullable: false, maxSize: 25
         secondName  nullable: true, maxSize: 25
         thirdName  nullable: true, maxSize: 25

@@ -124,56 +124,54 @@ class LoanAppReceiptsController {
         println("LoanAppReceiptsController loanAppReceiptsSave is loading....")
         def loanId = getLoanId()
         String currentUserName = springSecurityService.getPrincipal().username;
-        def user = UserLogin.findByLoginName(currentUserName)
+        def user = User.findByUsername(currentUserName)
         loanAppReceipts = new LoanAppReceipts();
 //        loanAppReceipts.id=0;
         loanAppReceipts.loanAppReceiptsId = loanId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
         loanAppReceipts = loanAppRec(loanAppReceipts,params)
         loanAppReceipts.loanStatus = "已保存"
         loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts) ;
-        def exmApp = loanAppReceiptsService.getProcessApprove(user.empPosition)
+        def exmApp = loanAppReceiptsService.getProcessApprove(user.role.authority)
         String type = "";
-        if (user.empPosition.equals("公司领导")){
+        if (exmApp.firstName!=null && exmApp.secondName==null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
             type = "A";
-        }else if (user.empPosition.equals("公司分管领导")){
+        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
             type = "B";
-        }else if (user.empPosition.equals("公司责任部门领导")){
+        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName==null && exmApp.fifthName==null){
             type = "C";
-        }else if (user.empPosition.equals("部门领导")){
+        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName!=null && exmApp.fifthName==null){
             type = "D";
-        }else if (user.empPosition.equals("分部领导")){
-            type = "E";
-        }else if (user.empPosition.equals("员工")){
+        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName!=null && exmApp.fifthName!=null){
             type = "E";
         }
         def map = new HashMap<String, Object>()
         map.put("loanId",loanId)
         map.put("type",type)
-        map.put("userId",user.userId)
+        map.put("userId",User.findByUserId(user.userId).id)
         if (exmApp.getFirstName()==null){
             map.put("first","")
         }else{
-            map.put("first",exmApp.getFirstName())
+            map.put("first",User.findByUsername(exmApp.getFirstName()).id)
         }
         if (exmApp.getSecondName()==null){
             map.put("second","")
         }else{
-            map.put("second",exmApp.getSecondName())
+            map.put("second",User.findByUsername(exmApp.getSecondName()).id)
         }
         if (exmApp.getThirdName()==null){
             map.put("third","")
         }else{
-            map.put("third",exmApp.getThirdName())
+            map.put("third",User.findByUsername(exmApp.getThirdName()).id)
         }
         if (exmApp.getFourthName()==null){
             map.put("fourth","")
         }else{
-            map.put("fourth",exmApp.getFourthName())
+            map.put("fourth",User.findByUsername(exmApp.getFourthName()).id)
         }
         if (exmApp.getFifthName()==null){
             map.put("fifth","")
         }else{
-            map.put("fifth",exmApp.getFifthName())
+            map.put("fifth",User.findByUsername(exmApp.getFifthName()).id)
         }
 
         workflowFactory.startWorkflow(processEngine,"LoanAppRec",map)
@@ -200,15 +198,15 @@ class LoanAppReceiptsController {
         loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
 
         String currentUserName = springSecurityService.getPrincipal().username;
-        def user = UserLogin.findByLoginName(currentUserName)
-        List<Task> list = workflowFactory.getTaskByUserId(processEngine,user.userId);
+        def user = User.findByUsername(currentUserName)
+        List<Task> list = workflowFactory.getTaskByUserId(processEngine,user.id.toString());
         if (list!=null&&list.size()>1){
             paiXu(list);
         }
         Task task = list.get(0)
         def executionId = task.getExecutionId()
         def nextUserId = task.assignee
-        def nextUser = UserLogin.findByUserId(nextUserId)
+        def nextUser = UserLogin.findByUserId(User.findById(nextUserId).userId)
         workflowFactory.approveTask(processEngine,list.get(0).getId(),"approve");
 
         List<ExmAppTask> exmAppTaskList = loanAppReceiptsService.getTaskByExecutionId(executionId)
@@ -217,7 +215,7 @@ class LoanAppReceiptsController {
 //        def nextUser = UserLogin.findByUserId(nextUserId)
 
         //发送邮件给下一个办理人
-        sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱
+//        sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱
         def menuId = params["menuId"]
         render(view: '/loanAppReceipts/loanAppReceiptsCommit',model: [loanAppReceipts: loanAppReceipts,menuId: menuId])
     }
@@ -328,7 +326,7 @@ class LoanAppReceiptsController {
         if (list==null){
             loanAppReceipts.loanStatus = "已审核"
             loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
-            sendEmail(loanUser.getUserName(),params["loanAppReceiptsId"],loanUser.empEmail,0);//用户需要邮箱
+//            sendEmail(loanUser.getUserName(),params["loanAppReceiptsId"],loanUser.empEmail,0);//用户需要邮箱
         }else{
             def type = params["type"]
             if (type.equals("1")){
@@ -342,9 +340,9 @@ class LoanAppReceiptsController {
             def nextUserId = exmAppTask.assignId
             def nextUser = UserLogin.findByUserId(nextUserId)
             if (params["examAppIdea"].equals("approve")) {
-                sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱  通过
+//                sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱  通过
             }else{
-                sendEmail(loanUser.getUserName(),params["loanAppReceiptsId"],loanUser.empEmail,2);//用户需要邮箱  不通过
+//                sendEmail(loanUser.getUserName(),params["loanAppReceiptsId"],loanUser.empEmail,2);//用户需要邮箱  不通过
             }
         }
         //发送邮件给下一个办理人
@@ -560,8 +558,8 @@ class LoanAppReceiptsController {
             if(null!=historyTask.getAssignee()){
                 //获取参与者（受托人）的名称
 //                taskStore.setAssignee(historyTask.getAssignee());
-                UserLogin userL = UserLogin.findById(historyTask.getAssignee())
-                taskStore.setAssignee(userL.userName);
+                User userL = User.findById(historyTask.getAssignee())
+                taskStore.setAssignee(userL.username);
                 taskStore.setExamAppNamePosition(userL.empPosition)
             }
             def date = historyTask.getEndTime()

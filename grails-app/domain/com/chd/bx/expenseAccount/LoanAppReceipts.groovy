@@ -16,7 +16,7 @@ class LoanAppReceipts {
     String loanEmpName                  //借款员工姓名                        是
     String loanEmpPhone                 //借款员工电话                        是
     String loanEmpPosition             //借款员工职位                        是
-    String loanEmpIdNumber                     // 身份证号                           是
+    String loanEmpIdNumber             // 身份证号                           是
     String loanBudgetCenter            //预算中心                            是
     String loanParagraphDate              //需款日期                            是
     String loanPaymentType             //付款方式                            是

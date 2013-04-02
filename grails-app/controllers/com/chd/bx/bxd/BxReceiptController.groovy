@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat
 import jbpm.WorkflowFactory
 import com.chd.bx.expenseAccount.LoanAppReceiptsService
 import com.chd.bx.login.UserLogin
+import com.chd.bx.security.User
 
 /**
  *   用户登录service
@@ -160,32 +161,48 @@ class BxReceiptController {
         listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
         //启动流程
         String currentUserName = springSecurityService.getPrincipal().username;
-        def user = UserLogin.findByLoginName(currentUserName)
+        def user = User.findByUsername(currentUserName)
         def exmApp = loanAppReceiptsService.getProcessApprove2(user.empPosition)
         String ty = "";
-        if (user.empPosition.equals("公司领导")){
+        if (exmApp.firstName!=null && exmApp.secondName==null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
             ty = "A";
-        }else if (user.empPosition.equals("公司分管领导")){
+        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
             ty = "B";
-        }else if (user.empPosition.equals("公司责任部门领导")){
+        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName==null && exmApp.fifthName==null){
             ty = "C";
-        }else if (user.empPosition.equals("部门领导")){
+        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName!=null && exmApp.fifthName==null){
             ty = "D";
-        }else if (user.empPosition.equals("分部领导")){
-            ty = "E";
-        }else if (user.empPosition.equals("员工")){
+        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName!=null && exmApp.fifthName!=null){
             ty = "E";
         }
         def map = new HashMap<String, Object>()
         map.put("loanId",bxdNo)
         map.put("type",ty)
-        map.put("userId",user.userId)
-        if (exmApp!=null){
-            map.put("first",exmApp.getFirstName())
-            map.put("second",exmApp.getSecondName())
-            map.put("third",exmApp.getThirdName())
-            map.put("fourth",exmApp.getFourthName())
-            map.put("fifth",exmApp.getFifthName())
+        map.put("userId",User.findByUserId(user.userId).id)
+        if (exmApp.getFirstName()==null){
+            map.put("first","")
+        }else{
+            map.put("first",User.findByUsername(exmApp.getFirstName()).id)
+        }
+        if (exmApp.getSecondName()==null){
+            map.put("second","")
+        }else{
+            map.put("second",User.findByUsername(exmApp.getSecondName()).id)
+        }
+        if (exmApp.getThirdName()==null){
+            map.put("third","")
+        }else{
+            map.put("third",User.findByUsername(exmApp.getThirdName()).id)
+        }
+        if (exmApp.getFourthName()==null){
+            map.put("fourth","")
+        }else{
+            map.put("fourth",User.findByUsername(exmApp.getFourthName()).id)
+        }
+        if (exmApp.getFifthName()==null){
+            map.put("fifth","")
+        }else{
+            map.put("fifth",User.findByUsername(exmApp.getFifthName()).id)
         }
         workflowFactory.startWorkflow(processEngine,"BxRec",map)
         render(view: '/bxReceipt/bxReceiptDetail',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])

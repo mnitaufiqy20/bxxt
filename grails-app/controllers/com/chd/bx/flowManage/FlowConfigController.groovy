@@ -18,45 +18,151 @@ class FlowConfigController {
         render(view: '/flowConfig/flowConfigIndex')
     }
     def flowConfig(){
-//        def userRoleList1=UserRole.findAllByRole(Role.findByAuthority("公司领导"))
-//        def userRoleList2=UserRole.findAllByRole(Role.findByAuthority("公司分管领导"))
-//        def userRoleList3=UserRole.findAllByRole(Role.findByAuthority("公司责任部门领导"))
-//        def userRoleList4=UserRole.findAllByRole(Role.findByAuthority("部门领导"))
-//        def userRoleList5=UserRole.findAllByRole(Role.findByAuthority("分部领导"))
-//        def userRoleList6=UserRole.findAllByRole(Role.findByAuthority("过账会计"))
-//        def userRoleList7=UserRole.findAllByRole(Role.findByAuthority("出纳"))
-//        def userRoleList8=UserRole.findAllByRole(Role.findByAuthority("公司领导"))
-//        render(view: '/flowConfig/flowConfig',model:[userRoleList1:userRoleList1,userRoleList2:userRoleList2,
-//                userRoleList3:userRoleList3,userRoleList4:userRoleList4,userRoleList5:userRoleList5,
-//                userRoleList6:userRoleList6,userRoleList7:userRoleList7,userRoleList8:userRoleList8] )
-
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = UserLogin.findByLoginName(currentUserName)
-        List<FlowCon> list = new ArrayList<FlowCon>()
-        List<FlowCon> list2 = new ArrayList<FlowCon>()
-        list = initExmApp(user,"FYBX")
-        list2 = initExmApp(user,"LOAN")
-        render(view: '/flowConfig/flowConfigIndex',model: [user:user,list:list,list2:list2])
-
+        List<ExmApp> listFYBX = new ArrayList<ExmApp>()
+        List<ExmApp> listLOAN = new ArrayList<ExmApp>()
+        listFYBX = ExmApp.findAllByReceiptsTypeAndCompanyNo("FYBX",user.companyNo)
+        listLOAN = ExmApp.findAllByReceiptsTypeAndCompanyNo("LOAN",user.companyNo)
+        render(view: '/flowConfig/flowConfigIndex2',model: [user:user,listFYBX:listFYBX,listLOAN:listLOAN])
+    }
+    def getExmAppList(String type){
+        List<ExmApp> list = new ArrayList<ExmApp>()
+        list = ExmApp.findAllByReceiptsType(type)
+        List<ExmApp> exmAppList = new ArrayList<ExmApp>()
+        if (list!=null && list.size()>0) {
+            for (ExmApp exmApp:list) {
+                def e = new ExmApp()
+                e = exmApp
+                if (exmApp.firstName!="0"){
+                    e.firstName = User.findById(Long.parseLong(exmApp.firstName)).username
+                }else{
+                    e.firstName = ""
+                }
+                if (exmApp.secondName!="0"){
+                    e.secondName = User.findById(Long.parseLong(exmApp.secondName)).username
+                }else{
+                    e.secondName = ""
+                }
+                if (exmApp.thirdName!="0"){
+                    e.thirdName = User.findById(Long.parseLong(exmApp.thirdName)).username
+                }else{
+                    e.thirdName = ""
+                }
+                if (exmApp.fourthName!="0"){
+                    e.fourthName = User.findById(Long.parseLong(exmApp.fourthName)).username
+                }else{
+                    e.fourthName = ""
+                }
+                if (exmApp.fifthName!="0"){
+                    e.fifthName = User.findById(Long.parseLong(exmApp.fifthName)).username
+                }else{
+                    e.fifthName = ""
+                }
+                e.postAcc = User.findById(Long.parseLong(exmApp.postAcc)).username
+                e.payTeller = User.findById(Long.parseLong(exmApp.payTeller)).username
+                exmAppList.add(e)
+            }
+        }
+        return exmAppList
+    }
+    def flowConfigAdd(){
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = User.findByUsername(currentUserName)
+        List<Role> list = new ArrayList<Role>()
+        list = flowConfigService.appRoleQuery()
+        render(view: '/flowConfig/flowConfigAdd',model: [user:user,list:list])
     }
     def flowConfigSave(){
         def companyNo = params["companyNo"]
-        def exmAppList = ExmApp.findAllByCompanyNo(companyNo)
-        if (exmAppList==null || exmAppList.size()==0){
-            exmAppSave(params)
-        }else{
-            exmAppUpdate(params);
+        def empRole = params["empRole"]
+        def r = ExmApp.findByEmpRoleAndCompanyNo(empRole,companyNo)
+        def exmApp = new ExmApp()
+        exmApp.companyNo = companyNo
+        exmApp.empRole = empRole
+        def str = empRole.toString().substring(0,1)
+        if (str.equals("借")) {
+            exmApp.receiptsType = "LOAN"
+        } else if (str.equals("报")) {
+            exmApp.receiptsType = "FYBX"
         }
-        String currentUserName = springSecurityService.getPrincipal().username;
-        def user = UserLogin.findByLoginName(currentUserName)
-        List<FlowCon> list = new ArrayList<FlowCon>()
-        List<FlowCon> list2 = new ArrayList<FlowCon>()
-        list = initExmApp(user,"FYBX")
-        list2 = initExmApp(user,"LOAN")
-//        def roleList = Role.findAll();
-        render(view: '/flowConfig/flowConfigIndex',model: [user:user,list:list,list2:list2])
+        def first = params["firstName"]
+        def second = params["secondName"]
+        def third = params["thirdName"]
+        def fourth = params["fourthName"]
+        def fifth = params["fifthName"]
+        def postAcc = params["postAcc"]
+        def payTeller = params["payTeller"]
+
+        if (!first.equals("") && User.findByUsername(first)!=null) {
+            exmApp.firstName = User.findByUsername(first).username
+        }else{
+            exmApp.firstName = ""
+        }
+        if (!second.equals("") && User.findByUsername(second)!=null) {
+            exmApp.secondName = User.findByUsername(second).username
+        }else{
+            exmApp.secondName = ""
+        }
+        if (!third.equals("") && User.findByUsername(third)!=null) {
+            exmApp.thirdName = User.findByUsername(third).username
+        }else{
+            exmApp.thirdName = ""
+        }
+        if (!fourth.equals("") && User.findByUsername(fourth)!=null) {
+            exmApp.fourthName = User.findByUsername(fourth).username
+        }else{
+            exmApp.fourthName = ""
+        }
+        if (!fifth.equals("") && User.findByUsername(fifth)!=null) {
+            exmApp.fifthName = User.findByUsername(fifth).username
+        }else{
+            exmApp.fifthName = ""
+        }
+        if (!postAcc.equals("") && User.findByUsername(postAcc)!=null) {
+            exmApp.postAcc = User.findByUsername(postAcc).username
+        }else{
+            exmApp.postAcc = ""
+        }
+        if (!payTeller.equals("") && User.findByUsername(payTeller)!=null) {
+            exmApp.payTeller = User.findByUsername(payTeller).username
+        }else{
+            exmApp.payTeller = ""
+        }
+        flowConfigService.exmAppSave(exmApp)
+        flowConfig()
     }
 
+    def flowConfigE(){
+        def id = params["id"]
+        def exmApp = ExmApp.findById(Long.parseLong(id))
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = User.findByUsername(currentUserName)
+        render(view: '/flowConfig/flowConfigUpdate',model:[exmApp:exmApp,user: user])
+    }
+
+    def flowConfigUpdate(){
+        def id = params["id"]
+        def exmApp = new ExmApp()
+        exmApp = ExmApp.findById(id)
+        exmApp.firstName = params["firstName"]
+        exmApp.secondName = params["secondName"]
+        exmApp.thirdName = params["thirdName"]
+        exmApp.fourthName = params["fourthName"]
+        exmApp.fifthName = params["fifthName"]
+        exmApp.postAcc = params["postAcc"]
+        exmApp.payTeller = params["payTeller"]
+        flowConfigService.exmAppSave(exmApp)
+        flowConfig()
+    }
+
+    def flowConfigD(){
+        def id = params["id"]
+        def exmApp = new ExmApp()
+        exmApp = ExmApp.findById(id)
+        flowConfigService.exmAppDelete(exmApp)
+        flowConfig()
+    }
     def exmAppSave(params){
         def firstName = params["firstName"]
         for (int i=0;i<firstName.size();i++){

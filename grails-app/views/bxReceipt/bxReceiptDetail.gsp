@@ -88,7 +88,6 @@
                                         %{--系统带入--}%
                                         <td height="21"><input style="width: 120" type="text" id="bxEmpPosition" name="bxEmpPosition" value="${bxReceipt.bxEmpPosition}"></td>
                                     </tr>
-
                                 </table>
                             </td>
                         </tr>
@@ -151,8 +150,8 @@
                                         <td height="21">票据类别：</td>
                                         <td>
                                             <select id="billsCurr" name="billsCurr">
-                                                <option value="美元">美元</option>
-                                                <option value="人民币">人民币</option>
+                                                <option value="CNY">CNY</option>
+                                                <option value="USD">USD</option>
                                             </select>
                                         </td>
                                     </tr>

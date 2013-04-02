@@ -6,6 +6,7 @@ import processes.TaskStore
 import jbpm.WorkflowFactory
 import com.chd.bx.login.UserLogin
 import java.text.SimpleDateFormat
+import com.chd.bx.security.User
 
 /***
  * 在办箱业务逻辑处理
@@ -21,8 +22,8 @@ class ProcessesController {
 
     def initProcess() {
         String currentUserName = springSecurityService.getPrincipal().username;
-        def user = UserLogin.findByLoginName(currentUserName)
-        def userId = user.userId
+        def user = User.findByUsername(currentUserName)
+        def userId = user.id.toString()
 //        List<Processes> loan_list = new ArrayList<Processes>();
         List<TaskStore> list = new ArrayList<TaskStore>();
         // 获取当前用户任务列表
@@ -62,7 +63,7 @@ class ProcessesController {
         }
 
 //        loan_list = processesService.getProcessList();
-        render(view: '/processes/processesList', model: [loan_list: list,userName:user.userName])
+        render(view: '/processes/processesList', model: [loan_list: list,userName:user.name])
     }
 
     def processesListDetail() {
