@@ -66,12 +66,30 @@ class FlowConfigController {
         }
         return exmAppList
     }
+
+    /**
+     * 点击添加的时候，得到没有配置流程人员的角色
+     * @return
+     */
     def flowConfigAdd(){
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = User.findByUsername(currentUserName)
         List<Role> list = new ArrayList<Role>()
         list = flowConfigService.appRoleQuery()
-        render(view: '/flowConfig/flowConfigAdd',model: [user:user,list:list])
+        def loanAppName = flowConfigService.getAppName("借","审")
+        def bxAppName =  flowConfigService.getAppName("报","审")
+        def loanAccName = flowConfigService.getAppName("借","会计")
+        def bxAccName =  flowConfigService.getAppName("报","会计")
+        def loanCasName = flowConfigService.getAppName("借","出纳")
+        def bxCasName =  flowConfigService.getAppName("报","出纳")
+        print("loanAppName:"+loanAppName)
+        print("bxAppName:"+bxAppName)
+        print("loanAccName:"+loanAccName)
+        print("bxAccName:"+bxAccName)
+        print("loanCasName:"+loanCasName)
+        print("bxCasName:"+bxCasName)
+        render(view: '/flowConfig/flowConfigAdd',model: [user:user,list:list,loanAppName:loanAppName,
+                bxAppName:bxAppName,loanAccName:loanAccName,bxAccName:bxAccName,loanCasName:loanCasName,bxCasName:bxCasName])
     }
     def flowConfigSave(){
         def companyNo = params["companyNo"]
@@ -138,7 +156,14 @@ class FlowConfigController {
         def exmApp = ExmApp.findById(Long.parseLong(id))
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = User.findByUsername(currentUserName)
-        render(view: '/flowConfig/flowConfigUpdate',model:[exmApp:exmApp,user: user])
+        def loanAppName = flowConfigService.getAppName("借","审")
+        def bxAppName =  flowConfigService.getAppName("报","审")
+        def loanAccName = flowConfigService.getAppName("借","会计")
+        def bxAccName =  flowConfigService.getAppName("报","会计")
+        def loanCasName = flowConfigService.getAppName("借","出纳")
+        def bxCasName =  flowConfigService.getAppName("报","出纳")
+        render(view: '/flowConfig/flowConfigUpdate',model:[exmApp:exmApp,user: user,loanAppName:loanAppName,
+                bxAppName:bxAppName,loanAccName:loanAccName,bxAccName:bxAccName,loanCasName:loanCasName,bxCasName:bxCasName])
     }
 
     def flowConfigUpdate(){

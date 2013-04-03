@@ -12,25 +12,115 @@
     <title>华电集团报销系统</title>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'mark.css')}" type="text/css">
     <script type="text/javascript">
+        function nonEmpty(){
+            var firstName = document.getElementById("firstName").value;
+            var postAcc = document.getElementById("postAcc").value;
+            var payTeller = document.getElementById("payTeller").value;
+            if(firstName=="" || postAcc=="" || payTeller=="") {
+                alert("第一审批人、过账会计和付款出纳不能为空！");
+                return false;
+            }else{
+                return true;
+            }
+        }
+        function verifyName(){
+            if(nonEmpty()){
+                var roleName = document.getElementById("empRole").value;
+                var roleType = roleName.substring(0,1);
+                var firstName = document.getElementById("firstName").value;
+                var secondName = document.getElementById("secondName").value;
+                var thirdName = document.getElementById("thirdName").value;
+                var fourthName = document.getElementById("fourthName").value;
+                var fifthName = document.getElementById("fifthName").value;
+                var postAcc = document.getElementById("postAcc").value;
+                var payTeller = document.getElementById("payTeller").value;
+                var flag1 = false;
+                var flag2 = false;
+                var flag3 = false;
+                var flag4 = false;
+                var flag5 = false;
+                var flag6 = false;
+                var flag7 = false;
+                if(roleType=="报"){
+                    var bxAppName = document.getElementById("bxAppName").value;
+                    if(bxAppName.indexOf(firstName)>-1){
+                        flag1 = true;
+                        if(secondName == "" || (secondName != "" && bxAppName.indexOf(secondName)>-1)){
+                            flag2 = true;
+                        }
+                        if(thirdName == "" || (thirdName != "" && bxAppName.indexOf(thirdName)>-1)){
+                            flag3 = true;
+                        }
+                        if(fourthName == "" || (fourthName != "" && bxAppName.indexOf(fourthName)>-1)){
+                            flag4 = true;
+                        }
+                        if(fifthName == "" || (fifthName != "" && bxAppName.indexOf(fifthName)>-1)){
+                            flag5 = true;
+                        }
+                    }
+                    var bxAccName = document.getElementById("bxAccName").value;
+                    if(bxAccName.indexOf(postAcc)>-1){
+                        flag6 = true;
+                    }
+                    var bxCasName = document.getElementById("bxCasName").value;
+                    if(bxCasName.indexOf(payTeller)>-1){
+                        flag7 = true;
+                    }
+
+                }else if(roleType=="借"){
+                    var loanAppName = document.getElementById("loanAppName").value;
+                    if(loanAppName.indexOf(firstName)>-1){
+                        flag1 = true;
+                        if(secondName == "" || (secondName != "" && loanAppName.indexOf(secondName)>-1)){
+                            flag2 = true;
+                        }
+                        if(thirdName == "" || (thirdName != "" && loanAppName.indexOf(thirdName)>-1)){
+                            flag3 = true;
+                        }
+                        if(fourthName == "" || (fourthName != "" && loanAppName.indexOf(fourthName)>-1)){
+                            flag4 = true;
+                        }
+                        if(fifthName == "" || (fifthName != "" && loanAppName.indexOf(fifthName)>-1)){
+                            flag5 = true;
+                        }
+                    }
+                    var loanAccName = document.getElementById("loanAccName").value;
+                    if(loanAccName.indexOf(postAcc)>-1){
+                        flag6 = true;
+                    }
+                    var loanCasName = document.getElementById("loanCasName").value;
+                    if(loanCasName.indexOf(payTeller)>-1){
+                        flag7 = true;
+                    }
+                }
+                if(flag1 && flag2 && flag3 && flag4 && flag5 && flag6 && flag7){
+                    return true;
+                }else{
+                    alert("输入的用户不存在或者不是有对应功能的人，请重新输入！")
+                    return false;
+                }
+            }
+        }
         function commForm(){
-//            var companyNo = document.getElementById("companyNo").value;
-//            if(companyNo=="" || companyNo.trim()==""){
-//                alert("公司编码不能为空，请输入！");
-//                return;
-//            }
-//            alert("aaaaaaaaaaaaa");
-            var gForm = document.getElementById("gForm");
-//            alert(gForm);
-            gForm.action = "flowConfigSave";
-            gForm.controller = "flowConfig";
-            gForm.submit();
+            if(verifyName()){
+                var gForm = document.getElementById("gForm");
+                gForm.action = "flowConfigSave";
+                gForm.controller = "flowConfig";
+                gForm.submit();
+            }
+
         }
     </script>
 </head>
 
 <body id="">
     <g:form id="gForm" name="gForm" action="flowConfigSave" controller="flowConfig" method="post">
-    <input type="hidden" name="act" value="update">
+        <input type="hidden" name="loanAppName" id="loanAppName" value="${loanAppName}">
+        <input type="hidden" name="bxAppName" id="bxAppName" value="${bxAppName}">
+        <input type="hidden" name="loanAccName" id="loanAccName" value="${loanAccName}">
+        <input type="hidden" name="bxAccName" id="bxAccName" value="${bxAccName}">
+        <input type="hidden" name="loanCasName" id="loanCasName" value="${loanCasName}">
+        <input type="hidden" name="bxCasName" id="bxCasName" value="${bxCasName}">
         <table width="100%"  height="200" border="0" cellpadding="0" cellspacing="0">
             <tr height="30">
                 <td colspan="5" align="center" ><h2>新增角色流程配置</h2></td>
@@ -76,32 +166,32 @@
                                                     </tr>
                                                     <tr>
                                                         <td width="25%">
-                                                            <select style="width: 100%;height:100%;" name="empRole">
+                                                            <select style="width: 100%;height:100%;" name="empRole" id="empRole">
                                                                 <g:each in="${list}" var="role">
                                                                     <option value="${role.authority}">${role.authority}</option>
                                                                 </g:each>
                                                             </select>
                                                         </td>
                                                         <td width="8%">
-                                                            <input type="text" style="width: 100%;height: 100%" name="firstName" value="">
+                                                            <input type="text" style="width: 100%;height: 100%" name="firstName" id="firstName" value="">
                                                         </td>
                                                         <td width="8%">
-                                                            <input type="text" style="width: 100%;height: 100%" name="secondName" value="">
+                                                            <input type="text" style="width: 100%;height: 100%" name="secondName" id="secondName" value="">
                                                         </td>
                                                         <td width="8%">
-                                                            <input type="text" style="width: 100%;height: 100%" name="thirdName" value="">
+                                                            <input type="text" style="width: 100%;height: 100%" name="thirdName" id="thirdName" value="">
                                                         </td>
                                                         <td width="8%">
-                                                            <input type="text" style="width: 100%;height: 100%" name="fourthName" value="">
+                                                            <input type="text" style="width: 100%;height: 100%" name="fourthName" id="fourthName" value="">
                                                         </td>
                                                         <td width="8%">
-                                                            <input type="text" style="width: 100%;height: 100%" name="fifthName" value="">
+                                                            <input type="text" style="width: 100%;height: 100%" name="fifthName" id="fifthName" value="">
                                                         </td>
                                                         <td width="8%">
-                                                            <input type="text" style="width: 100%;height: 100%" name="postAcc" value="">
+                                                            <input type="text" style="width: 100%;height: 100%" name="postAcc" id="postAcc" value="">
                                                         </td>
                                                         <td width="10%">
-                                                            <input type="text" style="width: 100%;height: 100%" name="payTeller" value="">
+                                                            <input type="text" style="width: 100%;height: 100%" name="payTeller" id="payTeller" value="">
                                                         </td>
                                                     </tr>
                                                 </table>

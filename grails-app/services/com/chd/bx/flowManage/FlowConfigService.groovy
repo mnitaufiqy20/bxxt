@@ -39,6 +39,35 @@ class FlowConfigService {
         }
     }
 
+    def getAppName(String type,String str){
+        def strSql = "SELECT USERNAME FROM S_USER \n" +
+                " WHERE ID IN (\n" +
+                " SELECT USER_ID FROM S_USER_ROLE WHERE ROLE_ID IN (\n" +
+                " SELECT ID FROM S_ROLE WHERE AUTHORITY LIKE '%"+type+"%"+str+"%'))\n" +
+                " ORDER BY ID"
+        def conn = null
+        try {
+            org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy ds = SpringUtil.getBean("dataSource");
+            conn = ds.getConnection()
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(strSql);
+           def strName = ""
+            while(rs.next()){
+                strName += (rs.getString("USERNAME")+",")
+//                strName += name+","
+            }
+            if (strName != "" && strName.length() > 0) {
+                return strName
+            }else{
+                return ""
+            }
+            stmt.close()
+        } catch (Exception e1) {
+            e1.printStackTrace()
+            return ""
+        }
+    }
+
     def exmAppSave(ExmApp exmApp) {
         try {
             if (exmApp.save(flush: true)) {
