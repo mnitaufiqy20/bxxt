@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'mark.css')}" type="text/css">
     <script src="${resource(dir: 'js/calendar', file: 'jsdate.js')}"></script>
     <script src="${resource(dir: 'js/calendar', file: 'WdatePicker.js')}"></script>
+    <link rel="stylesheet" href="${resource(dir: 'css/calendar', file: 'jquery-ui.css')}" type="text/css">
+    <link rel="stylesheet" href="${resource(dir: '/resources/demos/', file: 'style.css')}" type="text/css">
+    <script src="${resource(dir: 'js/calendar', file: 'jquery-1.8.3.js')}"></script>
+    <script src="${resource(dir: 'js/calendar', file: 'jquery-ui.js')}"></script>
     <script src="${resource(dir: 'js', file: 'test.js')}"></script>
     <style type="text/css">
     .Wdate{
@@ -26,9 +30,63 @@
         color:red;
     }
     </style>
+    <script type="text/javascript">
+        function markColor(){
+            if('${bxReceipt.bxdStatus}'=='已保存'){
+                document.getElementById("save").style.backgroundColor = "green";
+            }else if('${bxReceipt.bxdStatus}'=='已提交'){
+                document.getElementById("save").style.backgroundColor = "green";
+                document.getElementById("commit").style.backgroundColor = "green";
+            }else if('${bxReceipt.bxdStatus}'=='已审核'){
+                document.getElementById("save").style.backgroundColor = "green";
+                document.getElementById("commit").style.backgroundColor = "green";
+                document.getElementById("deputy").style.backgroundColor = "green";
+            }else if('${bxReceipt.bxdStatus}'=='已过账'){
+                document.getElementById("save").style.backgroundColor = "green";
+                document.getElementById("commit").style.backgroundColor = "green";
+                document.getElementById("deputy").style.backgroundColor = "green";
+                document.getElementById("post").style.backgroundColor = "green";
+            }else if('${bxReceipt.bxdStatus}'=='已付款'){
+                document.getElementById("save").style.backgroundColor = "green";
+                document.getElementById("commit").style.backgroundColor = "green";
+                document.getElementById("deputy").style.backgroundColor = "green";
+                document.getElementById("post").style.backgroundColor = "green";
+                document.getElementById("back").style.backgroundColor = "green";
+            }
+            document.getElementById("goBack").disabled = true;
+            document.getElementById("ideaRemark").display = "none";
+        }
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            $( "#needMoneyDate" ).datepicker({
+                minDate: 0, maxDate: "+50Y"
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            $( "#startDate" ).datepicker({
+//        defaultDate: "+0w",
+//        changeMonth: true,
+                numberOfMonths: 1,
+                onClose: function( selectedDate ) {
+                    $( "#endDate" ).datepicker( "option", "minDate", selectedDate );
+                }
+            });
+            $( "#endDate" ).datepicker({
+//        defaultDate: "+0w",
+//        changeMonth: true,
+                numberOfMonths: 1,
+                onClose: function( selectedDate ) {
+                    $( "#startDate" ).datepicker( "option", "maxDate", selectedDate );
+                }
+            });
+        });
+    </script>
 </head>
 
-<body id="">
+<body id=""  onload="markColor();">
 <g:form id="gFrom" name="gFrom" action="bxdSave" controller="bxReceipt" method="post">
 <table width="100%"  style="height:500px"  border="0" cellpadding="0" cellspacing="0">
 <tr>
@@ -51,20 +109,26 @@
                             <td colspan="4">
                                 <table>
                                     <tr>
-                                        <td height="21" width="120">报销员工编号：</td>
+                                        <td height="21">报销员工身份证号：</td>
                                         <td height="21">
-                                            %{--选项只能为本公司员工--}%
-                                            <select id="bxEmpNo" name="bxEmpNo">
-                                                <option value="-1">--请选择--</option>
-                                                <option value="43910343">43910343</option>
-                                                <option value="43910342">43910342</option>
-                                                <option value="43910345">43910345</option>
-                                                <option value="43910348">43910348</option>
-                                            </select>
+                                            <input type="text" id="bxEmpIdNumber" name="bxEmpIdNumber" value="${bxReceipt.bxEmpIdNumber}" readonly>
+                                            <input type="hidden" id="bxEmpNo" name="bxEmpNo" value="${bxReceipt.bxEmpNo}">
+                                            %{--<input type="hidden" name="menuId" value="${menuId}">--}%
                                         </td>
+                                        %{--<td height="21" width="120" >报销员工编号：</td>--}%
+                                        %{--<td height="21">--}%
+                                            %{--选项只能为本公司员工--}%
+                                            %{--<select id="bxEmpNo" name="bxEmpNo">--}%
+                                                %{--<option value="-1">--请选择--</option>--}%
+                                                %{--<option value="43910343">43910343</option>--}%
+                                                %{--<option value="43910342">43910342</option>--}%
+                                                %{--<option value="43910345">43910345</option>--}%
+                                                %{--<option value="43910348">43910348</option>--}%
+                                            %{--</select>--}%
+                                        %{--</td>--}%
                                         <td height="21">报销员工姓名：</td>
                                         %{--系统带入--}%
-                                        <td height="21"><input style="width: 120" type="text" id="bxEmpName" name="bxEmpName" value="${bxReceipt.bxEmpName}"></td>
+                                        <td height="21"><input style="width: 120" type="text" id="bxEmpName" name="bxEmpName" value="${bxReceipt.bxEmpName}" readonly></td>
                                     </tr>
                                     <tr>
                                         <td height="21">成本中心：</td>
@@ -78,15 +142,15 @@
                                         </td>
                                         <td height="21" width="120">报销员工电话：</td>
                                         %{--系统带入--}%
-                                        <td height="21"><input style="width: 120" type="text" id="bxEmpPhoneNumber" name="bxEmpPhoneNumber" value="${bxReceipt.bxEmpPhoneNumber}"></td>
+                                        <td height="21"><input style="width: 120" type="text" id="bxEmpPhoneNumber" name="bxEmpPhoneNumber" value="${bxReceipt.bxEmpPhoneNumber}" readonly></td>
                                     </tr>
                                     <tr>
                                         <td height="21">公司名称：</td>
                                         %{--选择报销员工编号后自动带入--}%
-                                        <td height="21"><input type="text" id="companyName" name="companyName" value="${bxReceipt.companyName}"></td>
+                                        <td height="21"><input type="text" id="companyName" name="companyName" value="${bxReceipt.companyName}" readonly></td>
                                         <td height="21">报销员工职位：</td>
                                         %{--系统带入--}%
-                                        <td height="21"><input style="width: 120" type="text" id="bxEmpPosition" name="bxEmpPosition" value="${bxReceipt.bxEmpPosition}"></td>
+                                        <td height="21"><input style="width: 120" type="text" id="bxEmpPosition" name="bxEmpPosition" value="${bxReceipt.bxEmpPosition}" readonly></td>
                                     </tr>
                                 </table>
                             </td>
@@ -101,19 +165,26 @@
             <tr>
                 <td colspan="4">
                     <table style="height:120px">
-                        <tr id="allTb">
+                        <tr id="allTabs">
                             <td height="21" colspan="5">
-                                <g:if test="${bxReceipt.bxdStatus=='已保存'}">
-                                    <div id="tbs1" style="background-color:green;">已保存</div>
-                                </g:if>
-                                <g:else>
-                                    <div id="tbs1" style="background-color: #ccc;">已保存</div>
-                                </g:else>
-                                <div id="tbs2" style="background-color:#ccc;">已提交</div>
-                                <div id="tbs3" style="background-color:#ccc;">已审核</div>
-                                <div id="tbs4" style="background-color:#ccc;">已过账</div>
-                                <div id="tbs5" style="background-color:#ccc;">已付款</div>
+                                <div id="save">已保存</div>
+                                <div id="commit">已提交</div>
+                                <div id="deputy">已审核</div>
+                                <div id="post">已过账</div>
+                                <div id="back">已付款</div>
                             </td>
+                            %{--<td height="21" colspan="5">--}%
+                                %{--<g:if test="${bxReceipt.bxdStatus=='已保存'}">--}%
+                                    %{--<div id="tbs1" style="background-color:green;">已保存</div>--}%
+                                %{--</g:if>--}%
+                                %{--<g:else>--}%
+                                    %{--<div id="tbs1" style="background-color: #ccc;">已保存</div>--}%
+                                %{--</g:else>--}%
+                                %{--<div id="tbs2" style="background-color:#ccc;">已提交</div>--}%
+                                %{--<div id="tbs3" style="background-color:#ccc;">已审核</div>--}%
+                                %{--<div id="tbs4" style="background-color:#ccc;">已过账</div>--}%
+                                %{--<div id="tbs5" style="background-color:#ccc;">已付款</div>--}%
+                            %{--</td>--}%
                         </tr>
                         <tr>
                             <td colspan="4">
@@ -128,12 +199,12 @@
                                             </select>
                                         </td>
                                         <td height="21">申请日期：</td>
-                                        <td height="21"><input id="applicationDate" name="applicationDate" type="text" value="${bxReceipt.applicationDate}"></td>
+                                        <td height="21"><input id="applicationDate" name="applicationDate" type="text" value="${bxReceipt.applicationDate}"readonly></td>
                                     </tr>
                                     <tr>
                                         <td height="21">需款日期：</td>
                                         %{--系统带入当前日期，日期格式YYYYMMDD--}%
-                                        <td><input style="width: 123" id="needMoneyDate" name="needMoneyDate" type="text" value="${bxReceipt.needMoneyDate}"  class="Wdate" onclick="SelectDate(this,'yyyy-MM-dd',null,null);"></td>
+                                        <td><input style="width: 123" id="needMoneyDate" name="needMoneyDate" type="text" value="${bxReceipt.needMoneyDate}"  class="Wdate" onblur="emptyVerify('loanParagraphDate');"></td>
                                         <td>经办人姓名：</td>
                                         <td><input id="managerName" name="managerName" type="text" value="${bxReceipt.managerName}"></td>
                                     </tr>
@@ -497,50 +568,55 @@
     </td>
 </tr>
 %{--  预算相关信息    end    --}%
-<tr>
-    <td colspan="9" height="30"><div style="width: 150px;background: #ADCDF4;">审批历史</div></td>
-</tr>
-<tr>
-    <td>&nbsp;&nbsp;</td>
-    <td colspan="7">
-        <table width="100%" height="46"  border="1" cellpadding="0" cellspacing="0">
-            <tr align="center">
-                <td height="23" width="10%">序号</td>
-                <td width="30%">审批时间</td>
-                <td width="20%">审批人职位</td>
-                <td width="15%">审批人</td>
-                <td width="20%">审批意见</td>
-            </tr>
-            <tr align="center">
-                <td height="23" width="10%">1</td>
-                <td width="30%">2011-11-6 00:00:00</td>
-                <td width="20%">生安部部长</td>
-                <td width="15%">ELLE</td>
-                <td  width="20%">
-                    <select id="search" width="20%">
-                        <option width="20%" value="同意">同意</option>
-                        <option width="20%" value="不同意">不同意</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
-    </td>
-    <td>&nbsp;&nbsp;</td>
-</tr>
+%{--<tr>--}%
+    %{--<td colspan="9" height="30"><div style="width: 150px;background: #ADCDF4;">审批历史</div></td>--}%
+%{--</tr>--}%
+%{--<tr>--}%
+    %{--<td>&nbsp;&nbsp;</td>--}%
+    %{--<td colspan="7">--}%
+        %{--<table width="100%" height="46"  border="1" cellpadding="0" cellspacing="0">--}%
+            %{--<tr align="center">--}%
+                %{--<td height="23" width="10%">序号</td>--}%
+                %{--<td width="30%">审批时间</td>--}%
+                %{--<td width="20%">审批人职位</td>--}%
+                %{--<td width="15%">审批人</td>--}%
+                %{--<td width="20%">审批意见</td>--}%
+            %{--</tr>--}%
+            %{--<tr align="center">--}%
+                %{--<td height="23" width="10%">1</td>--}%
+                %{--<td width="30%">2011-11-6 00:00:00</td>--}%
+                %{--<td width="20%">生安部部长</td>--}%
+                %{--<td width="15%">ELLE</td>--}%
+                %{--<td  width="20%">--}%
+                    %{--<select id="search" width="20%">--}%
+                        %{--<option width="20%" value="同意">同意</option>--}%
+                        %{--<option width="20%" value="不同意">不同意</option>--}%
+                    %{--</select>--}%
+                %{--</td>--}%
+            %{--</tr>--}%
+        %{--</table>--}%
+    %{--</td>--}%
+    %{--<td>&nbsp;&nbsp;</td>--}%
+%{--</tr>--}%
 <tr>
     <td height="30">&nbsp;&nbsp;&nbsp;</td>
 </tr>
 <tr>
     <td>&nbsp;&nbsp;</td>
     <td height="30"><input style="width: 100" type="button" value="保存" onclick="commForm(0)"></td>
-    <td><input style="width: 100" type="button" value="提交"></td>
-    <td><input style="width: 100" type="button" value="退回" ></td>
-    <td><input style="width: 100" type="button" value="执行过账"></td>
-
+    <td><input style="width: 100" type="button" value="提交" onclick="commForm(2)"></td>
+    <td><input style="width: 100" type="button" value="返回" ></td>
+    <td><input style="width: 100" type="button" value="执行过账" disabled></td>
+    <td><input style="width: 100" type="button" value="执行付款" disabled></td>
 </tr>
 </table>
     <input type="hidden" name="bxdStatus" id="bxdStatus" value="${bxReceipt.bxdStatus}">
 </g:form>
+<script>document.getElementById("bxEmpNo").value = "${bxReceipt.bxEmpNo}";</script>
+<script>document.getElementById("costCenter").value = "${bxReceipt.costCenter}";</script>
+<script>document.getElementById("budgetCenter").value = "${bxReceipt.budgetCenter}";</script>
+<script>document.getElementById("paymentMode").value = "${bxReceipt.paymentMode}";</script>
+<script>document.getElementById("billsCurr").value = "${bxReceipt.billsCurr}";</script>
 <script type="text/javascript">
     function commForm(id){
 //           alert(document.getElementById("bxdStatus").value);
@@ -553,6 +629,8 @@
             gForm.action = "bxdSave";
         }else if(id==1){
             gForm.action = "bxdUpdate";
+        }else if(id==2){
+            gForm.action = "bxdCommit";
         }
         gForm.controller = "bxReceipt"
         gForm.submit();

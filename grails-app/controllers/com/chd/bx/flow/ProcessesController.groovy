@@ -61,9 +61,18 @@ class ProcessesController {
                 list.add(taskStore);
             }
         }
-
+        List<TaskStore> loanList = new ArrayList<TaskStore>();
+        List<TaskStore> bxList = new ArrayList<TaskStore>();
+        for (TaskStore taskStore:list){
+            String str = taskStore.wfNo.substring(0,1)
+            if (str.equals("J")){
+                loanList.add(taskStore)
+            }else if (str.equals("B")){
+                bxList.add(taskStore)
+            }
+        }
 //        loan_list = processesService.getProcessList();
-        render(view: '/processes/processesList', model: [loan_list: list,userName:user.name])
+        render(view: '/processes/processesList', model: [list: list,loanList:loanList,bxList:bxList,userName:user.name])
     }
 
     def processesListDetail() {

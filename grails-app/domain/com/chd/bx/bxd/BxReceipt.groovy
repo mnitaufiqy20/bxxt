@@ -7,6 +7,7 @@ package com.chd.bx.bxd
 class BxReceipt {
     String bxNo                 //报销单据号
     int bxEmpNo              //报销员工编号
+    String bxEmpIdNumber      // 身份证号
     String costCenter           //成本中心
     String companyName          //公司名称
     String bxEmpName            //报销人姓名
@@ -83,6 +84,7 @@ class BxReceipt {
     static constraints = {
         bxNo unique: true,maxSize: 12
         bxEmpNo nullable: false
+        bxEmpIdNumber nullable: false, maxSize: 18
         costCenter nullable: false,maxSize: 20
         companyName nullable: false,maxSize: 45
         bxEmpName nullable: false,maxSize: 22

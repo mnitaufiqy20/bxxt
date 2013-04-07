@@ -20,12 +20,12 @@ environments {
 //            username = "er"
 //            password = "er"
 //            url = "jdbc:oracle:thin:@10.76.66.56:1521:DBDEV"
-            username = "peihao"
-            password = "peihao"
-            url = "jdbc:oracle:thin:@192.168.1.190:1521:ORCL"
-//            username = "jing"
-//            password = "jing"
-//            url = "jdbc:oracle:thin:@localhost:1521:ORCL"
+//            username = "peihao"
+//            password = "peihao"
+//            url = "jdbc:oracle:thin:@192.168.1.190:1521:ORCL"
+            username = "jing"
+            password = "jing"
+            url = "jdbc:oracle:thin:@localhost:1521:ORCL"
         }
     }
     test {

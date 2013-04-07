@@ -24,14 +24,22 @@
         color:red;
     }
     </style>
+    <script type="text/javascript">
+        function query(){
+            var gForm = document.getElementById("gForm");
+            gForm.action = "queryReceipt";
+            gForm.controller = "bxReceipt"
+            gForm.submit();
+        }
+    </script>
 </head>
 
 <body id="">
-<table width="100%"  height="480" border="0" cellpadding="0" cellspacing="0">
+<table width="100%"  height="180" border="0" cellpadding="0" cellspacing="0">
     <tr height="40">
         <td colspan="6" align="center" ><h2>报销单列表</h2></td>
     </tr>
-    <tr height="80">
+    <tr height="60">
         <td colspan="6" width="100%">
             <table  width="100%">
                 <tr>
@@ -63,7 +71,7 @@
                                                 <input type="text" name="startDate" value="${startDate}"  class="Wdate" onclick="SelectDate(this,'yyyy-MM-dd',null,null);">
                                                 至<input type="text" value="${endDate}" name="endDate"  class="Wdate" onclick="SelectDate(this,'yyyy-MM-dd',null,null);">
                                             </td>
-                                            <td height="30" colspan="3" width="5%" align="right"><input type="submit" value="查询"></td> &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <td height="30" colspan="3" width="5%" align="right"><input type="button" value="查询" onclick="query();"></td> &nbsp;&nbsp;&nbsp;&nbsp;
                                             <td colspan="2" width="5%" align="right"><input type="button" value="添加" onclick="location='../bxReceipt/bxdDetail'"></td>
                                         </tr>
                                         <tr>
@@ -79,33 +87,33 @@
             </table>
         </td>
     </tr>
-    <tr height="360">
+    <tr height="90">
         <td colspan="6" width="100%">
             <table width="100%"  border="0" cellpadding="0" cellspacing="0">
-                <tr height="360">
+                <tr height="90">
                     <td colspan="6" width="100%">
-                        <table width="100%" height="360">
-                            <tr  height="10">
+                        <table width="100%" height="90">
+                            <tr  height="30">
                                 <td colspan="6"><div style="width: 150px;background: #ADCDF4;">查询结果</div></td>
                             </tr>
-                            <tr height="350">
+                            <tr height="60">
                                 <td>
-                                    <table width="100%" height="350" border="0" cellpadding="0" cellspacing="0">
-                                        <tr height="320">
-                                            <td colspan="6" height="320">
+                                    <table width="100%" height="60" border="0" cellpadding="0" cellspacing="0">
+                                        <tr height="30">
+                                            <td colspan="6" height="30">
                                                 <table width="100%"   border="1" cellpadding="0" cellspacing="0">
                                                     <tr align="center">
-                                                        <td height="23" width="10%">序号</td>
+                                                        <td height="30" width="10%">序号</td>
                                                         <td width="30%">单号</td>
                                                         <td width="15%">申请日期</td>
                                                         <td width="15%">实际报销总金额</td>
                                                         <td width="20%">状态</td>
                                                         <td width="10%">操作</td>
                                                     </tr>
-                                                    <g:each in="${bxdList}" var="item">
+                                                    <g:each in="${bxdList}" var="item" status="index">
                                                         <tr align="center">
-                                                            <td height="23">
-                                                                ${item.id}
+                                                            <td height="30">
+                                                                ${index+1}
                                                             </td>
                                                             <td>${item.bxNo}</td>
                                                             <td>${item.applicationDate}</td>
@@ -115,7 +123,7 @@
                                                             <td><a href="../bxReceipt/bxdEdit?bxNo=${item.bxNo}">修改</a></td>
                                                             </g:if>
                                                             <g:else>
-                                                                <td><a href="../bxReceipt/bxdUpdate">查看</a></td>
+                                                                <td><a href="../bxReceipt/bxdUpdate?bxNo=${item.bxNo}">查看</a></td>
                                                             </g:else>
                                                         </tr>
                                                     </g:each>

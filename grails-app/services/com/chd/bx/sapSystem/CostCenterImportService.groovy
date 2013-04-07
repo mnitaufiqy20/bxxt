@@ -35,10 +35,19 @@ class CostCenterImportService {
             List<GroupRecord> grs = resMo.getResGroupRecord("T_CSKS")
             def costCenterImport;
             for(GroupRecord gr in grs){
-                costCenterImport  =new CostCenterImport()
-                costCenterImport.setCompanyCode(gr.getFieldValue("BUKRS"))
-                costCenterImport.setCostCenterNo(gr.getFieldValue("KOSTL"))
-                costCenterImport.setCostCenterDes(gr.getFieldValue("KTEXT"))
+                def cI =  CostCenterImport.findByCompanyCodeAndCostCenterNo(gr.getFieldValue("BUKRS"),gr.getFieldValue("KOSTL"))
+                if(cI==null){
+                    costCenterImport  =new CostCenterImport()
+                    costCenterImport.setCompanyCode(gr.getFieldValue("BUKRS"))
+                    costCenterImport.setCostCenterNo(gr.getFieldValue("KOSTL"))
+                    costCenterImport.setCostCenterDes(gr.getFieldValue("KTEXT"))
+                } else{
+                    costCenterImport  = cI
+                    costCenterImport.setCompanyCode(gr.getFieldValue("BUKRS"))
+                    costCenterImport.setCostCenterNo(gr.getFieldValue("KOSTL"))
+                    costCenterImport.setCostCenterDes(gr.getFieldValue("KTEXT"))
+                }
+
                 try {
                     if (costCenterImport.save(flush: true)) {
                         println("success")

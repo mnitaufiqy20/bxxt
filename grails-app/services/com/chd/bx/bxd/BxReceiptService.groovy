@@ -1,5 +1,7 @@
 package com.chd.bx.bxd
 
+import com.chd.bx.examAppHistory.ExamAppHistory
+
 /**
  *   报销单service
  *   @author 孟敏
@@ -58,6 +60,18 @@ class BxReceiptService {
         List<BxReceipt> list = BxReceipt.findAll(strSql)
         if(list!=null&&list.size()>0){
             return  list;
+        }
+    }
+
+    def examineSave(ExamAppHistory examAppHistory) {
+        try {
+            if (examAppHistory.save(flush: true)) {
+                println("success")
+            } else {
+                println("error")
+            }
+        } catch (Exception e) {
+            e.printStackTrace()
         }
     }
 }

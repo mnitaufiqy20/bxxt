@@ -118,11 +118,13 @@ function AddSignRow_cl(){
     var newNameTD=newTR.insertCell(1);
 //添加列内容
     newNameTD.innerHTML = "<td width=\"10%\"><input id=\"clStartDate"+rowID+"\" style=\"width: 100%;height: 100%\" name=\"clStartDate"+rowID+"\" value=\"\"  class=\"Wdate\" onclick=\"SelectDate(this,'yyyy-MM-dd',null,null);\"></td>";
+//    newNameTD.innerHTML = "<td width=\"10%\"><input id=\"startDate"+rowID+"\" style=\"width: 100%;height: 100%\" name=\"clStartDate"+rowID+"\" value=\"\"  class=\"Wdate\"></td>";
 
 //添加列:结束日期
     var newEmailTD=newTR.insertCell(2);
 //添加列内容
     newEmailTD.innerHTML = "<td width=\"10%\"><input id=\"clEndDate"+rowID+"\" style=\"width: 100%;height: 100%\" name=\"clEndDate"+rowID+"\" value=\"\"  class=\"Wdate\" onclick=\"SelectDate(this,'yyyy-MM-dd',null,null);\"></td>";
+//    newEmailTD.innerHTML = "<td width=\"10%\"><input id=\"endDate"+rowID+"\" style=\"width: 100%;height: 100%\" name=\"clEndDate"+rowID+"\" value=\"\"  class=\"Wdate\"></td>";
 
 //添加列:起止地址
     var newTelTD=newTR.insertCell(3);

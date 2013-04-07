@@ -5,6 +5,18 @@ import jbpm.WorkflowFactory
 import com.chd.bx.expenseAccount.LoanAppReceiptsService
 import com.chd.bx.login.UserLogin
 import com.chd.bx.security.User
+import processes.TaskStore
+import org.jbpm.api.task.Task
+import org.jbpm.api.history.HistoryTask
+import org.jbpm.api.history.HistoryTaskQuery
+import com.chd.bx.examAppHistory.ExamAppHistory
+import org.jbpm.pvm.internal.history.model.HistoryTaskInstanceImpl
+import org.jbpm.api.cmd.Command
+import org.jbpm.api.cmd.Environment
+import org.hibernate.Session
+import processes.ExmAppTask
+import com.chd.bx.expenseAccount.LoanAppReceipts
+import org.jbpm.api.ProcessDefinition
 
 /**
  *   用户登录service
@@ -52,9 +64,20 @@ class BxReceiptController {
      * @return
      */
     def bxdDetail(){
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
         bxReceipt = new BxReceipt();
         bxReceipt.bxNo="保存后自动生成"
         bxReceipt.approvalTime=sysDateFormat()
+        bxReceipt.bxEmpIdNumber = user.idNumber
+        bxReceipt.bxEmpName = user.userName
+        bxReceipt.bxEmpNo = Integer.parseInt(user.empNo)
+        bxReceipt.bxEmpPhoneNumber = user.telephone
+        bxReceipt.companyName = user.companyNo
+        bxReceipt.bxEmpPosition = user.empPosition
+        bxReceipt.managerName = user.userName
+        bxReceipt.applicationDate = sysDateFormat()
+        bxReceipt.needMoneyDate = sysDateFormat()
         List<BxOther> listOther = new ArrayList<BxOther>()
         List<BxLoan>  listLoan = new ArrayList<BxLoan>();
         List<BxTravel> listTravel = new ArrayList<BxTravel>();
@@ -63,7 +86,8 @@ class BxReceiptController {
         BxTravel bxTravel = new BxTravel();
         bxTravel.clTravelDaysCount=0
         bxTravel.clTravelDetails = ""
-        render(view: '../bxReceipt/bxReceiptDetail',model: [bxReceipt:bxReceipt,bxTravel:bxTravel,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listZhaoDai:listZhaoDai,listWork:listWork])
+
+        render(view: '../bxReceipt/bxReceiptDetail',model: [user:user,bxReceipt:bxReceipt,bxTravel:bxTravel,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listZhaoDai:listZhaoDai,listWork:listWork])
 
     }
     /**
@@ -162,7 +186,7 @@ class BxReceiptController {
         //启动流程
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = User.findByUsername(currentUserName)
-        def exmApp = loanAppReceiptsService.getProcessApprove2(user.empPosition)
+        def exmApp = loanAppReceiptsService.getProcessApprove2(user.role.authority)
         String ty = "";
         if (exmApp.firstName!=null && exmApp.secondName==null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
             ty = "A";
@@ -247,6 +271,58 @@ class BxReceiptController {
         listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
         render(view: '/bxReceipt/bxReceiptDetail',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
+
+    def bxdCommit(){
+        def action = params["act"]
+        if (action.equals("add")){
+            def bxId = getBxdNo()
+            bxReceipt = new BxReceipt()
+            bxReceipt.bxNo = bxId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
+        }else if (params["act"].equals("update")){
+            bxReceipt=bxReceiptService.getBxdById(params["bxNo"]).get(0)
+        }
+        bxReceipt=bxRep(bxReceipt,params)
+        bxReceipt.bxdStatus = "已提交"
+        bxReceiptService.bxdSave(bxReceipt)
+
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = User.findByUsername(currentUserName)
+        List<Task> list = workflowFactory.getTaskByUserId(processEngine,user.id.toString());
+        if (list!=null&&list.size()>1){
+            paiXu(list);
+        }
+        Task task = list.get(0)
+        def executionId = task.getExecutionId()
+        def nextUserId = task.assignee
+        def nextUser = UserLogin.findByUserId(User.findById(nextUserId).userId)
+        workflowFactory.approveTask(processEngine,list.get(0).getId(),"approve");
+
+        List<ExmAppTask> exmAppTaskList = loanAppReceiptsService.getTaskByExecutionId(executionId)
+        def exmAppTask = list.get(0)
+//        def nextUserId = exmAppTask.assignId
+//        def nextUser = UserLogin.findByUserId(nextUserId)
+
+        //发送邮件给下一个办理人
+//        sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱
+        def menuId = params["menuId"]
+        render(view: '/loanAppReceipts/loanAppReceiptsCommit',model: [loanAppReceipts: loanAppReceipts,menuId: menuId])
+    }
+
+    /**
+     * 查找用户任务并且通过任务ID倒序
+     * @param list
+     *      需要转换的List
+     */
+    void paiXu(List<Task> list){
+        Collections.sort(list,new Comparator<Task>(){
+            public int compare(Task task1, Task task2) {
+                int t1 = Integer.parseInt(task1.getId());
+                int t2 = Integer.parseInt(task2.getId());
+                return t2-t1;
+            }
+        });
+    }
+
     //在新增时获得单号
     def getBxdNo(){
         String bxdNo = "B";
@@ -805,6 +881,266 @@ class BxReceiptController {
         }
         return bt;
     }
+
+    def examineBxReceipts(){
+        Date date = new Date()
+//        SimpleDateFormat matter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        SimpleDateFormat matter=new SimpleDateFormat("yyyy-MM-dd")
+        String nowDate = matter.format(date);
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
+        def taskId = params["taskId"]
+        def bxReceiptsId = params["bxReceiptsId"]
+        bxReceipt=bxReceiptService.getBxdById(bxReceiptsId).get(0)
+
+        //其他报销信息
+        List<BxOther> listOther = new ArrayList<BxOther>()
+        listOther=bxOtherService.otherQueryByBxdNo(bxReceiptsId)
+        //保存借款信息
+        List<BxLoan> listLoan = new ArrayList<BxLoan>()
+        listLoan = bxLoanService.loanQueryByBxdNo(bxReceiptsId)
+        //保存差旅信息
+        List<BxTravel> listTravel = new ArrayList<BxTravel>()
+        listTravel = bxTravelService.travelQueryByBxdNo(bxReceiptsId)
+//        BxTravel bxTravel = new BxTravel();
+//        bxTravel.clTravelDaysCount=Integer.parseInt( params['clTravelDaysCount'])
+//        bxTravel.clTravelDetails = params['clTravelDetails']
+        //保存办公信息
+        List<BxWork> listWork = new ArrayList<BxWork>()
+        listWork = bxWorkService.workQueryByBxdNo(bxReceiptsId)
+        //保存招待信息
+        List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
+        listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxReceiptsId)
+        def historyLists = handle(taskId,bxReceiptsId)
+        render(view: '/bxReceipt/bxHandle',model: [nowDate:nowDate,user:user,taskId:taskId,bxReceipt:bxReceipt,
+                listOther:listOther,listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,historyLists:historyLists])
+//        render(view: '/bxReceipt/bxHandle')
+    }
+
+    def examineSave(){
+        def examAppHistory = new ExamAppHistory()
+        examAppHistory.taskId = params["taskId"]
+        examAppHistory.receiptsId = params["bxNo"]
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
+        examAppHistory.examAppName = user.userName
+        examAppHistory.examAppNamePosition = user.empPosition
+        Date date = new Date()
+//        SimpleDateFormat matter=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        SimpleDateFormat matter=new SimpleDateFormat("yyyy-MM-dd")
+        String nowDate = matter.format(date);
+        examAppHistory.examAppTime = nowDate
+        examAppHistory.examAppIdea = params["examAppIdea"]
+        examAppHistory.approveRemark = params["approveRemark"]
+        bxReceiptService.examineSave(examAppHistory)
+
+
+        def taskId = params["taskId"]
+        Task task = processEngine.getTaskService().getTask(taskId);
+        def executionId = task.getExecutionId()
+
+        workflowFactory.approveTask(processEngine,taskId,params["examAppIdea"]);
+
+        List<ExmAppTask> list = loanAppReceiptsService.getTaskByExecutionId(executionId)
+        bxReceipt = new BxReceipt()
+        bxReceipt =bxReceiptService.getBxdById(params["bxNo"]).get(0)
+        def bxUser = UserLogin.findByEmpNo(bxReceipt.bxEmpNo.toString())
+        if (list==null){
+            bxReceipt.bxdStatus = "已审核"
+            bxReceiptService.bxdSave(bxReceipt)
+//            sendEmail(bxUser.getUserName(),params["bxNo"],bxUser.empEmail,0);//用户需要邮箱
+        }else{
+            def type = params["type"]
+            if (type.equals("1")){
+                bxReceipt.bxdStatus = "已保存"
+                bxReceiptService.bxdSave(bxReceipt)
+            }else{
+                bxReceipt.bxdStatus = "已提交"
+                bxReceiptService.bxdSave(bxReceipt)
+            }
+            def exmAppTask = list.get(0)
+            def nextUserId = exmAppTask.assignId
+            def nextUser = UserLogin.findByUserId(nextUserId)
+            if (params["examAppIdea"].equals("approve")) {
+//                sendEmail(nextUser.getUserName(),params["bxNo"],nextUser.empEmail,1);//用户需要邮箱  通过
+            }else{
+//                sendEmail(bxUser.getUserName(),params["bxNo"],bxUser.empEmail,2);//用户需要邮箱  不通过
+            }
+        }
+        //发送邮件给下一个办理人
+//        def appHistVar = new AppHistVar()
+//        appHistVar = loanAppReceiptsService.getNowAppHistVar(user.userId,executionId)
+//        def varName = appHistVar.varName
+//         if (varName.equals("userId")){
+//
+//         }else if (varName.equals("first")){
+//
+//         }else if (varName.equals("second")){
+//
+//         }else if (varName.equals("third")){
+//
+//         }else if (varName.equals("fourth")){
+//
+//         }else if (varName.equals("fifth")){
+//
+//         }
+        returnProcessList()
+    }
+    /**
+     * 任务办理
+     * @param taskId
+     *      任务ID
+     * @return
+     */
+    def store
+    def historyList
+    def handle(String taskId,String wfNo){
+        store = new TaskStore();
+        //通过任务ID查找任务
+        Task task = processEngine.getTaskService().getTask(taskId);
+        store.setTaskId(taskId);
+        store.setExecutionId(task.getExecutionId());
+        store.setTaskName(task.getName());
+        store.setWfNo(wfNo);
+        // 获得当前流程实例中的已办信息
+        historyList = findHistoryInstanceDetail(task.getExecutionId());
+        return historyList
+    }
+    /**
+     * 查询某流程实例下的已办任务详细信息
+     * @param executionId
+     *      实例ID
+     * @return
+     */
+    List<TaskStore> findHistoryInstanceDetail(String executionId){
+        List<TaskStore> storeList = new ArrayList<TaskStore>();
+        //获取已办任务列表
+        List<HistoryTask> htList = processEngine.getHistoryService().createHistoryTaskQuery().state(HistoryTask.STATE_COMPLETED).orderAsc(HistoryTaskQuery.PROPERTY_ENDTIME).list();
+        // 若该流程中含有子任务
+        List<HistoryTask> htList2 = new ArrayList<HistoryTask>();
+        for(HistoryTask ht : htList){
+            if(ht.getExecutionId().contains(executionId)){
+                htList2.add(ht);
+            }
+        }
+        for(Iterator<HistoryTask> iter = htList2.iterator();iter.hasNext();){
+            HistoryTask historyTask = iter.next();
+            TaskStore taskStore = new TaskStore();
+            //获取任务名称
+            taskStore.setTaskName(getHistoryTaskInstanceByTaskId(historyTask.getId()).getActivityName());
+            if(null!=historyTask.getAssignee()){
+                //获取参与者（受托人）的名称
+//                taskStore.setAssignee(historyTask.getAssignee());
+                User userL = User.findById(historyTask.getAssignee())
+                taskStore.setAssignee(userL.username);
+                taskStore.setExamAppNamePosition(userL.empPosition)
+            }
+            def date = historyTask.getEndTime()
+            def time = ""
+            if (null == date ) {
+                time = ""
+            }else{
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                time = simpleDateFormat.format(date);
+            }
+            taskStore.setEndTime(time);
+            if (historyTask.getOutcome()=='approve'){
+                taskStore.setResult("同意");
+            }else if (historyTask.getOutcome()=='reject'){
+                taskStore.setResult("不同意");
+            }
+            ExamAppHistory tl = ExamAppHistory.findByTaskId(historyTask.getId());
+            if(tl==null){
+                taskStore.setRemark("");
+            }else{
+                taskStore.setRemark(tl.getApproveRemark());
+            }
+            storeList.add(taskStore);
+        }
+        return storeList;
+    }
+
+    /**
+     * 根据任务ID获取历史任务对象
+     * @param taskId
+     *      任务ID
+     * @return
+     */
+    HistoryTaskInstanceImpl getHistoryTaskInstanceByTaskId(final String taskId){
+        return processEngine.execute(new Command<HistoryTaskInstanceImpl>(){
+            private static final long serialVersionUID = 1L;
+            public HistoryTaskInstanceImpl execute(Environment environment)
+            throws Exception {
+                Session session = environment.get(Session.class);
+                StringBuilder hql = new StringBuilder();
+                hql.append("select hti from ").append(HistoryTaskInstanceImpl.class.getName());
+                hql.append(" as hti ");
+                hql.append("where hti.historyTask.dbid = :taskDbid");
+                return (HistoryTaskInstanceImpl) session.createQuery(hql.toString())
+                        .setLong("taskDbid", Long.valueOf(taskId)).uniqueResult();
+            }
+        });
+    }
+
+    /**
+     * 获得代办列表的数据
+     * @return
+     */
+    def returnProcessList() {
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
+        def userId = user.userId
+//        List<Processes> loan_list = new ArrayList<Processes>();
+        List<TaskStore> list = new ArrayList<TaskStore>();
+        // 获取当前用户任务列表
+        List<Task> taskList = workflowFactory.getTaskByUserId(processEngine,userId);
+        if (taskList!=null&&taskList.size()>0){
+            for (Task task:taskList){
+                //封装表格数据
+                ProcessDefinition processDefinition = processEngine.getRepositoryService().createProcessDefinitionQuery()
+                        .processDefinitionId( processEngine.getExecutionService().findExecutionById(task.getExecutionId()).getProcessDefinitionId()).uniqueResult();
+                TaskStore taskStore = new TaskStore();
+                Object loanId = processEngine.getTaskService().getVariable(task.getId(),"loanId");
+                //办理链接
+//                StringBuffer sbf = new StringBuffer();
+//                sbf.append("<a href=\"#\" onclick=handle(\"");
+//                sbf.append(task.getId()                                         );
+//                sbf.append("\",\""                                                    );
+//                sbf.append(wfNo.toString()                                   );
+//                sbf.append( "\") >"  );
+//                sbf.append("办理</a>"                  );
+                taskStore.setWfNo(loanId.toString());
+                taskStore.setTaskId(task.getId());
+                taskStore.setTaskName(task.getName());
+                taskStore.setProcessName(processDefinition.getName());
+                def date = task.getCreateTime()
+                def dateStr
+                if (null == date ){
+                    dateStr = ""
+                }else{
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    dateStr = simpleDateFormat.format(date);
+                }
+
+                taskStore.setCreateTime(dateStr);
+//                taskStore.setOperate(sbf.toString())
+                list.add(taskStore);
+            }
+        }
+        List<TaskStore> loanList = new ArrayList<TaskStore>();
+        List<TaskStore> bxList = new ArrayList<TaskStore>();
+        for (TaskStore taskStore:list){
+            String str = taskStore.wfNo.substring(0,1)
+            if (str.equals("J")){
+                loanList.add(taskStore)
+            }else if (str.equals("B")){
+                bxList.add(taskStore)
+            }
+        }
+//        loan_list = processesService.getProcessList();
+        render(view: '/processes/processesList', model: [list: list,loanList:loanList,bxList:bxList,userName:user.userName])
+    }
+
     /**
      * 赋值给对象
      */
@@ -812,6 +1148,7 @@ class BxReceiptController {
         String bxEmpId=params['bxEmpNo']
         bxd.bxEmpNo = Integer.parseInt(bxEmpId)
         bxd.costCenter = params['costCenter']
+        bxd.bxEmpIdNumber = params["bxEmpIdNumber"]
         bxd.companyName = params['companyName']
         bxd.bxEmpName = params['bxEmpName']
         bxd.bxEmpPhoneNumber = params['bxEmpPhoneNumber']
