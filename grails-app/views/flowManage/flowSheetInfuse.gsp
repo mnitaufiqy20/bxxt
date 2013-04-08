@@ -31,7 +31,7 @@
             <table  width="100%">
                 <tr>
                     <td colspan="5" width="100%">
-                        <g:form id="gForm" name="gForm" action="flowSheetInfusePath" controller="flowSheetInfuse" method="post">
+                        <g:form id="gForm" name="gForm" action="flowSheetInfusePath" controller="flowSheetInfuse" method="post" enctype="multipart/form-data">
                             <table  width="100%" >
                                 <tr>
                                     <td height="30"><div style="width: 150px;background: #ADCDF4;">发布选项：</div></td>

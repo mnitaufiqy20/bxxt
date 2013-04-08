@@ -17,6 +17,8 @@ import org.hibernate.Session
 import processes.ExmAppTask
 import com.chd.bx.expenseAccount.LoanAppReceipts
 import org.jbpm.api.ProcessDefinition
+import com.chd.bx.security.UserRole
+import com.chd.bx.security.Role
 
 /**
  *   用户登录service
@@ -42,7 +44,24 @@ class BxReceiptController {
      */
     def index() {
         List<BxReceipt> bxdList = new ArrayList<BxReceipt>()
-        bxdList = bxReceiptService.bxdQueryAll()
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = User.findByUsername(currentUserName)
+        def user2 = UserLogin.findByLoginName(currentUserName)
+        def userRoleList = UserRole.findAllByUser(user)
+        for (UserRole userRole:userRoleList){
+            def role = new Role()
+            role = userRole.role
+            if (role.description.equals("PT")) {
+                bxdList = BxReceipt.findAllByBxEmpIdNumber(user2.idNumber)
+            } else if (role.description.equals("KJ")) {
+                bxdList = bxReceiptService.bxdQueryAll()
+                break;
+            } else if (role.description.equals("CN")) {
+                bxdList = bxReceiptService.bxdQueryAll()
+                break;
+            }
+        }
+//        bxdList = bxReceiptService.bxdQueryAll()
         render(view: '../bxReceipt/bxReceiptQuery',model: [bxdList:bxdList])
     }
     /**
@@ -52,7 +71,28 @@ class BxReceiptController {
      */
     def queryReceipt(params){
         List<BxReceipt> bxdList = new ArrayList<BxReceipt>()
-        bxdList=bxReceiptService.queryReceipt(params)
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = User.findByUsername(currentUserName)
+        def user2 = UserLogin.findByLoginName(currentUserName)
+        def idNum = user2.idNumber
+        def index = 0
+        def userRoleList = UserRole.findAllByUser(user)
+        for (UserRole userRole:userRoleList){
+            def role = new Role()
+            role = userRole.role
+            if (role.description.equals("PT")) {
+                index = 1
+                break;
+            } else if (role.description.equals("KJ")) {
+                index = 2
+                break;
+            } else if (role.description.equals("CN")) {
+                index = 3
+                break;
+            }
+        }
+        bxdList=bxReceiptService.queryReceipt(params,idNum,index)
+//        bxdList=bxReceiptService.queryReceipt(params)
         String rNo = params['rNo']
         String startDate = params['startDate']
         String endDate = params['endDate']
@@ -67,7 +107,7 @@ class BxReceiptController {
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = UserLogin.findByLoginName(currentUserName)
         bxReceipt = new BxReceipt();
-        bxReceipt.bxNo="保存后自动生成"
+        bxReceipt.bxNo=" "
         bxReceipt.approvalTime=sysDateFormat()
         bxReceipt.bxEmpIdNumber = user.idNumber
         bxReceipt.bxEmpName = user.userName
@@ -78,6 +118,10 @@ class BxReceiptController {
         bxReceipt.managerName = user.userName
         bxReceipt.applicationDate = sysDateFormat()
         bxReceipt.needMoneyDate = sysDateFormat()
+        bxReceipt.costCenter = "1"
+        bxReceipt.budgetCenter = "1"
+        bxReceipt.paymentMode = "银行转账"
+        bxReceipt.billsCurr = "CNY"
         List<BxOther> listOther = new ArrayList<BxOther>()
         List<BxLoan>  listLoan = new ArrayList<BxLoan>();
         List<BxTravel> listTravel = new ArrayList<BxTravel>();
@@ -183,53 +227,8 @@ class BxReceiptController {
         saveZhaoDai(params,bxdNo,type)
         List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
         listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
-        //启动流程
-        String currentUserName = springSecurityService.getPrincipal().username;
-        def user = User.findByUsername(currentUserName)
-        def exmApp = loanAppReceiptsService.getProcessApprove2(user.role.authority)
-        String ty = "";
-        if (exmApp.firstName!=null && exmApp.secondName==null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
-            ty = "A";
-        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
-            ty = "B";
-        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName==null && exmApp.fifthName==null){
-            ty = "C";
-        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName!=null && exmApp.fifthName==null){
-            ty = "D";
-        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName!=null && exmApp.fifthName!=null){
-            ty = "E";
-        }
-        def map = new HashMap<String, Object>()
-        map.put("loanId",bxdNo)
-        map.put("type",ty)
-        map.put("userId",User.findByUserId(user.userId).id)
-        if (exmApp.getFirstName()==null){
-            map.put("first","")
-        }else{
-            map.put("first",User.findByUsername(exmApp.getFirstName()).id)
-        }
-        if (exmApp.getSecondName()==null){
-            map.put("second","")
-        }else{
-            map.put("second",User.findByUsername(exmApp.getSecondName()).id)
-        }
-        if (exmApp.getThirdName()==null){
-            map.put("third","")
-        }else{
-            map.put("third",User.findByUsername(exmApp.getThirdName()).id)
-        }
-        if (exmApp.getFourthName()==null){
-            map.put("fourth","")
-        }else{
-            map.put("fourth",User.findByUsername(exmApp.getFourthName()).id)
-        }
-        if (exmApp.getFifthName()==null){
-            map.put("fifth","")
-        }else{
-            map.put("fifth",User.findByUsername(exmApp.getFifthName()).id)
-        }
-        workflowFactory.startWorkflow(processEngine,"BxRec",map)
-        render(view: '/bxReceipt/bxReceiptDetail',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
+        startFlow();
+        render(view: '/bxReceipt/bxReceiptUpdate',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
     /**
      *   修改保存
@@ -278,6 +277,7 @@ class BxReceiptController {
             def bxId = getBxdNo()
             bxReceipt = new BxReceipt()
             bxReceipt.bxNo = bxId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
+            startFlow()
         }else if (params["act"].equals("update")){
             bxReceipt=bxReceiptService.getBxdById(params["bxNo"]).get(0)
         }
@@ -305,7 +305,70 @@ class BxReceiptController {
         //发送邮件给下一个办理人
 //        sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱
         def menuId = params["menuId"]
-        render(view: '/loanAppReceipts/loanAppReceiptsCommit',model: [loanAppReceipts: loanAppReceipts,menuId: menuId])
+        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt: bxReceipt,menuId: menuId])
+    }
+
+    /**
+     * 启动流程
+     */
+    def startFlow(){
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = User.findByUsername(currentUserName)
+        def user2 = UserLogin.findByLoginName(currentUserName)
+        def userRoleList = UserRole.findAllByUser(user)
+        def role1 = new Role()
+        for (UserRole userRole:userRoleList){
+            def role = new Role()
+            role = userRole.role
+            if (!role.description.equals("PT") && !role.description.equals("KJ") && !role.description.equals("CN")) {
+                role1=role
+                break;
+            }
+        }
+//        def exmApp = loanAppReceiptsService.getProcessApprove(user.role.authority,user2.companyNo,"FYBX")
+        def exmApp = loanAppReceiptsService.getProcessApprove(role1.authority,user2.companyNo,"FYBX")
+        String ty = "";
+        if (exmApp.firstName!=null && exmApp.secondName==null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
+            ty = "A";
+        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
+            ty = "B";
+        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName==null && exmApp.fifthName==null){
+            ty = "C";
+        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName!=null && exmApp.fifthName==null){
+            ty = "D";
+        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName!=null && exmApp.fifthName!=null){
+            ty = "E";
+        }
+        def map = new HashMap<String, Object>()
+        map.put("loanId",bxdNo)
+        map.put("type",ty)
+        map.put("userId",User.findByUserId(user.userId).id)
+        if (exmApp.getFirstName()==null){
+            map.put("first","")
+        }else{
+            map.put("first",User.findByUsername(exmApp.getFirstName()).id)
+        }
+        if (exmApp.getSecondName()==null){
+            map.put("second","")
+        }else{
+            map.put("second",User.findByUsername(exmApp.getSecondName()).id)
+        }
+        if (exmApp.getThirdName()==null){
+            map.put("third","")
+        }else{
+            map.put("third",User.findByUsername(exmApp.getThirdName()).id)
+        }
+        if (exmApp.getFourthName()==null){
+            map.put("fourth","")
+        }else{
+            map.put("fourth",User.findByUsername(exmApp.getFourthName()).id)
+        }
+        if (exmApp.getFifthName()==null){
+            map.put("fifth","")
+        }else{
+            map.put("fifth",User.findByUsername(exmApp.getFifthName()).id)
+        }
+        workflowFactory.startWorkflow(processEngine,"BxRec",map)
     }
 
     /**
@@ -322,6 +385,7 @@ class BxReceiptController {
             }
         });
     }
+
 
     //在新增时获得单号
     def getBxdNo(){

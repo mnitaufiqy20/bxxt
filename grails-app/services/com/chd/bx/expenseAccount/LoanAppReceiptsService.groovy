@@ -14,17 +14,17 @@ import processes.AppHistVar
 
 class LoanAppReceiptsService {
 
-    def loanAppReceiptsQuery(def empNo) {
+    def loanAppReceiptsQuery(String loanStatus) {
         println("LoanAppReceiptsService loanReceiptsQuery is loading....")
 //        String strSql = "from LoanAppReceipts where loanEmpNo= '"+empNo+"' order by id asc "
-        String strSql = "from LoanAppReceipts order by id asc "
+        String strSql = "from LoanAppReceipts where loanStatus='"+loanStatus+"' order by id asc "
         List<LoanAppReceipts> list = LoanAppReceipts.findAll(strSql)
         if (list != null && list.size() > 0) {
             return list
         }
     }
 
-    def loanAppReceiptsGJQuery(params){
+    def loanAppReceiptsGJQuery(params,String idNum,int index){
 //        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 //        Date startDate = null;
 //        Date endDate = null;
@@ -49,6 +49,13 @@ class LoanAppReceiptsService {
         }
         if((params["startDate"]==null || params["startDate"]=="") && params["endDate"]!=null && params["endDate"]!=""){
             strSql += " and loanBegDate < '"+params["endDate"] +"'"
+        }
+        if(index==1){
+            strSql += " and loanEmpIdNumber='"+idNum+"' "
+        }else if(index==2){
+            strSql += " and loanStatus='已审核' "
+        }else if(index==3){
+            strSql += " and loanStatus='已过帐' "
         }
 
         strSql += " order by id asc "
@@ -101,16 +108,16 @@ class LoanAppReceiptsService {
         }
     }
 
-    def getProcessApprove(String role){
-        def strSql = "from ExmApp where empRole='"+role +"' and receiptsType = 'LOAN'"
+    def getProcessApprove(String role,String companyNo,String receiptsType){
+        def strSql = "from ExmApp where empRole='"+role +"' and companyNo='"+companyNo+"' and receiptsType ='"+receiptsType+"'"
         List<ExmApp> list = ExmApp.findAll(strSql)
         if (list != null && list.size() > 0) {
             return list.get(0)
         }
     }
 
-    def getProcessApprove2(String role){
-        def strSql = "from ExmApp where empRole='"+role +"' and receiptsType = 'FYBX'"
+    def getProcessApprove2(String role,String companyNo){
+        def strSql = "from ExmApp where empRole='"+role +"' and companyNo='"+companyNo+"' and receiptsType = 'FYBX' "
         List<ExmApp> list = ExmApp.findAll(strSql)
         if (list != null && list.size() > 0) {
             return list.get(0)

@@ -1,8 +1,8 @@
 package com.chd.bx.flowManage
-
-import jbpm.WorkflowFactory
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import org.springframework.web.multipart.commons.CommonsMultipartFile
+import jbpm.WorkflowFactory
+
 
 /**
  * 流程图部署或发布
@@ -20,7 +20,12 @@ class FlowSheetInfuseController {
     }
     def flowSheetInfusePath(params){
         def strMsg = ""
-        def f = request.getFile("filePath");
+//        def f = request.getFile("filePath");
+        def f;
+        if (request instanceof MultipartHttpServletRequest) {
+            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request
+            f = (CommonsMultipartFile) multiRequest.getFile("filePath")
+        }
         if(!f.empty){//判断文件不为空
             String name = f.getOriginalFilename()//获得文件原始的名称
             def file = new File("grails-app/Upload/"+name)
@@ -36,7 +41,7 @@ class FlowSheetInfuseController {
                 strMsg = "发布失败！"
             }
         }else if(f.empty){
-            flash.message ="文件不能为空"
+            strMsg ="文件不能为空！"
         }
         render(view: '/flowManage/flowSheetInfuse', model: [strMsg: strMsg])
     }

@@ -20,6 +20,8 @@ import com.chd.bx.security.User
 import com.chd.bx.security.RoleMenu
 import com.chd.bx.security.UserRole
 import com.chd.bx.security.Menu
+import com.chd.bx.security.Role
+import com.chd.bx.bxd.BxReceipt
 
 class LoanAppReceiptsController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -42,25 +44,42 @@ class LoanAppReceiptsController {
 //        workflowFactory.applyWorkflow(processEngine,"E:/Groovy/loanAppRec.zip")
         println("LoanAppReceiptsController loanAppReceiptsQuery is loading....")
         String currentUserName = springSecurityService.getPrincipal().username;
-        def user = UserLogin.findByLoginName(currentUserName)
+        def user = User.findByUsername(currentUserName)
+        def user2 = UserLogin.findByLoginName(currentUserName)
         def empNo = user.empNo
         def menuId = params["menuId"]
         loan_list = new ArrayList<LoanAppReceipts>();
-        loan_list = loanAppReceiptsService.loanAppReceiptsQuery(empNo)
-        def str = getLimitsStr(currentUserName)
-        def a = ""
-        def b = ""
-        def c = ""
-        if (str.indexOf("V")!=-1){
-          a = "V"
+
+//        def str = getLimitsStr(currentUserName)
+//        def a = ""
+//        def b = ""
+//        def c = ""
+//        if (str.indexOf("V")!=-1){
+//          a = "V"
+//        }
+//        if(str.indexOf("N")!=-1){
+//          b = "N"
+//        }
+//        if(str.indexOf("E")!=-1){
+//            c = "E"
+//        }
+        def userRoleList = UserRole.findAllByUser(user)
+        for (UserRole userRole:userRoleList){
+            def role = new Role()
+            role = userRole.role
+            if (role.description.equals("PT")) {
+                loan_list = LoanAppReceipts.findAllByLoanEmpIdNumber(user2.idNumber)
+            } else if (role.description.equals("KJ")) {
+                loan_list = loanAppReceiptsService.loanAppReceiptsQuery("已审核")
+                break;
+            } else if (role.description.equals("CN")) {
+                loan_list = loanAppReceiptsService.loanAppReceiptsQuery("已过帐")
+                break;
+            }
         }
-        if(str.indexOf("N")!=-1){
-          b = "N"
-        }
-        if(str.indexOf("E")!=-1){
-            c = "E"
-        }
-        render(view: '/loanAppReceipts/loanAppReceiptsList', model: [loan_list: loan_list,menuId:menuId,a:a,b:b,c:c])
+//        loan_list = loanAppReceiptsService.loanAppReceiptsQuery()
+//        render(view: '/loanAppReceipts/loanAppReceiptsList', model: [loan_list: loan_list,menuId:menuId,a:a,b:b,c:c])
+        render(view: '/loanAppReceipts/loanAppReceiptsList', model: [loan_list: loan_list,menuId:menuId])
     }
 
     /**
@@ -86,7 +105,28 @@ class LoanAppReceiptsController {
      */
     def  loanAppReceiptsGJQuery(params){
         loan_list = new ArrayList<LoanAppReceipts>();
-        loan_list = loanAppReceiptsService.loanAppReceiptsGJQuery(params)
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = User.findByUsername(currentUserName)
+        def user2 = UserLogin.findByLoginName(currentUserName)
+        def idNum = user2.idNumber
+        def index = 0
+        def userRoleList = UserRole.findAllByUser(user)
+        for (UserRole userRole:userRoleList){
+            def role = new Role()
+            role = userRole.role
+            if (role.description.equals("PT")) {
+                index = 1
+                break;
+            } else if (role.description.equals("KJ")) {
+                index = 2
+                break;
+            } else if (role.description.equals("CN")) {
+                index = 3
+                break;
+            }
+        }
+        loan_list = loanAppReceiptsService.loanAppReceiptsGJQuery(params,idNum,index)
+//        loan_list = loanAppReceiptsService.loanAppReceiptsGJQuery(params)
         render(view: '/loanAppReceipts/loanAppReceiptsList', model: [loan_list: loan_list,startDate:params["startDate"],
                 endDate:params["endDate"],loanAppReceiptsId:params["loanAppReceiptsId"],loanStatus:params["loanStatus"]])
     }
@@ -123,15 +163,27 @@ class LoanAppReceiptsController {
     def loanAppReceiptsSave(params) {
         println("LoanAppReceiptsController loanAppReceiptsSave is loading....")
         def loanId = getLoanId()
-        String currentUserName = springSecurityService.getPrincipal().username;
-        def user = User.findByUsername(currentUserName)
+
         loanAppReceipts = new LoanAppReceipts();
 //        loanAppReceipts.id=0;
         loanAppReceipts.loanAppReceiptsId = loanId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
         loanAppReceipts = loanAppRec(loanAppReceipts,params)
         loanAppReceipts.loanStatus = "已保存"
         loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts) ;
-        def exmApp = loanAppReceiptsService.getProcessApprove(user.role.authority)
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = User.findByUsername(currentUserName)
+        def user2 = UserLogin.findByLoginName(currentUserName)
+        def userRoleList = UserRole.findAllByUser(user)
+        def role1 = new Role()
+        for (UserRole userRole:userRoleList){
+            def role = new Role()
+            role = userRole.role
+            if (!role.description.equals("PT") && !role.description.equals("KJ") && !role.description.equals("CN")) {
+                role1=role
+                break;
+            }
+        }
+        def exmApp = loanAppReceiptsService.getProcessApprove(role1.authority,user2.companyNo,"LOAN")
         String type = "";
         if (exmApp.firstName!=null && exmApp.secondName==null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
             type = "A";

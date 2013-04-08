@@ -90,7 +90,10 @@
 <g:form id="gFrom" name="gFrom" action="bxdSave" controller="bxReceipt" method="post">
 <table width="100%"  style="height:500px"  border="0" cellpadding="0" cellspacing="0">
 <tr>
-    <td colspan="9" align="center" height="20"><h2>费用报销单</h2></td>
+    <td colspan="9" align="center" height="20">
+        <h2>费用报销单</h2>
+        <input type="hidden" name="act" value="add">
+    </td>
 </tr>
 <tr>
     <td colspan="4">
@@ -134,7 +137,6 @@
                                         <td height="21">成本中心：</td>
                                         <td height="21">
                                             <select id="costCenter" name="costCenter">
-                                                <option value="-1">----请选择----</option>
                                                 <option value="1">2012-生安部-XXX</option>
                                                 <option value="2">2012-技术部-XXX</option>
                                                 <option value="3">2012-人事部-XXX</option>
@@ -605,7 +607,7 @@
     <td>&nbsp;&nbsp;</td>
     <td height="30"><input style="width: 100" type="button" value="保存" onclick="commForm(0)"></td>
     <td><input style="width: 100" type="button" value="提交" onclick="commForm(2)"></td>
-    <td><input style="width: 100" type="button" value="返回" ></td>
+    <td><input style="width: 100" type="button" value="返回" onclick="commForm(3)"></td>
     <td><input style="width: 100" type="button" value="执行过账" disabled></td>
     <td><input style="width: 100" type="button" value="执行付款" disabled></td>
 </tr>
@@ -620,7 +622,7 @@
 <script type="text/javascript">
     function commForm(id){
 //           alert(document.getElementById("bxdStatus").value);
-        var status=document.getElementById("bxdStatus").value
+        var status=document.getElementById("bxdStatus").value;
         if(status=="已保存"){
            id=1;
         }
@@ -631,7 +633,10 @@
             gForm.action = "bxdUpdate";
         }else if(id==2){
             gForm.action = "bxdCommit";
+        }else if(id==3){
+            gForm.action = "index";
         }
+
         gForm.controller = "bxReceipt"
         gForm.submit();
     }

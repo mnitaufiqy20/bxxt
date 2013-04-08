@@ -38,7 +38,7 @@ class BxReceiptService {
             return list
         }
     }
-    def queryReceipt(params){
+    def queryReceipt(params,String idNum,int index){
          def strSql = " from BxReceipt where 1=1"
         if(params['rNo']!=null&&params['rNo'].length()>0){
            strSql+=" and bxNo like '%"+params['rNo']+"%'"
@@ -55,6 +55,15 @@ class BxReceiptService {
         if(params["startDate"]==null && params["endDate"]!=null){
             strSql += " and applicationDate < '"+params["endDate"] +"'"
         }
+
+        if(index==1){
+            strSql += " and bxEmpIdNumber='"+idNum+"' "
+        }else if(index==2){
+            strSql += " and bxdStatus='已审核' "
+        }else if(index==3){
+            strSql += " and bxdStatus='已过帐' "
+        }
+
         strSql += " order by id asc "
         print(strSql)
         List<BxReceipt> list = BxReceipt.findAll(strSql)

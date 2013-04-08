@@ -97,18 +97,18 @@
                                             </tr>
                                             <tr>
 
-                                                <g:if test="${a =="V"}">
+                                                %{--<g:if test="${a =="V"}">--}%
                                                     <td height="30" colspan="3" align="right"><input type="button" value="查询" onclick="query();"></td>
-                                                </g:if>
-                                                <g:else>
-                                                    <td height="30" colspan="3" align="right"><input type="button" value="查询" disabled></td>
-                                                </g:else>
-                                                <g:if test="${b =="N"}">
+                                                %{--</g:if>--}%
+                                                %{--<g:else>--}%
+                                                    %{--<td height="30" colspan="3" align="right"><input type="button" value="查询" disabled></td>--}%
+                                                %{--</g:else>--}%
+                                                %{--<g:if test="${b =="N"}">--}%
                                                     <td colspan="2" align="right"><input type="button" value="新增" onclick="location='../loanAppReceipts/loanAppReceiptsAdd'"></td>
-                                                </g:if>
-                                                <g:else>
-                                                    <td colspan="2" align="right"><input type="button" value="新增" disabled></td>
-                                                </g:else>
+                                                %{--</g:if>--}%
+                                                %{--<g:else>--}%
+                                                    %{--<td colspan="2" align="right"><input type="button" value="新增" disabled></td>--}%
+                                                %{--</g:else>--}%
                                                 <td>&nbsp;</td>
                                             </tr>
                                         </table>
