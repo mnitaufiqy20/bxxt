@@ -227,7 +227,7 @@ class BxReceiptController {
         saveZhaoDai(params,bxdNo,type)
         List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
         listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
-        startFlow();
+        startFlow(bxdNo);
         render(view: '/bxReceipt/bxReceiptUpdate',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
     /**
@@ -271,13 +271,40 @@ class BxReceiptController {
         render(view: '/bxReceipt/bxReceiptDetail',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
 
+    def bxdLookUp(params){
+        String type="lookUp"
+        print("Start lookUp ......")
+        String  bxdNo="0"
+        bxdNo = params['bxNo'];
+        bxReceipt=bxReceiptService.getBxdById(bxdNo).get(0)
+
+        List<BxOther> listOther = new ArrayList<BxOther>()
+        listOther=bxOtherService.otherQueryByBxdNo(bxdNo)
+        //保存借款信息
+        List<BxLoan> listLoan = new ArrayList<BxLoan>()
+        listLoan = bxLoanService.loanQueryByBxdNo(bxdNo)
+        //保存差旅信息
+        List<BxTravel> listTravel = new ArrayList<BxTravel>()
+        listTravel = bxTravelService.travelQueryByBxdNo(bxdNo)
+        BxTravel bxTravel = new BxTravel();
+//        bxTravel.clTravelDaysCount=Integer.parseInt( params['clTravelDaysCount'])
+//        bxTravel.clTravelDetails = params['clTravelDetails']
+        //保存办公信息
+        List<BxWork> listWork = new ArrayList<BxWork>()
+        listWork = bxWorkService.workQueryByBxdNo(bxdNo)
+        //保存招待信息
+        List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
+        listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
+        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
+    }
+
     def bxdCommit(){
         def action = params["act"]
         if (action.equals("add")){
             def bxId = getBxdNo()
             bxReceipt = new BxReceipt()
             bxReceipt.bxNo = bxId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
-            startFlow()
+            startFlow(bxId)
         }else if (params["act"].equals("update")){
             bxReceipt=bxReceiptService.getBxdById(params["bxNo"]).get(0)
         }
@@ -311,7 +338,7 @@ class BxReceiptController {
     /**
      * 启动流程
      */
-    def startFlow(){
+    def startFlow(String bxdNo){
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = User.findByUsername(currentUserName)
         def user2 = UserLogin.findByLoginName(currentUserName)
@@ -952,7 +979,18 @@ class BxReceiptController {
         SimpleDateFormat matter=new SimpleDateFormat("yyyy-MM-dd")
         String nowDate = matter.format(date);
         String currentUserName = springSecurityService.getPrincipal().username;
-        def user = UserLogin.findByLoginName(currentUserName)
+//        def userL = UserLogin.findByLoginName(currentUserName)
+        def user = User.findByUsername(currentUserName)
+        def userRoleList = UserRole.findAllByUser(user)
+        def role = new Role()
+        for (UserRole userRole:userRoleList){
+            def role1 = new Role()
+            role1 = userRole.role
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ") && !role1.description.equals("CN")) {
+                role=role1
+                break;
+            }
+        }
         def taskId = params["taskId"]
         def bxReceiptsId = params["bxReceiptsId"]
         bxReceipt=bxReceiptService.getBxdById(bxReceiptsId).get(0)
@@ -976,7 +1014,7 @@ class BxReceiptController {
         List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
         listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxReceiptsId)
         def historyLists = handle(taskId,bxReceiptsId)
-        render(view: '/bxReceipt/bxHandle',model: [nowDate:nowDate,user:user,taskId:taskId,bxReceipt:bxReceipt,
+        render(view: '/bxReceipt/bxHandle',model: [nowDate:nowDate,user:user,role:role,taskId:taskId,bxReceipt:bxReceipt,
                 listOther:listOther,listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,historyLists:historyLists])
 //        render(view: '/bxReceipt/bxHandle')
     }
@@ -1096,8 +1134,19 @@ class BxReceiptController {
                 //获取参与者（受托人）的名称
 //                taskStore.setAssignee(historyTask.getAssignee());
                 User userL = User.findById(historyTask.getAssignee())
-                taskStore.setAssignee(userL.username);
-                taskStore.setExamAppNamePosition(userL.empPosition)
+                UserLogin userLogin = UserLogin.findByLoginName(userL.username)
+                taskStore.setAssignee(userLogin.loginName);
+                def userRoleList = UserRole.findAllByUser(userL)
+                def role1 = new Role()
+                for (UserRole userRole:userRoleList){
+                    def role = new Role()
+                    role = userRole.role
+                    if (!role.description.equals("PT") && !role.description.equals("KJ") && !role.description.equals("CN")) {
+                        role1=role
+                        break;
+                    }
+                }
+                taskStore.setExamAppNamePosition(role1.authority)
             }
             def date = historyTask.getEndTime()
             def time = ""

@@ -126,7 +126,7 @@ class LoanAppReceiptsService {
 
     def getTaskByExecutionId(String executionId){
         def strSql = "SELECT DBID_, EXECUTION_ID_, ASSIGNEE_, TASKDEFNAME_ \n" +
-                "\tFROM PEIHAO.JBPM4_TASK WHERE EXECUTION_ID_='"+executionId+"'"
+                "\tFROM JBPM4_TASK WHERE EXECUTION_ID_='"+executionId+"'"
         def conn = null;
         try {
 

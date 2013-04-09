@@ -6,6 +6,10 @@ import com.capgemini.eis.adapter.framework.requester.impl.BaseServiceRequester
 import com.capgemini.eis.adapter.framework.message.IMsgObject
 import com.capgemini.eis.adapter.framework.message.implcom.MsgConstants
 import com.capgemini.eis.adapter.framework.message.impl.GroupRecord
+import jbpm.SpringUtil
+import java.sql.Statement
+import java.sql.ResultSet
+import com.chd.bx.security.User
 
 class AccSubjectImportService {
     /**
@@ -64,5 +68,19 @@ class AccSubjectImportService {
             msg = "请求查询失败，错误信息：[未知错误]";
         }
         return accSubjectImportList;
+    }
+
+    def delete(String companyCode){
+        def strSql="DELETE FROM TI_ACC_SUBJECT_IMPORT WHERE COMPANY_CODE='"+companyCode+"'"
+        def conn = null;
+        try {
+            org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy ds = SpringUtil.getBean("dataSource");
+            conn = ds.getConnection()
+            Statement stmt = conn.createStatement();
+            stmt.execute(strSql);
+            stmt.close()
+        } catch (Exception e1) {
+            e1.printStackTrace()
+        }
     }
 }

@@ -14,21 +14,21 @@
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'mark.css')}" type="text/css">
     <script type="text/javascript">
         function markColor(){
-             if('${loanAppReceipts.loanStatus}'=='已保存'){
+             if('${loanAppReceipts.loanStatus.trim()}'=='已保存'){
                  document.getElementById("save").style.backgroundColor = "green";
-             }else if('${loanAppReceipts.loanStatus}'=='已提交'){
+             }else if('${loanAppReceipts.loanStatus.trim()}'=='已提交'){
                  document.getElementById("save").style.backgroundColor = "green";
                  document.getElementById("commit").style.backgroundColor = "green";
-             }else if('${loanAppReceipts.loanStatus}'=='已审核'){
+             }else if('${loanAppReceipts.loanStatus.trim()}'=='已审核'){
                  document.getElementById("save").style.backgroundColor = "green";
                  document.getElementById("commit").style.backgroundColor = "green";
                  document.getElementById("deputy").style.backgroundColor = "green";
-             }else if('${loanAppReceipts.loanStatus}'=='已过账'){
+             }else if('${loanAppReceipts.loanStatus.trim()}'=='已过账'){
                  document.getElementById("save").style.backgroundColor = "green";
                  document.getElementById("commit").style.backgroundColor = "green";
                  document.getElementById("deputy").style.backgroundColor = "green";
                  document.getElementById("post").style.backgroundColor = "green";
-             }else if('${loanAppReceipts.loanStatus}'=='已付款'){
+             }else if('${loanAppReceipts.loanStatus.trim()}'=='已付款'){
                  document.getElementById("save").style.backgroundColor = "green";
                  document.getElementById("commit").style.backgroundColor = "green";
                  document.getElementById("deputy").style.backgroundColor = "green";
@@ -72,7 +72,7 @@
                                             <td height="30">借款员工身份证号：</td>
                                             %{--<td height="30">借款员工编号：</td>--}%
                                             <td height="30">
-                                                <input type="text" id="loanEmpIdNumber" name="loanEmpIdNumber" value="${loanAppReceipts.loanEmpIdNumber}" readonly>
+                                                <input type="text" id="loanEmpIdNumber" name="loanEmpIdNumber" value="${loanAppReceipts.loanEmpIdNumber}" disabled>
                                                 <input type="hidden" id="loanEmpNo" name="loanEmpNo" value="${loanAppReceipts.loanEmpNo}">
                                                 %{--选项只能为本公司员工--}%
                                                 %{--<select id="loanEmpNo" name="loanEmpNo" disabled>--}%
@@ -239,7 +239,7 @@
         <td height="30"><input type="submit" value="保存" disabled></td>
         <td><input type="button" value="提交" disabled></td>
         <td><input type="button" value="返回" onclick="location='../loanAppReceipts/loanAppReceiptsQuery?menuId=${menuId}'"></td>
-        <g:if test="${loanAppReceipts.loanStatus=="已审核" && user.empPosition=="过账会计"}">
+        <g:if test="${loanAppReceipts.loanStatus=="已审核" && role.description=="JKKJ"}">
             <td><input type="button" value="执行过账" onclick="location='../loanCerIntegration/loanCerIntegration?type=loan&loanAppReceiptsId=${loanAppReceipts.loanAppReceiptsId}'"></td>
         </g:if>
         <g:else>
@@ -253,7 +253,13 @@
                 <div>会计人员执行！</div>
             </span>
         </td>
-        <td><input type="button" value="执行付款" disabled></td>
+        <g:if test="${loanAppReceipts.loanStatus=="已过账" && role.description=="JKCN"}">
+            <td><input type="button" value="执行付款" onclick="location='../loanCerIntegration/loanCerIntegration?type=jkfk&loanAppReceiptsId=${loanAppReceipts.loanAppReceiptsId}'"></td>
+        </g:if>
+        <g:else>
+            <td><input type="button" value="执行付款" disabled></td>
+        </g:else>
+
         <td>&nbsp;&nbsp;</td>
         <td>&nbsp;&nbsp;</td>
     </tr>

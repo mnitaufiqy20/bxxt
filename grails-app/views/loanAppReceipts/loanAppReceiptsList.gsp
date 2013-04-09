@@ -158,16 +158,16 @@
                                                             <td>${item.loanStatus}</td>
                                                             <td>
                                                                 <g:if test="${item.loanStatus=='已保存'}">
-                                                                    <g:if test="${c =="E"}">
+                                                                    %{--<g:if test="${c =="E"}">--}%
                                                                         <a href="../loanAppReceipts/editLoanAppReceipts?loanAppReceiptsId=${item.loanAppReceiptsId}&menuId=${menuId}">
                                                                             修改
                                                                         </a>
-                                                                    </g:if>
-                                                                    <g:else>
-                                                                        <a href="#">
-                                                                            修改
-                                                                        </a>
-                                                                    </g:else>
+                                                                    %{--</g:if>--}%
+                                                                    %{--<g:else>--}%
+                                                                        %{--<a href="#">--}%
+                                                                            %{--修改--}%
+                                                                        %{--</a>--}%
+                                                                    %{--</g:else>--}%
 
                                                                 </g:if>
 
@@ -175,16 +175,16 @@
                                                                     %{--查看--}%
                                                                     %{--</g:if>--}%
                                                                 <g:else>
-                                                                    <g:if test="${a =="V"}">
+                                                                    %{--<g:if test="${a =="V"}">--}%
                                                                         <a href="../loanAppReceipts/lookUpLoanAppReceipts?loanAppReceiptsId=${item.loanAppReceiptsId}&menuId=${menuId}">
                                                                             查看
                                                                         </a>
-                                                                    </g:if>
-                                                                    <g:else>
-                                                                        <a href="#">
-                                                                            查看
-                                                                        </a>
-                                                                    </g:else>
+                                                                    %{--</g:if>--}%
+                                                                    %{--<g:else>--}%
+                                                                        %{--<a href="#">--}%
+                                                                            %{--查看--}%
+                                                                        %{--</a>--}%
+                                                                    %{--</g:else>--}%
                                                                 </g:else>
                                                             </td>
                                                         </tr>

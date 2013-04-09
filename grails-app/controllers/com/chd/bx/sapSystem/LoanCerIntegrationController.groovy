@@ -3,24 +3,61 @@ package com.chd.bx.sapSystem
 import com.chd.bx.accSubSafeguard.AccSubSafeguard
 import com.chd.bx.expenseAccount.LoanAppReceipts
 import sapSystem.LoanCerIntegrationOutput
+import com.chd.bx.security.User
+import com.chd.bx.security.UserRole
+import com.chd.bx.security.Role
+import com.chd.bx.bxd.BxReceipt
 
 class LoanCerIntegrationController {
     def loanCerIntegrationService = new LoanCerIntegrationService()
     def loanAppReceiptsService
+    def bxReceiptService
+    def springSecurityService
     def index() {
         redirect(action: "list", params: params)
     }
 
     def loanCerIntegration(params){
         def type = params["type"]
-        def loanId = params["loanAppReceiptsId"]
-        def loanAppReceipts = new LoanAppReceipts()
-        def accSubjectImportList = AccSubjectImport.findAllByCompanyCode()
+        def loanId
+        def loanAppReceipts
+        def accSubjectImportList
+        def bxNo
+        def bxReceipt
         if (type.equals("loan")){
+            loanId = params["loanAppReceiptsId"]
+            loanAppReceipts = new LoanAppReceipts()
             loanAppReceipts = LoanAppReceipts.findByLoanAppReceiptsId(loanId)
             accSubjectImportList = AccSubjectImport.findAllByCompanyCode(loanAppReceipts.loanCompanyNo)
+            render(view: '/loanCerIntegration/loanCerIntegration',model:[loanAppReceipts:loanAppReceipts,type:type,accSubjectImportList:accSubjectImportList])
+        }else if (type.equals("jkfk")){
+            loanId = params["loanAppReceiptsId"]
+            loanAppReceipts = new LoanAppReceipts()
+            loanAppReceipts = LoanAppReceipts.findByLoanAppReceiptsId(loanId)
+            loanAppReceipts.loanStatus = "已付款"
+            loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
+            String currentUserName = springSecurityService.getPrincipal().username;
+            def user = User.findByUsername(currentUserName)
+            def role = new Role()
+            role = getRole()
+            def menuId = params["menuId"]
+            render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,role:role,menuId: menuId])
+        }else if (type.equals("fybx")){
+
+        }else if (type.equals("bxfk")){
+            bxNo = params["bxNo"]
+            bxReceipt = new BxReceipt()
+            bxReceipt = BxReceipt.findByBxNo(bxNo)
+            bxReceipt.bxdStatus = "已付款"
+            bxReceiptService.bxdSave(bxReceipt)
+            String currentUserName = springSecurityService.getPrincipal().username;
+            def user = User.findByUsername(currentUserName)
+            def role = new Role()
+            role = getRole()
+            def menuId = params["menuId"]
+            render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,role:role,menuId: menuId])
         }
-        render(view: '/loanCerIntegration/loanCerIntegration',model:[loanAppReceipts:loanAppReceipts,type:type,accSubjectImportList:accSubjectImportList])
+
     }
     def loanCerIntegrationSave(){
 //        def type = params["type"]
@@ -50,6 +87,31 @@ class LoanCerIntegrationController {
             loanAppReceipts.loanStatus = "已过账"
             loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
         }
-        render(view: '/loanAppReceipts/loanAppReceiptsCommit',model: [loanAppReceipts: loanAppReceipts])
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = User.findByUsername(currentUserName)
+        def role = new Role()
+        role = getRole()
+        def menuId = params["menuId"]
+        render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,role:role,menuId: menuId])
+    }
+
+    /**
+     * 获得角色
+     * @return role
+     */
+    def getRole(){
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = User.findByUsername(currentUserName)
+        def userRoleList = UserRole.findAllByUser(user)
+        def role = new Role()
+        for (UserRole userRole:userRoleList){
+            def role1 = new Role()
+            role1 = userRole.role
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ") && !role1.description.equals("CN")) {
+                role = role1
+                break;
+            }
+        }
+        return role
     }
 }

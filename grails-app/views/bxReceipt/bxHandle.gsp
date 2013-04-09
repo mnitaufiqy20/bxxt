@@ -641,8 +641,8 @@
             <tr align="center">
                 <td height="30" width="10%">1<input type="hidden" name="taskId" value="${taskId}"></td>
                 <td width="30%">${nowDate}</td>
-                <td width="20%">${user.empPosition}</td>
-                <td width="15%">${user.userName}</td>
+                <td width="20%">${role.authority}</td>
+                <td width="15%">${user.username}</td>
                 <td  width="20%">
                     <select id="examAppIdea" width="20%" name="examAppIdea" onchange="changeIdea();">
                         <option width="20%" value="approve">同意</option>

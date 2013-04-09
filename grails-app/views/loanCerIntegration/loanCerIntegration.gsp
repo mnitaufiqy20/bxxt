@@ -12,6 +12,20 @@
   <title></title>
     <script type="text/javascript">
         function commForm(){
+            var readySubject = document.getElementById("readySubject").value;
+            var bankSubject = document.getElementById("bankSubject").value;
+            var type = "${loanAppReceipts.loanPaymentType}";
+            if(type=="银行转账"){
+                if(bankSubject==0){
+                    alert("请选择银行科目！");
+                    return;
+                }
+            }else{
+                if(readySubject==0){
+                    alert("请选择现金科目!");
+                    return;
+                }
+            }
             var gForm = document.getElementById("gForm");
             gForm.constructor = "loanCerIntegration";
             gForm.action = "loanCerIntegrationSave";

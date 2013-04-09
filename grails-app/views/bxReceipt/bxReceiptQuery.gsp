@@ -123,7 +123,7 @@
                                                             <td><a href="../bxReceipt/bxdEdit?bxNo=${item.bxNo}">修改</a></td>
                                                             </g:if>
                                                             <g:else>
-                                                                <td><a href="../bxReceipt/bxdUpdate?bxNo=${item.bxNo}">查看</a></td>
+                                                                <td><a href="../bxReceipt/bxdLookUp?bxNo=${item.bxNo}">查看</a></td>
                                                             </g:else>
                                                         </tr>
                                                     </g:each>

@@ -121,7 +121,7 @@
                                                 </td>
                                                 <td>${item.taskId}</td>
                                                 <td>${item.taskName}</td>
-                                                <td>${userName}</td>
+                                                <td>${item.userName}</td>
                                                 <td>${item.processName}</td>
                                                 <td>${item.createTime}</td>
                                                 <td>
@@ -182,7 +182,7 @@
                                                 </td>
                                                 <td>${item.taskId}</td>
                                                 <td>${item.taskName}</td>
-                                                <td>${userName}</td>
+                                                <td>${item.userName}</td>
                                                 <td>${item.processName}</td>
                                                 <td>${item.createTime}</td>
                                                 <td>

@@ -7,6 +7,8 @@ import jbpm.WorkflowFactory
 import com.chd.bx.login.UserLogin
 import java.text.SimpleDateFormat
 import com.chd.bx.security.User
+import com.chd.bx.expenseAccount.LoanAppReceipts
+import com.chd.bx.bxd.BxReceipt
 
 /***
  * 在办箱业务逻辑处理
@@ -44,6 +46,14 @@ class ProcessesController {
 //                sbf.append( "\") >"  );
 //                sbf.append("办理</a>"                  );
                 taskStore.setWfNo(loanId.toString());
+                def s = loanId.toString().substring(0,1)
+                def name = ""
+                if (s.equals("J")){
+                    name = LoanAppReceipts.findByLoanAppReceiptsId(loanId.toString()).loanEmpName;
+                }else{
+                    name = BxReceipt.findByBxNo(loanId.toString()).bxEmpName;
+                }
+                taskStore.setUserName(name);
                 taskStore.setTaskId(task.getId());
                 taskStore.setTaskName(task.getName());
                 taskStore.setProcessName(processDefinition.getName());

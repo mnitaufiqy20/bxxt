@@ -14,6 +14,8 @@ public class TaskStore {
     private String taskId;
     //用户ID
     private String userid;
+    //申请人姓名
+    public String userName;
     //任务参与者
     private String assignee;
     //任务名称
@@ -55,6 +57,15 @@ public class TaskStore {
     public void setUserid(String userid) {
         this.userid = userid;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getAssignee() {
         return assignee;
     }

@@ -13,13 +13,20 @@ class CostCenterImportController {
     def index2() {
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = UserLogin.findByLoginName(currentUserName)
-        render(view: '/costCenterImport/costCenterImport',model: [user:user])
+        costCenterImportList = CostCenterImport.findAllByCompanyCode(user.companyNo)
+        render(view: '/costCenterImport/costCenterImport',model: [user:user,costCenterImportList:costCenterImportList])
     }
 
     def costCenterImport(params) {
         def companyCode = params["companyCode"]
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
+        def list = CostCenterImport.findAllByCompanyCode(companyCode)
+        if (list!=null && list.size()>0){
+            costCenterImportService.delete(companyCode)
+        }
         costCenterImportList = costCenterImportService.costCenterImport(companyCode)
-        render(view: '/costCenterImport/costCenterImport',model: [costCenterImportList: costCenterImportList])
+        render(view: '/costCenterImport/costCenterImport',model: [user:user,costCenterImportList: costCenterImportList])
     }
 
 }

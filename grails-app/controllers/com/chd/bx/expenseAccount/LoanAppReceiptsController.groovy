@@ -73,7 +73,7 @@ class LoanAppReceiptsController {
                 loan_list = loanAppReceiptsService.loanAppReceiptsQuery("已审核")
                 break;
             } else if (role.description.equals("CN")) {
-                loan_list = loanAppReceiptsService.loanAppReceiptsQuery("已过帐")
+                loan_list = loanAppReceiptsService.loanAppReceiptsQuery("已过账")
                 break;
             }
         }
@@ -163,71 +163,14 @@ class LoanAppReceiptsController {
     def loanAppReceiptsSave(params) {
         println("LoanAppReceiptsController loanAppReceiptsSave is loading....")
         def loanId = getLoanId()
-
-        loanAppReceipts = new LoanAppReceipts();
+        def loanAppReceipts = new LoanAppReceipts();
 //        loanAppReceipts.id=0;
         loanAppReceipts.loanAppReceiptsId = loanId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
         loanAppReceipts = loanAppRec(loanAppReceipts,params)
         loanAppReceipts.loanStatus = "已保存"
-        loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts) ;
-        String currentUserName = springSecurityService.getPrincipal().username;
-        def user = User.findByUsername(currentUserName)
-        def user2 = UserLogin.findByLoginName(currentUserName)
-        def userRoleList = UserRole.findAllByUser(user)
-        def role1 = new Role()
-        for (UserRole userRole:userRoleList){
-            def role = new Role()
-            role = userRole.role
-            if (!role.description.equals("PT") && !role.description.equals("KJ") && !role.description.equals("CN")) {
-                role1=role
-                break;
-            }
-        }
-        def exmApp = loanAppReceiptsService.getProcessApprove(role1.authority,user2.companyNo,"LOAN")
-        String type = "";
-        if (exmApp.firstName!=null && exmApp.secondName==null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
-            type = "A";
-        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
-            type = "B";
-        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName==null && exmApp.fifthName==null){
-            type = "C";
-        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName!=null && exmApp.fifthName==null){
-            type = "D";
-        }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName!=null && exmApp.fifthName!=null){
-            type = "E";
-        }
-        def map = new HashMap<String, Object>()
-        map.put("loanId",loanId)
-        map.put("type",type)
-        map.put("userId",User.findByUserId(user.userId).id)
-        if (exmApp.getFirstName()==null){
-            map.put("first","")
-        }else{
-            map.put("first",User.findByUsername(exmApp.getFirstName()).id)
-        }
-        if (exmApp.getSecondName()==null){
-            map.put("second","")
-        }else{
-            map.put("second",User.findByUsername(exmApp.getSecondName()).id)
-        }
-        if (exmApp.getThirdName()==null){
-            map.put("third","")
-        }else{
-            map.put("third",User.findByUsername(exmApp.getThirdName()).id)
-        }
-        if (exmApp.getFourthName()==null){
-            map.put("fourth","")
-        }else{
-            map.put("fourth",User.findByUsername(exmApp.getFourthName()).id)
-        }
-        if (exmApp.getFifthName()==null){
-            map.put("fifth","")
-        }else{
-            map.put("fifth",User.findByUsername(exmApp.getFifthName()).id)
-        }
-
-        workflowFactory.startWorkflow(processEngine,"LoanAppRec",map)
+        loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts);
         def menuId = params["menuId"]
+        startFlow(loanId);
         render(view: '/loanAppReceipts/loanAppReceiptsUpdate',model: [loanAppReceipts: loanAppReceipts,menuId: menuId])
     }
 
@@ -238,10 +181,11 @@ class LoanAppReceiptsController {
      */
     def commitLoanAppReceipts(params){
         def action = params["act"]
+        def loanAppReceipts = new LoanAppReceipts()
         if (action.equals("add")){
             def loanId = getLoanId()
-            loanAppReceipts = new LoanAppReceipts()
             loanAppReceipts.loanAppReceiptsId = loanId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
+            startFlow(loanId);
         }else if (params["act"].equals("update")){
             loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(params["loanAppReceiptsId"])
         }
@@ -273,6 +217,70 @@ class LoanAppReceiptsController {
     }
 
     /**
+     * 启动流程
+     */
+    def startFlow(String loanId){
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = User.findByUsername(currentUserName)
+        def user2 = UserLogin.findByLoginName(currentUserName)
+        def userRoleList = UserRole.findAllByUser(user)
+        def role1 = new Role()
+        for (UserRole userRole:userRoleList){
+            def role = new Role()
+            role = userRole.role
+            if (!role.description.equals("PT") && !role.description.equals("KJ") && !role.description.equals("CN")) {
+                role1=role
+                break;
+            }
+        }
+        def exmApp = loanAppReceiptsService.getProcessApprove(role1.authority,user2.companyNo,"LOAN")
+        if(exmApp!=null) {
+            String type = "";
+            if (exmApp.firstName!=null && exmApp.secondName==null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
+                type = "A";
+            }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
+                type = "B";
+            }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName==null && exmApp.fifthName==null){
+                type = "C";
+            }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName!=null && exmApp.fifthName==null){
+                type = "D";
+            }else if (exmApp.firstName!=null && exmApp.secondName!=null && exmApp.thirdName!=null && exmApp.fourthName!=null && exmApp.fifthName!=null){
+                type = "E";
+            }
+            def map = new HashMap<String, Object>()
+            map.put("loanId",loanId)
+            map.put("type",type)
+            map.put("userId",User.findByUserId(user.userId).id)
+            if (exmApp.getFirstName()==null){
+                map.put("first","")
+            }else{
+                map.put("first",User.findByUsername(exmApp.getFirstName()).id)
+            }
+            if (exmApp.getSecondName()==null){
+                map.put("second","")
+            }else{
+                map.put("second",User.findByUsername(exmApp.getSecondName()).id)
+            }
+            if (exmApp.getThirdName()==null){
+                map.put("third","")
+            }else{
+                map.put("third",User.findByUsername(exmApp.getThirdName()).id)
+            }
+            if (exmApp.getFourthName()==null){
+                map.put("fourth","")
+            }else{
+                map.put("fourth",User.findByUsername(exmApp.getFourthName()).id)
+            }
+            if (exmApp.getFifthName()==null){
+                map.put("fifth","")
+            }else{
+                map.put("fifth",User.findByUsername(exmApp.getFifthName()).id)
+            }
+            workflowFactory.startWorkflow(processEngine,"LoanAppRec",map)
+        }
+    }
+
+    /**
      * 修改
      * @param params
      * @return
@@ -293,12 +301,23 @@ class LoanAppReceiptsController {
      * @return
      */
     def lookUpLoanAppReceipts(params){
+        def loanAppReceipts = new LoanAppReceipts()
         loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(params["loanAppReceiptsId"])
 //        def user = (UserLogin)session.getAttribute("user")
         String currentUserName = springSecurityService.getPrincipal().username;
-        def user = UserLogin.findByLoginName(currentUserName)
+        def user = User.findByUsername(currentUserName)
+        def userRoleList = UserRole.findAllByUser(user)
+        def role = new Role()
+        for (UserRole userRole:userRoleList){
+            def role1 = new Role()
+            role1 = userRole.role
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ") && !role1.description.equals("CN")) {
+                role=role1
+                break;
+            }
+        }
         def menuId = params["menuId"]
-        render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,menuId: menuId])
+        render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,role:role,menuId: menuId])
     }
 
     /**
@@ -327,7 +346,18 @@ class LoanAppReceiptsController {
         SimpleDateFormat matter=new SimpleDateFormat("yyyy-MM-dd")
         String nowDate = matter.format(date);
         String currentUserName = springSecurityService.getPrincipal().username;
-        def user = UserLogin.findByLoginName(currentUserName)
+        def userL = UserLogin.findByLoginName(currentUserName)
+        def user = User.findByUsername(currentUserName)
+        def userRoleList = UserRole.findAllByUser(user)
+        def role = new Role()
+        for (UserRole userRole:userRoleList){
+            def role1 = new Role()
+            role1 = userRole.role
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ") && !role1.description.equals("CN")) {
+                role=role1
+                break;
+            }
+        }
         def taskId = params["taskId"]
         def loanAppReceiptsId = params["loanAppReceiptsId"]
         loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(loanAppReceiptsId)
@@ -335,7 +365,8 @@ class LoanAppReceiptsController {
 //        String type = loanAppReceiptsId.toString().substring(0,1);
         def menuId = params["menuId"]
 //        if("J".equals(type)){
-            render(view: '/loanAppReceipts/loanAppReceiptsExamine', model: [nowDate:nowDate,user:user,loanAppReceipts: loanAppReceipts,taskId:taskId,historyLists:historyLists,menuId: menuId])
+            render(view: '/loanAppReceipts/loanAppReceiptsExamine', model: [nowDate:nowDate,user:user,loanAppReceipts: loanAppReceipts,
+                    taskId:taskId,historyLists:historyLists,menuId: menuId,role:role])
 //        }else if ("B".equals(type)){
 //            render(view: '/bxReceipt/bxHandle', model: [nowDate:nowDate,user:user,loanAppReceipts: loanAppReceipts,taskId:taskId,historyLists:historyLists,menuId: menuId])
 //        }
@@ -458,9 +489,8 @@ class LoanAppReceiptsController {
 
         //流水号（三位）
         def serialNumberList = new ArrayList<String>()
-        def empNo = user.empNo
         loan_list = new ArrayList<LoanAppReceipts>()
-        loan_list = loanAppReceiptsService.loanAppReceiptsQuery(empNo)
+        loan_list = LoanAppReceipts.findAllByLoanCompanyNo(user.companyNo)
         def n1 = 0
         def n2 = 0
         if(loan_list !=null && loan_list.size()>0){
@@ -611,8 +641,19 @@ class LoanAppReceiptsController {
                 //获取参与者（受托人）的名称
 //                taskStore.setAssignee(historyTask.getAssignee());
                 User userL = User.findById(historyTask.getAssignee())
-                taskStore.setAssignee(userL.username);
-                taskStore.setExamAppNamePosition(userL.empPosition)
+                UserLogin userLogin = UserLogin.findByLoginName(userL.username)
+                taskStore.setAssignee(userLogin.loginName);
+                def userRoleList = UserRole.findAllByUser(userL)
+                def role1 = new Role()
+                for (UserRole userRole:userRoleList){
+                    def role = new Role()
+                    role = userRole.role
+                    if (!role.description.equals("PT") && !role.description.equals("KJ") && !role.description.equals("CN")) {
+                        role1=role
+                        break;
+                    }
+                }
+                taskStore.setExamAppNamePosition(role1.authority)
             }
             def date = historyTask.getEndTime()
             def time = ""
@@ -689,6 +730,8 @@ class LoanAppReceiptsController {
 //                sbf.append( "\") >"  );
 //                sbf.append("办理</a>"                  );
                 taskStore.setWfNo(loanId.toString());
+                def name = LoanAppReceipts.findByLoanAppReceiptsId(loanId.toString()).loanEmpName;
+                taskStore.setUserName(name);
                 taskStore.setTaskId(task.getId());
                 taskStore.setTaskName(task.getName());
                 taskStore.setProcessName(processDefinition.getName());

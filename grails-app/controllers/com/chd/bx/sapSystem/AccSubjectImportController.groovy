@@ -12,12 +12,19 @@ class AccSubjectImportController {
     def index2() {
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = UserLogin.findByLoginName(currentUserName)
-        render(view: '/accSubjectImport/accSubjectImport',model: [user:user])
+        accSubjectImportList = new ArrayList<AccSubjectImport>()
+        render(view: '/accSubjectImport/accSubjectImport',model: [user:user,accSubjectImportList: accSubjectImportList])
     }
     def accSubjectImport(params){
         def companyCode = params["companyCode"]
         def subjectNo = params["subjectNo"]
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
+        def list = AccSubjectImport.findAllByCompanyCode(companyCode);
+        if (list!=null && list.size()>0){
+            accSubjectImportService.delete(companyCode)
+        }
         accSubjectImportList = accSubjectImportService.accSubjectImport(companyCode,subjectNo)
-        render(view: '/accSubjectImport/accSubjectImport',model: [accSubjectImportList: accSubjectImportList])
+        render(view: '/accSubjectImport/accSubjectImport',model: [user:user,accSubjectImportList: accSubjectImportList])
     }
 }

@@ -602,11 +602,32 @@
 </tr>
 <tr>
     <td>&nbsp;&nbsp;</td>
-    <td height="30"><input style="width: 100" type="button" value="保存" onclick="commForm(0)"></td>
-    <td><input style="width: 100" type="button" value="提交" onclick="commForm(2)"></td>
-    <td><input style="width: 100" type="button" value="返回" onclick="commForm(3)"></td>
-    <td><input style="width: 100" type="button" value="执行过账" disabled></td>
-    <td><input style="width: 100" type="button" value="执行付款" disabled></td>
+<tr>
+    <td>&nbsp;&nbsp;</td>
+    <td height="30"><input type="submit" value="保存" disabled></td>
+    <td><input type="button" value="提交" disabled></td>
+    <td><input type="button" value="返回" onclick="location='../loanAppReceipts/loanAppReceiptsQuery?menuId=${menuId}'"></td>
+    <g:if test="${bxReceipt.bxdStatus=="已审核" && role.description=="BXKJ"}">
+        <td><input type="button" value="执行过账" onclick="location='../loanCerIntegration/loanCerIntegration?type=fybx&bxNo=${bxReceipt.bxNo}'"></td>
+    </g:if>
+    <g:else>
+        <td><input type="button" value="执行过账" disabled></td>
+    </g:else>
+
+    <td>
+        <span style="color: red">
+            <div>此功能在所有审批通过后</div>
+            <div>由负责费用报销的</div>
+            <div>会计人员执行！</div>
+        </span>
+    </td>
+    <g:if test="${bxReceipt.bxdStatus=="已过账" && role.description=="BXCN"}">
+        <td><input type="button" value="执行付款" onclick="location='../loanCerIntegration/loanCerIntegration?type=bxfk&bxNo=${bxReceipt.bxNo}'"></td>
+    </g:if>
+    <g:else>
+        <td><input type="button" value="执行付款" disabled></td>
+    </g:else>
+
 </tr>
 </table>
     <input type="hidden" name="bxdStatus" id="bxdStatus" value="${bxReceipt.bxdStatus}">
