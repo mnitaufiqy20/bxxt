@@ -82,6 +82,9 @@ class LoanAppReceiptsService {
                 println("success")
             } else {
                 println("error")
+//                loanAppReceipts.errors.allErrors.each {
+//                    println it
+//                }
             }
         } catch (Exception e) {
             e.printStackTrace()

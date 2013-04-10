@@ -22,6 +22,7 @@ import com.chd.bx.security.UserRole
 import com.chd.bx.security.Menu
 import com.chd.bx.security.Role
 import com.chd.bx.bxd.BxReceipt
+import com.chd.bx.sapSystem.CostCenterImport
 
 class LoanAppReceiptsController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -141,18 +142,11 @@ class LoanAppReceiptsController {
         Date date = new Date()
         SimpleDateFormat matter=new SimpleDateFormat("yyyy-MM-dd")
         String nowDate = matter.format(date);
-//        def empNo = params["loanEmpNo"]
-//        def emp = new UserLogin()
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = UserLogin.findByLoginName(currentUserName)
-//        if (empNo!=null && empNo!=-1) {
-//            emp = loanAppReceiptsService.loanAppReceiptsAddChangeEmpNo(empNo)
-//            render(view: '/expenseAccount/loanAppReceiptsAdd', model: [nowDate: nowDate,emp:emp])
-//        }else{
-//            render(view: '/expenseAccount/loanAppReceiptsAdd', model: [nowDate: nowDate])
-//        }
+        def costCenterList = CostCenterImport.findAllByCompanyCode(user.companyNo)
         def menuId = params["menuId"]
-        render(view: '/loanAppReceipts/loanAppReceiptsAdd', model: [nowDate: nowDate,user:user,menuId: menuId])
+        render(view: '/loanAppReceipts/loanAppReceiptsAdd', model: [nowDate: nowDate,user:user,menuId: menuId,costCenterList:costCenterList])
     }
 
     /**
@@ -171,7 +165,10 @@ class LoanAppReceiptsController {
         loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts);
         def menuId = params["menuId"]
         startFlow(loanId);
-        render(view: '/loanAppReceipts/loanAppReceiptsUpdate',model: [loanAppReceipts: loanAppReceipts,menuId: menuId])
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
+        def costCenterList = CostCenterImport.findAllByCompanyCode(user.companyNo)
+        render(view: '/loanAppReceipts/loanAppReceiptsUpdate',model: [loanAppReceipts: loanAppReceipts,menuId: menuId,costCenterList:costCenterList])
     }
 
     /**
@@ -185,13 +182,17 @@ class LoanAppReceiptsController {
         if (action.equals("add")){
             def loanId = getLoanId()
             loanAppReceipts.loanAppReceiptsId = loanId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
+            loanAppReceipts = loanAppRec(loanAppReceipts,params)
+            loanAppReceipts.loanStatus = "已提交"
+            loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
             startFlow(loanId);
         }else if (params["act"].equals("update")){
             loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(params["loanAppReceiptsId"])
+            loanAppReceipts = loanAppRec(loanAppReceipts,params)
+            loanAppReceipts.loanStatus = "已提交"
+            loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
         }
-        loanAppReceipts = loanAppRec(loanAppReceipts,params)
-        loanAppReceipts.loanStatus = "已提交"
-        loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
+
 
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = User.findByUsername(currentUserName)
@@ -730,7 +731,13 @@ class LoanAppReceiptsController {
 //                sbf.append( "\") >"  );
 //                sbf.append("办理</a>"                  );
                 taskStore.setWfNo(loanId.toString());
-                def name = LoanAppReceipts.findByLoanAppReceiptsId(loanId.toString()).loanEmpName;
+                def s = loanId.toString().substring(0,1)
+                def name = ""
+                if (s.equals("J")){
+                    name = LoanAppReceipts.findByLoanAppReceiptsId(loanId.toString()).loanEmpName;
+                }else{
+                    name = BxReceipt.findByBxNo(loanId.toString()).bxEmpName;
+                }
                 taskStore.setUserName(name);
                 taskStore.setTaskId(task.getId());
                 taskStore.setTaskName(task.getName());

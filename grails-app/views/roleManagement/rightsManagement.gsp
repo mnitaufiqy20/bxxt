@@ -136,7 +136,7 @@
         gForm.submit();
     }
     function updateRights(){
-        alert(document.getElementById("roleCode").value);
+//        alert(document.getElementById("roleCode").value);
         var checkLook=document.getElementsByName("rightLook");
         var lookList="";
         for(var i=0;i<checkLook.length;i++){

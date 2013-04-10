@@ -89,10 +89,10 @@
 <body id=""  onload="markColor();">
 <g:form id="gFrom" name="gFrom" action="bxdSave" controller="bxReceipt" method="post">
 <table width="100%"  style="height:500px"  border="0" cellpadding="0" cellspacing="0">
+<input type="hidden" name="act" value="add">
 <tr>
     <td colspan="9" align="center" height="20">
         <h2>费用报销单</h2>
-        <input type="hidden" name="act" value="add">
     </td>
 </tr>
 <tr>
@@ -569,48 +569,34 @@
         </table>
     </td>
 </tr>
-%{--  预算相关信息    end    --}%
-%{--<tr>--}%
-    %{--<td colspan="9" height="30"><div style="width: 150px;background: #ADCDF4;">审批历史</div></td>--}%
-%{--</tr>--}%
-%{--<tr>--}%
-    %{--<td>&nbsp;&nbsp;</td>--}%
-    %{--<td colspan="7">--}%
-        %{--<table width="100%" height="46"  border="1" cellpadding="0" cellspacing="0">--}%
-            %{--<tr align="center">--}%
-                %{--<td height="23" width="10%">序号</td>--}%
-                %{--<td width="30%">审批时间</td>--}%
-                %{--<td width="20%">审批人职位</td>--}%
-                %{--<td width="15%">审批人</td>--}%
-                %{--<td width="20%">审批意见</td>--}%
-            %{--</tr>--}%
-            %{--<tr align="center">--}%
-                %{--<td height="23" width="10%">1</td>--}%
-                %{--<td width="30%">2011-11-6 00:00:00</td>--}%
-                %{--<td width="20%">生安部部长</td>--}%
-                %{--<td width="15%">ELLE</td>--}%
-                %{--<td  width="20%">--}%
-                    %{--<select id="search" width="20%">--}%
-                        %{--<option width="20%" value="同意">同意</option>--}%
-                        %{--<option width="20%" value="不同意">不同意</option>--}%
-                    %{--</select>--}%
-                %{--</td>--}%
-            %{--</tr>--}%
-        %{--</table>--}%
-    %{--</td>--}%
-    %{--<td>&nbsp;&nbsp;</td>--}%
-%{--</tr>--}%
 <tr>
     <td height="30">&nbsp;&nbsp;&nbsp;</td>
 </tr>
 <tr>
     <td>&nbsp;&nbsp;</td>
-    <td height="30"><input style="width: 100" type="button" value="保存" onclick="commForm(0)"></td>
-    <td><input style="width: 100" type="button" value="提交" onclick="commForm(2)"></td>
-    <td><input style="width: 100" type="button" value="返回" onclick="commForm(3)"></td>
-    <td><input style="width: 100" type="button" value="执行过账" disabled></td>
-    <td><input style="width: 100" type="button" value="执行付款" disabled></td>
+    <td height="30"><input type="button" value="保存" onclick="commForm(0);"></td>
+    <td><input type="button" value="提交" onclick="commForm(2);"></td>
+    <td><input type="button" value="返回" onclick="commForm(3);"></td>
+    <td><input type="button" value="执行过账" disabled></td>
+    <td>
+        <span style="color: red">
+            <div>此功能在所有审批通过后</div>
+            <div>由负责费用报销的</div>
+            <div>会计人员执行！</div>
+        </span>
+    </td>
+    <td><input type="button" value="执行付款" disabled></td>
+    <td>&nbsp;&nbsp;</td>
+    <td>&nbsp;&nbsp;</td>
 </tr>
+%{--<tr>--}%
+    %{--<td>&nbsp;&nbsp;</td>--}%
+    %{--<td height="30"><input style="width: 100" type="button" value="保存" onclick="commForm(0)"></td>--}%
+    %{--<td><input style="width: 100" type="button" value="提交" onclick="commForm(2)"></td>--}%
+    %{--<td><input style="width: 100" type="button" value="返回" onclick="commForm(3)"></td>--}%
+    %{--<td><input style="width: 100" type="button" value="执行过账" disabled></td>--}%
+    %{--<td><input style="width: 100" type="button" value="执行付款" disabled></td>--}%
+%{--</tr>--}%
 </table>
     <input type="hidden" name="bxdStatus" id="bxdStatus" value="${bxReceipt.bxdStatus}">
 </g:form>
@@ -621,12 +607,14 @@
 <script>document.getElementById("billsCurr").value = "${bxReceipt.billsCurr}";</script>
 <script type="text/javascript">
     function commForm(id){
+        alert(id);
 //           alert(document.getElementById("bxdStatus").value);
-        var status=document.getElementById("bxdStatus").value;
-        if(status=="已保存"){
-           id=1;
-        }
+//        var status=document.getElementById("bxdStatus").value;
+//        if(status=="已保存"){
+//           id=1;
+//        }
         var gForm = document.getElementById("gFrom");
+        alert("gForm:"+gForm);
         if(id==0){
             gForm.action = "bxdSave";
         }else if(id==1){
@@ -636,8 +624,7 @@
         }else if(id==3){
             gForm.action = "index";
         }
-
-        gForm.controller = "bxReceipt"
+        gForm.controller = "bxReceipt";
         gForm.submit();
     }
 </script>

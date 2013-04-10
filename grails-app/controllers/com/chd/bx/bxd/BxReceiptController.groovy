@@ -177,7 +177,8 @@ class BxReceiptController {
         if (listZhaoDai==null){
             listZhaoDai = new ArrayList<BxZhaoDai>()
         }
-        render(view: '../bxReceipt/bxReceiptDetail',model: [bxReceipt:bxReceipt,bxTravel:bxTravel,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listZhaoDai:listZhaoDai,listWork:listWork])
+        render(view: '../bxReceipt/bxReceiptUpdate',model: [bxReceipt:bxReceipt,bxTravel:bxTravel,listOther:listOther,
+                listLoan:listLoan,listTravel:listTravel,listZhaoDai:listZhaoDai,listWork:listWork])
     }
     /**
      * 根据报销单号获取报销单信息
@@ -228,7 +229,8 @@ class BxReceiptController {
         List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
         listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
         startFlow(bxdNo);
-        render(view: '/bxReceipt/bxReceiptUpdate',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
+        render(view: '/bxReceipt/bxReceiptUpdate',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,
+                listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
     /**
      *   修改保存
@@ -295,9 +297,26 @@ class BxReceiptController {
         //保存招待信息
         List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
         listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
-        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = User.findByUsername(currentUserName)
+        def userRoleList = UserRole.findAllByUser(user)
+        def role = new Role()
+        for (UserRole userRole:userRoleList){
+            def role1 = new Role()
+            role1 = userRole.role
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ") && !role1.description.equals("CN")) {
+                role=role1
+                break;
+            }
+        }
+        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt:bxReceipt,user: user,role:role,listOther:listOther,
+                listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
 
+    /**
+     * 提交单据
+     * @return
+     */
     def bxdCommit(){
         def action = params["act"]
         if (action.equals("add")){
@@ -311,6 +330,7 @@ class BxReceiptController {
         bxReceipt=bxRep(bxReceipt,params)
         bxReceipt.bxdStatus = "已提交"
         bxReceiptService.bxdSave(bxReceipt)
+        def bxdNo = bxReceipt.bxNo
 
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = User.findByUsername(currentUserName)
@@ -331,8 +351,37 @@ class BxReceiptController {
 
         //发送邮件给下一个办理人
 //        sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱
-        def menuId = params["menuId"]
-        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt: bxReceipt,menuId: menuId])
+//        String currentUserName = springSecurityService.getPrincipal().username;
+//        def user = User.findByUsername(currentUserName)
+        def userRoleList = UserRole.findAllByUser(user)
+        def role = new Role()
+        for (UserRole userRole:userRoleList){
+            def role1 = new Role()
+            role1 = userRole.role
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ") && !role1.description.equals("CN")) {
+                role=role1
+                break;
+            }
+        }
+        List<BxOther> listOther = new ArrayList<BxOther>()
+        listOther=bxOtherService.otherQueryByBxdNo(bxdNo)
+        //保存借款信息
+        List<BxLoan> listLoan = new ArrayList<BxLoan>()
+        listLoan = bxLoanService.loanQueryByBxdNo(bxdNo)
+        //保存差旅信息
+        List<BxTravel> listTravel = new ArrayList<BxTravel>()
+        listTravel = bxTravelService.travelQueryByBxdNo(bxdNo)
+        BxTravel bxTravel = new BxTravel();
+//        bxTravel.clTravelDaysCount=Integer.parseInt( params['clTravelDaysCount'])
+//        bxTravel.clTravelDetails = params['clTravelDetails']
+        //保存办公信息
+        List<BxWork> listWork = new ArrayList<BxWork>()
+        listWork = bxWorkService.workQueryByBxdNo(bxdNo)
+        //保存招待信息
+        List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
+        listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
+        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt:bxReceipt,user: user,role:role,listOther:listOther,
+                listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
 
     /**
@@ -690,7 +739,7 @@ class BxReceiptController {
             if (index>1){
                 for(int i=1;i<index;i++){
                     BxWork bxWork = new BxWork();
-                    bxWork=bxWorkRep(bxWork,params,i,bxdNo)
+                    bxWork=bxWorkRep(bxWork,params,i,bxdNo,type)
                     if (bxWork.bNo>0){
                         bxWorkService.workSave(bxWork)
                     }
@@ -735,7 +784,7 @@ class BxReceiptController {
             if (index>1){
                 for(int i=1;i<index;i++){
                     BxZhaoDai bxZhaoDai = new BxZhaoDai();
-                    bxZhaoDai=bxZhaoDaiRep(bxZhaoDai,params,i,bxdNo)
+                    bxZhaoDai=bxZhaoDaiRep(bxZhaoDai,params,i,bxdNo,type)
                     if (bxZhaoDai.zNo>0){
                         bxZhaoDaiService.zhaoDaiSave(bxZhaoDai)
                     }

@@ -123,6 +123,9 @@
                                                 <td height="30">成本中心：</td>
                                                 <td height="30">
                                                     <select id="loanCostCenter" name="loanCostCenter" onblur="emptyVerify('loanCostCenter');">
+                                                        %{--<g:each in="${costCenterList}" var="item">--}%
+                                                            %{--<option value="${item.costCenterNo}">${item.costCenterDes}</option>--}%
+                                                        %{--</g:each>--}%
                                                         <option value="-1">----请选择----</option>
                                                         <option value="1">2012-生安部-XXX</option>
                                                         <option value="2">2012-技术部-XXX</option>
@@ -196,6 +199,9 @@
                                                 <td height="30">预算中心：</td>
                                                 <td height="30">
                                                     <select id="loanBudgetCenter" name="loanBudgetCenter" onblur="emptyVerify('loanBudgetCenter');">
+                                                        %{--<g:each in="${costCenterList}" var="item">--}%
+                                                            %{--<option value="${item.costCenterNo}">${item.costCenterDes}</option>--}%
+                                                        %{--</g:each>--}%
                                                         <option value="1">2012-生安部-XXX</option>
                                                         <option value="2">2012-技术部-XXX</option>
                                                         <option value="3">2012-人事部-XXX</option>
@@ -310,13 +316,13 @@
             <td>&nbsp;&nbsp;</td>
         </tr>
     </table>
-<g:if test="${emp!=null}">
-    <script>document.getElementById("loanEmpNo").value = "${emp.empNo}";</script>
-    <script>document.getElementById("loanEmpName").value = "${emp.userName}";</script>
-    <script>document.getElementById("loanEmpPhone").value = "${emp.telephone}";</script>
-    <script>document.getElementById("loanCompanyNo").value = "${emp.companyNo}";</script>
-    <script>document.getElementById("loanEmpPosition").value = "${emp.empPosition}";</script>
-</g:if>
+%{--<g:if test="${emp!=null}">--}%
+    %{--<script>document.getElementById("loanEmpNo").value = "${emp.empNo}";</script>--}%
+    %{--<script>document.getElementById("loanEmpName").value = "${emp.userName}";</script>--}%
+    %{--<script>document.getElementById("loanEmpPhone").value = "${emp.telephone}";</script>--}%
+    %{--<script>document.getElementById("loanCompanyNo").value = "${emp.companyNo}";</script>--}%
+    %{--<script>document.getElementById("loanEmpPosition").value = "${emp.empPosition}";</script>--}%
+%{--</g:if>--}%
 </g:form>
 </body>
 </html>

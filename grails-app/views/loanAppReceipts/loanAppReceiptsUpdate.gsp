@@ -125,6 +125,9 @@
                                             <td height="30">成本中心：</td>
                                             <td height="30">
                                                 <select id="loanCostCenter" name="loanCostCenter">
+                                                    %{--<g:each in="${costCenterList}" var="item">--}%
+                                                        %{--<option value="${item.costCenterNo}">${item.costCenterDes}</option>--}%
+                                                    %{--</g:each>--}%
                                                     <option value="1">2012-生安部-XXX</option>
                                                     <option value="2">2012-技术部-XXX</option>
                                                     <option value="3">2012-人事部-XXX</option>
@@ -176,6 +179,9 @@
                                             <td height="30">预算中心：</td>
                                             <td height="30">
                                                 <select id="loanBudgetCenter" name="loanBudgetCenter">
+                                                    %{--<g:each in="${costCenterList}" var="item">--}%
+                                                        %{--<option value="${item.costCenterNo}">${item.costCenterDes}</option>--}%
+                                                    %{--</g:each>--}%
                                                     <option value="1">2012-生安部-XXX</option>
                                                     <option value="2">2012-技术部-XXX</option>
                                                     <option value="3">2012-人事部-XXX</option>
@@ -233,36 +239,6 @@
             </table>
         </td>
     </tr>
-    %{--<tr>--}%
-        %{--<td colspan="9" height="30"><div style="width: 150px;background: #ADCDF4;">审批历史</div></td>--}%
-    %{--</tr>--}%
-    %{--<tr>--}%
-        %{--<td>&nbsp;&nbsp;</td>--}%
-        %{--<td colspan="7">--}%
-            %{--<table width="100%" height="60"  border="1" cellpadding="0" cellspacing="0">--}%
-                %{--<tr align="center">--}%
-                    %{--<td height="30" width="10%">序号</td>--}%
-                    %{--<td width="30%">审批时间</td>--}%
-                    %{--<td width="20%">审批人职位</td>--}%
-                    %{--<td width="15%">审批人</td>--}%
-                    %{--<td width="20%">审批意见</td>--}%
-                %{--</tr>--}%
-                %{--<tr align="center">--}%
-                    %{--<td height="30" width="10%">1</td>--}%
-                    %{--<td width="30%">2011-11-6 00:00:00</td>--}%
-                    %{--<td width="20%">生安部部长</td>--}%
-                    %{--<td width="15%">ELLE</td>--}%
-                    %{--<td  width="20%">--}%
-                        %{--<select id="search" width="20%">--}%
-                            %{--<option width="20%" value="同意">同意</option>--}%
-                            %{--<option width="20%" value="不同意">不同意</option>--}%
-                        %{--</select>--}%
-                    %{--</td>--}%
-                %{--</tr>--}%
-            %{--</table>--}%
-        %{--</td>--}%
-        %{--<td>&nbsp;&nbsp;</td>--}%
-    %{--</tr>--}%
     <tr>
         <td height="30">&nbsp;&nbsp;&nbsp;</td>
     </tr>

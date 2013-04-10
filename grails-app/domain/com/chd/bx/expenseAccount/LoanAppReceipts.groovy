@@ -36,7 +36,7 @@ class LoanAppReceipts {
         loanCompanyNo nullable: false, maxSize: 15
         loanDepartmentNo nullable: false, maxSize: 50
         loanEmpName nullable: false, maxSize: 12
-        loanEmpPhone nullable: false, maxSize: 11
+        loanEmpPhone nullable: false, maxSize: 22
         loanEmpPosition nullable: false, maxSize: 25
         loanEmpIdNumber nullable: false, maxSize: 18
         loanBudgetCenter nullable: false, maxSize: 20
