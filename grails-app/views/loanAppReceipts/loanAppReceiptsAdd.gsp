@@ -239,10 +239,14 @@
                                                 %{--计算公式：借款金额－已还金额--}%
                                                 <td><input id="loanBalance" name="loanBalance" type="text" value="0" readonly></td>
                                             </tr>
-
                                             <tr>
-                                                <td height="30">&nbsp;&nbsp;&nbsp;</td>
-                                                <td>&nbsp;&nbsp;&nbsp;</td>
+                                                <td height="30">票据类别：</td>
+                                                <td>
+                                                    <select id="billsCurr" name="billsCurr">
+                                                        <option value="CNY">CNY</option>
+                                                        <option value="USD">USD</option>
+                                                    </select>
+                                                </td>
                                                 <td>&nbsp;&nbsp;&nbsp;</td>
                                                 <td>&nbsp;&nbsp;&nbsp;</td>
                                             </tr>

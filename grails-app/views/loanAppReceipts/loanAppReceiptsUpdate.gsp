@@ -215,8 +215,13 @@
                                         </tr>
 
                                         <tr>
-                                            <td height="30">&nbsp;&nbsp;&nbsp;</td>
-                                            <td>&nbsp;&nbsp;&nbsp;</td>
+                                            <td height="30">票据类别：</td>
+                                            <td>
+                                                <select id="billsCurr" name="billsCurr">
+                                                    <option value="CNY">CNY</option>
+                                                    <option value="USD">USD</option>
+                                                </select>
+                                            </td>
                                             <td>&nbsp;&nbsp;&nbsp;</td>
                                             <td>&nbsp;&nbsp;&nbsp;</td>
                                         </tr>
@@ -265,5 +270,6 @@
 <script>document.getElementById("loanCostCenter").value = "${loanAppReceipts.loanCostCenter}";</script>
 <script>document.getElementById("loanBudgetCenter").value = "${loanAppReceipts.loanBudgetCenter}";</script>
 <script>document.getElementById("loanPaymentType").value = "${loanAppReceipts.loanPaymentType}";</script>
+<script>document.getElementById("billsCurr").value = "${loanAppReceipts.billsCurr}";</script>
 </body>
 </html>

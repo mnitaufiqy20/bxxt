@@ -270,7 +270,8 @@ class BxReceiptController {
         saveZhaoDai(params,bxdNo,type)
         List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
         listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
-        render(view: '/bxReceipt/bxReceiptDetail',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
+        render(view: '/bxReceipt/bxReceiptUpdate',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,listTravel:listTravel,
+                listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
 
     def bxdLookUp(params){
@@ -304,8 +305,10 @@ class BxReceiptController {
         for (UserRole userRole:userRoleList){
             def role1 = new Role()
             role1 = userRole.role
-            if (!role1.description.equals("PT") && !role1.description.equals("KJ") && !role1.description.equals("CN")) {
-                role=role1
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("B")) {
+                role = role1
                 break;
             }
         }
@@ -353,13 +356,16 @@ class BxReceiptController {
 //        sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱
 //        String currentUserName = springSecurityService.getPrincipal().username;
 //        def user = User.findByUsername(currentUserName)
+        def user2 = UserLogin.findByLoginName(currentUserName)
         def userRoleList = UserRole.findAllByUser(user)
         def role = new Role()
         for (UserRole userRole:userRoleList){
             def role1 = new Role()
             role1 = userRole.role
-            if (!role1.description.equals("PT") && !role1.description.equals("KJ") && !role1.description.equals("CN")) {
-                role=role1
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("B")) {
+                role = role1
                 break;
             }
         }
@@ -392,17 +398,19 @@ class BxReceiptController {
         def user = User.findByUsername(currentUserName)
         def user2 = UserLogin.findByLoginName(currentUserName)
         def userRoleList = UserRole.findAllByUser(user)
-        def role1 = new Role()
+        def role = new Role()
         for (UserRole userRole:userRoleList){
-            def role = new Role()
-            role = userRole.role
-            if (!role.description.equals("PT") && !role.description.equals("KJ") && !role.description.equals("CN")) {
-                role1=role
+            def role1 = new Role()
+            role1 = userRole.role
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("B")) {
+                role = role1
                 break;
             }
         }
 //        def exmApp = loanAppReceiptsService.getProcessApprove(user.role.authority,user2.companyNo,"FYBX")
-        def exmApp = loanAppReceiptsService.getProcessApprove(role1.authority,user2.companyNo,"FYBX")
+        def exmApp = loanAppReceiptsService.getProcessApprove(role.authority,user2.companyNo,"FYBX")
         String ty = "";
         if (exmApp.firstName!=null && exmApp.secondName==null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
             ty = "A";
@@ -1035,8 +1043,10 @@ class BxReceiptController {
         for (UserRole userRole:userRoleList){
             def role1 = new Role()
             role1 = userRole.role
-            if (!role1.description.equals("PT") && !role1.description.equals("KJ") && !role1.description.equals("CN")) {
-                role=role1
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("B")) {
+                role = role1
                 break;
             }
         }
@@ -1186,16 +1196,18 @@ class BxReceiptController {
                 UserLogin userLogin = UserLogin.findByLoginName(userL.username)
                 taskStore.setAssignee(userLogin.loginName);
                 def userRoleList = UserRole.findAllByUser(userL)
-                def role1 = new Role()
+                def role = new Role()
                 for (UserRole userRole:userRoleList){
-                    def role = new Role()
-                    role = userRole.role
-                    if (!role.description.equals("PT") && !role.description.equals("KJ") && !role.description.equals("CN")) {
-                        role1=role
+                    def role1 = new Role()
+                    role1 = userRole.role
+                    def str = role1.description.substring(0,1)
+                    if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                            && !role1.description.equals("CN") && str.equals("B")) {
+                        role = role1
                         break;
                     }
                 }
-                taskStore.setExamAppNamePosition(role1.authority)
+                taskStore.setExamAppNamePosition(role.authority)
             }
             def date = historyTask.getEndTime()
             def time = ""
@@ -1250,8 +1262,8 @@ class BxReceiptController {
      */
     def returnProcessList() {
         String currentUserName = springSecurityService.getPrincipal().username;
-        def user = UserLogin.findByLoginName(currentUserName)
-        def userId = user.userId
+        def user = User.findByUsername(currentUserName)
+        def userId = user.id.toString()
 //        List<Processes> loan_list = new ArrayList<Processes>();
         List<TaskStore> list = new ArrayList<TaskStore>();
         // 获取当前用户任务列表
@@ -1272,6 +1284,14 @@ class BxReceiptController {
 //                sbf.append( "\") >"  );
 //                sbf.append("办理</a>"                  );
                 taskStore.setWfNo(loanId.toString());
+                def s = loanId.toString().substring(0,1)
+                def name = ""
+                if (s.equals("J")){
+                    name = LoanAppReceipts.findByLoanAppReceiptsId(loanId.toString()).loanEmpName;
+                }else{
+                    name = BxReceipt.findByBxNo(loanId.toString()).bxEmpName;
+                }
+                taskStore.setUserName(name);
                 taskStore.setTaskId(task.getId());
                 taskStore.setTaskName(task.getName());
                 taskStore.setProcessName(processDefinition.getName());
@@ -1300,7 +1320,7 @@ class BxReceiptController {
             }
         }
 //        loan_list = processesService.getProcessList();
-        render(view: '/processes/processesList', model: [list: list,loanList:loanList,bxList:bxList,userName:user.userName])
+        render(view: '/processes/processesList', model: [list: list,loanList:loanList,bxList:bxList,userName:user.name])
     }
 
     /**

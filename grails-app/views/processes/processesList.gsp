@@ -144,13 +144,13 @@
             </table>
         </td>
     </tr>
-    <g:if test="${loanList.size()==3}">
-    <tr>
-        <td align="right" >
-            <a style="color: blue;" href="../processes/processesListDetail?type=2"><b>点击查看更多～</b></a>
-        </td>
-    </tr>
-    </g:if>
+    %{--<g:if test="${loanList.size()==3}">--}%
+    %{--<tr>--}%
+        %{--<td align="right" >--}%
+            %{--<a style="color: blue;" href="../processes/processesListDetail?type=2"><b>点击查看更多～</b></a>--}%
+        %{--</td>--}%
+    %{--</tr>--}%
+    %{--</g:if>--}%
 </table>
 <h3><div style="color: #000000;">报销单～待办事项</div></h3>
 <table width="100%"  border="0" cellpadding="0" cellspacing="0">
@@ -205,13 +205,13 @@
             </table>
         </td>
     </tr>
-    <g:if test="${bxList.size()==3}">
-        <tr>
-            <td align="right" >
-                <a style="color: blue;" href="../processes/processesListDetail?type=2"><b>点击查看更多～</b></a>
-            </td>
-        </tr>
-    </g:if>
+    %{--<g:if test="${bxList.size()==3}">--}%
+        %{--<tr>--}%
+            %{--<td align="right" >--}%
+                %{--<a style="color: blue;" href="../processes/processesListDetail?type=2"><b>点击查看更多～</b></a>--}%
+            %{--</td>--}%
+        %{--</tr>--}%
+    %{--</g:if>--}%
 </table>
 </body>
 

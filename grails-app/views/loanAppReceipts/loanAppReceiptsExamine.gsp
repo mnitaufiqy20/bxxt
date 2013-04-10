@@ -123,7 +123,7 @@
                                             <td height="30">借款员工身份证号：</td>
                                             %{--<td height="30">借款员工编号：</td>--}%
                                             <td height="30">
-                                                <input type="text" id="loanEmpIdNumber" name="loanEmpIdNumber" value="${loanAppReceipts.loanEmpIdNumber}" readonly>
+                                                <input type="text" id="loanEmpIdNumber" name="loanEmpIdNumber" value="${loanAppReceipts.loanEmpIdNumber}" disabled>
                                                 <input type="hidden" id="loanEmpNo" name="loanEmpNo" value="${loanAppReceipts.loanEmpNo}">
                                                 %{--选项只能为本公司员工--}%
                                                 %{--<select id="loanEmpNo" name="loanEmpNo">--}%
@@ -134,33 +134,33 @@
                                                 %{--</select>--}%
                                             </td>
                                             <td height="30">借款员工姓名：</td>
-                                            <td height="30"><input type="text" id="loanEmpName" name="loanEmpName" value="${loanAppReceipts.loanEmpName}" readonly></td>
+                                            <td height="30"><input type="text" id="loanEmpName" name="loanEmpName" value="${loanAppReceipts.loanEmpName}" disabled></td>
                                         </tr>
                                         <tr>
                                             <td height="30">成本中心：</td>
                                             <td height="30">
-                                                <select id="loanCostCenter" name="loanCostCenter" readonly>
+                                                <select id="loanCostCenter" name="loanCostCenter" disabled>
                                                     <option value="1">2012-生安部-XXX</option>
                                                     <option value="2">2012-技术部-XXX</option>
                                                     <option value="3">2012-人事部-XXX</option>
                                                 </select>
                                             </td>
                                             <td height="30">借款员工电话：</td>
-                                            <td height="30"><input type="text" id="loanEmpPhone" name="loanEmpPhone" value="${loanAppReceipts.loanEmpPhone}" readonly></td>
+                                            <td height="30"><input type="text" id="loanEmpPhone" name="loanEmpPhone" value="${loanAppReceipts.loanEmpPhone}" disabled></td>
                                         </tr>
                                         <tr>
                                             <td height="30">公司名称：</td>
-                                            <td height="30"><input type="text" id="loanCompanyNo" name="loanCompanyNo" value="${loanAppReceipts.loanCompanyNo}" readonly></td>
+                                            <td height="30"><input type="text" id="loanCompanyNo" name="loanCompanyNo" value="${loanAppReceipts.loanCompanyNo}" disabled></td>
                                             <td height="30">借款员工职位：</td>
-                                            <td height="30"><input type="text" id="loanEmpPosition" name="loanEmpPosition" value="${loanAppReceipts.loanEmpPosition}" readonly></td>
+                                            <td height="30"><input type="text" id="loanEmpPosition" name="loanEmpPosition" value="${loanAppReceipts.loanEmpPosition}" disabled></td>
                                         </tr>
                                         <tr>
                                             <td height="60">用途：</td>
-                                            <td colspan="3" height="60"><textarea id="loanPurpose" name="loanPurpose" rows="3" cols="51" onblur="emptyVerify('loanPurpose');" readonly>${loanAppReceipts.loanPurpose}</textarea></td>
+                                            <td colspan="3" height="60"><textarea id="loanPurpose" name="loanPurpose" rows="3" cols="51" onblur="emptyVerify('loanPurpose');" disabled>${loanAppReceipts.loanPurpose}</textarea></td>
                                         </tr>
                                         <tr>
                                             <td height="60">备注：</td>
-                                            <td colspan="3" height="60"><textarea id="loanRemark" name="loanRemark" rows="3" cols="51" readonly>${loanAppReceipts.loanRemark}</textarea></td>
+                                            <td colspan="3" height="60"><textarea id="loanRemark" name="loanRemark" rows="3" cols="51" disabled>${loanAppReceipts.loanRemark}</textarea></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -190,42 +190,47 @@
                                         <tr>
                                             <td height="30">预算中心：</td>
                                             <td height="30">
-                                                <select id="loanBudgetCenter" name="loanBudgetCenter" readonly>
+                                                <select id="loanBudgetCenter" name="loanBudgetCenter" disabled>
                                                     <option value="1">2012-生安部-XXX</option>
                                                     <option value="2">2012-技术部-XXX</option>
                                                     <option value="3">2012-人事部-XXX</option>
                                                 </select>
                                             </td>
                                             <td height="30">借款金额：</td>
-                                            <td height="30"><input id="loanMoney" name="loanMoney" type="text" value="${loanAppReceipts.loanMoney}" onblur="emptyVerify('loanMoney');" readonly></td>
+                                            <td height="30"><input id="loanMoney" name="loanMoney" type="text" value="${loanAppReceipts.loanMoney}" onblur="emptyVerify('loanMoney');" disabled></td>
                                         </tr>
                                         <tr>
                                             <td height="30">借款日期：</td>
-                                            <td><input id="loanBegDate" name="loanBegDate" type="text" value="${loanAppReceipts.loanBegDate}" readonly></td>
+                                            <td><input id="loanBegDate" name="loanBegDate" type="text" value="${loanAppReceipts.loanBegDate}" disabled></td>
                                             <td>需款日期：</td>
-                                            <td><input id="loanParagraphDate" name="loanParagraphDate" type="text" value="${loanAppReceipts.loanParagraphDate}" class="Wdate" onclick="SelectDate(this,'yyyy-MM-dd',null,null);" onblur="emptyVerify('loanParagraphDate');" readonly></td>
+                                            <td><input id="loanParagraphDate" name="loanParagraphDate" type="text" value="${loanAppReceipts.loanParagraphDate}" class="Wdate" onclick="SelectDate(this,'yyyy-MM-dd',null,null);" onblur="emptyVerify('loanParagraphDate');" disabled></td>
                                         </tr>
                                         <tr>
                                             <td height="30">已还金额：</td>
-                                            <td><input id="loanAlreadyRefund" name="loanAlreadyRefund" type="text" value="${loanAppReceipts.loanAlreadyRefund}" onblur="emptyVerify('loanAlreadyRefund');" readonly></td>
+                                            <td><input id="loanAlreadyRefund" name="loanAlreadyRefund" type="text" value="${loanAppReceipts.loanAlreadyRefund}" onblur="emptyVerify('loanAlreadyRefund');" disabled></td>
                                             <td>经办人姓名：</td>
-                                            <td><input id="loanOperatorName" name="loanOperatorName" type="text" value="${loanAppReceipts.loanOperatorName}" onblur="emptyVerify('loanOperatorName');" readonly></td>
+                                            <td><input id="loanOperatorName" name="loanOperatorName" type="text" value="${loanAppReceipts.loanOperatorName}" onblur="emptyVerify('loanOperatorName');" disabled></td>
                                         </tr>
                                         <tr>
                                             <td height="30">付款方式：</td>
                                             <td>
-                                                <select id="loanPaymentType" name="loanPaymentType" readonly>
+                                                <select id="loanPaymentType" name="loanPaymentType" disabled>
                                                     <option value="银行转账">银行转账</option>
                                                     <option value="现金">现金</option>
                                                 </select>
                                             </td>
                                             <td>借款余额：</td>
-                                            <td><input id="loanBalance" name="loanBalance" type="text" value="${loanAppReceipts.loanBalance}" readonly></td>
+                                            <td><input id="loanBalance" name="loanBalance" type="text" value="${loanAppReceipts.loanBalance}" disabled></td>
                                         </tr>
 
                                         <tr>
-                                            <td height="30">&nbsp;&nbsp;&nbsp;</td>
-                                            <td>&nbsp;&nbsp;&nbsp;</td>
+                                            <td height="30">票据类别：</td>
+                                            <td>
+                                                <select id="billsCurr" name="billsCurr" disabled>
+                                                    <option value="CNY">CNY</option>
+                                                    <option value="USD">USD</option>
+                                                </select>
+                                            </td>
                                             <td>&nbsp;&nbsp;&nbsp;</td>
                                             <td>&nbsp;&nbsp;&nbsp;</td>
                                         </tr>
@@ -344,5 +349,6 @@
 <script>document.getElementById("loanCostCenter").value = "${loanAppReceipts.loanCostCenter}";</script>
 <script>document.getElementById("loanBudgetCenter").value = "${loanAppReceipts.loanBudgetCenter}";</script>
 <script>document.getElementById("loanPaymentType").value = "${loanAppReceipts.loanPaymentType}";</script>
+<script>document.getElementById("billsCurr").value = "${loanAppReceipts.billsCurr}";</script>
 </body>
 </html>

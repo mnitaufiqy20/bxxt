@@ -28,7 +28,7 @@ class LoanAppReceipts {
     String loanPurpose                  //用途                                是
     String loanStatus                   //状态                                是
     String loanRemark                   //备注                                否
-
+    String billsCurr                    //票据类别                            是
     static constraints = {
         loanAppReceiptsId nullable: false, maxSize: 15, unique: true
         loanEmpNo nullable: false, maxSize: 20
@@ -50,6 +50,7 @@ class LoanAppReceipts {
         loanPurpose nullable: false, maxSize: 100
         loanStatus nullable: false, maxSize: 20
         loanRemark nullable: true, maxSize: 100
+        billsCurr nullable: false, maxSize: 10
     }
     static mapping = {
         table 'TT_LOAN_APP_RECEIPTS'

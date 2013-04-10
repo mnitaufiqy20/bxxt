@@ -593,10 +593,6 @@
 <script type="text/javascript">
     function commForm(id){
 //           alert(document.getElementById("bxdStatus").value);
-        var status=document.getElementById("bxdStatus").value;
-        if(status=="已保存"){
-            id=1;
-        }
         var gForm = document.getElementById("gFrom");
         if(id==0){
             gForm.action = "bxdSave";
@@ -607,7 +603,7 @@
         }else if(id==3){
             gForm.action = "index";
         }
-        gForm.controller = "bxReceipt"
+        gForm.controller = "bxReceipt";
         gForm.submit();
     }
 </script>

@@ -606,12 +606,10 @@
 <script>document.getElementById("billsCurr").value = "${bxReceipt.billsCurr}";</script>
 <script type="text/javascript">
     function commForm(id){
+        alert("update:"+id);
 //           alert(document.getElementById("bxdStatus").value);
-        var status=document.getElementById("bxdStatus").value;
         var gForm = document.getElementById("gFrom");
-        if(id==0){
-            gForm.action = "bxdSave";
-        }else if(id==1){
+        if(id==1){
             gForm.action = "bxdUpdate";
         }else if(id==2){
             alert("if:"+id);
@@ -619,7 +617,7 @@
         }else if(id==3){
             gForm.action = "index";
         }
-        gForm.controller = "bxReceipt"
+        gForm.controller = "bxReceipt";
         gForm.submit();
     }
 </script>

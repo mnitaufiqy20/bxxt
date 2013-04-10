@@ -607,7 +607,7 @@
 <script>document.getElementById("billsCurr").value = "${bxReceipt.billsCurr}";</script>
 <script type="text/javascript">
     function commForm(id){
-        alert(id);
+        alert("detail:"+id);
 //           alert(document.getElementById("bxdStatus").value);
 //        var status=document.getElementById("bxdStatus").value;
 //        if(status=="已保存"){

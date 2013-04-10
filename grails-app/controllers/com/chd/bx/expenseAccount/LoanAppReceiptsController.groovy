@@ -15,7 +15,6 @@ import org.hibernate.Session
 import org.jbpm.api.ProcessDefinition
 import processes.ExmAppTask
 import email.SendMail
-import processes.AppHistVar
 import com.chd.bx.security.User
 import com.chd.bx.security.RoleMenu
 import com.chd.bx.security.UserRole
@@ -225,16 +224,18 @@ class LoanAppReceiptsController {
         def user = User.findByUsername(currentUserName)
         def user2 = UserLogin.findByLoginName(currentUserName)
         def userRoleList = UserRole.findAllByUser(user)
-        def role1 = new Role()
+        def role = new Role()
         for (UserRole userRole:userRoleList){
-            def role = new Role()
-            role = userRole.role
-            if (!role.description.equals("PT") && !role.description.equals("KJ") && !role.description.equals("CN")) {
-                role1=role
+            def role1 = new Role()
+            role1 = userRole.role
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("J")) {
+                role = role1
                 break;
             }
         }
-        def exmApp = loanAppReceiptsService.getProcessApprove(role1.authority,user2.companyNo,"LOAN")
+        def exmApp = loanAppReceiptsService.getProcessApprove(role.authority,user2.companyNo,"LOAN")
         if(exmApp!=null) {
             String type = "";
             if (exmApp.firstName!=null && exmApp.secondName==null && exmApp.thirdName==null && exmApp.fourthName==null && exmApp.fifthName==null){
@@ -312,8 +313,10 @@ class LoanAppReceiptsController {
         for (UserRole userRole:userRoleList){
             def role1 = new Role()
             role1 = userRole.role
-            if (!role1.description.equals("PT") && !role1.description.equals("KJ") && !role1.description.equals("CN")) {
-                role=role1
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("J")) {
+                role = role1
                 break;
             }
         }
@@ -354,8 +357,10 @@ class LoanAppReceiptsController {
         for (UserRole userRole:userRoleList){
             def role1 = new Role()
             role1 = userRole.role
-            if (!role1.description.equals("PT") && !role1.description.equals("KJ") && !role1.description.equals("CN")) {
-                role=role1
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("J")) {
+                role = role1
                 break;
             }
         }
@@ -563,6 +568,7 @@ class LoanAppReceiptsController {
         loanApp.loanOperatorName = params["loanOperatorName"]
         loanApp.loanPurpose = params["loanPurpose"]
         loanApp.loanRemark = params["loanRemark"]
+        loanApp.billsCurr = params["billsCurr"]
         return loanApp
     }
 
@@ -645,16 +651,18 @@ class LoanAppReceiptsController {
                 UserLogin userLogin = UserLogin.findByLoginName(userL.username)
                 taskStore.setAssignee(userLogin.loginName);
                 def userRoleList = UserRole.findAllByUser(userL)
-                def role1 = new Role()
+                def role = new Role()
                 for (UserRole userRole:userRoleList){
-                    def role = new Role()
-                    role = userRole.role
-                    if (!role.description.equals("PT") && !role.description.equals("KJ") && !role.description.equals("CN")) {
-                        role1=role
+                    def role1 = new Role()
+                    role1 = userRole.role
+                    def str = role1.description.substring(0,1)
+                    if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                            && !role1.description.equals("CN") && str.equals("J")) {
+                        role = role1
                         break;
                     }
                 }
-                taskStore.setExamAppNamePosition(role1.authority)
+                taskStore.setExamAppNamePosition(role.authority)
             }
             def date = historyTask.getEndTime()
             def time = ""
@@ -709,8 +717,8 @@ class LoanAppReceiptsController {
      */
     def returnProcessList() {
         String currentUserName = springSecurityService.getPrincipal().username;
-        def user = UserLogin.findByLoginName(currentUserName)
-        def userId = user.userId
+        def user = User.findByUsername(currentUserName)
+        def userId = user.id.toString()
 //        List<Processes> loan_list = new ArrayList<Processes>();
         List<TaskStore> list = new ArrayList<TaskStore>();
         // 获取当前用户任务列表
@@ -768,7 +776,7 @@ class LoanAppReceiptsController {
         }
 
 //        loan_list = processesService.getProcessList();
-        render(view: '/processes/processesList', model: [list: list,loanList:loanList,bxList:bxList,userName:user.userName])
+        render(view: '/processes/processesList', model: [list: list,loanList:loanList,bxList:bxList,userName:user.name])
     }
 
 }
