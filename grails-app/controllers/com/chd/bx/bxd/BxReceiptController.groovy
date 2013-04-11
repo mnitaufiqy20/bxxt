@@ -37,7 +37,7 @@ class BxReceiptController {
     def processEngine;
     def springSecurityService
     WorkflowFactory  workflowFactory = new WorkflowFactory()
-    def loanAppReceiptsService = new LoanAppReceiptsService()
+    def loanAppReceiptsService
     /**
      *  初始 进入查询报销单界面
      * @return
@@ -54,10 +54,10 @@ class BxReceiptController {
             if (role.description.equals("PT")) {
                 bxdList = BxReceipt.findAllByBxEmpIdNumber(user2.idNumber)
             } else if (role.description.equals("KJ")) {
-                bxdList = bxReceiptService.bxdQueryAll()
+                bxdList = bxReceiptService.bxdQuery("已审核")
                 break;
             } else if (role.description.equals("CN")) {
-                bxdList = bxReceiptService.bxdQueryAll()
+                bxdList = bxReceiptService.bxdQuery("已过账")
                 break;
             }
         }
@@ -130,9 +130,18 @@ class BxReceiptController {
         BxTravel bxTravel = new BxTravel();
         bxTravel.clTravelDaysCount=0
         bxTravel.clTravelDetails = ""
-
-        render(view: '../bxReceipt/bxReceiptDetail',model: [user:user,bxReceipt:bxReceipt,bxTravel:bxTravel,listOther:listOther,listLoan:listLoan,listTravel:listTravel,listZhaoDai:listZhaoDai,listWork:listWork])
-
+        def idNum = user.idNumber
+        def  loan_list = loanAppReceiptsService.loanAppReceiptsByIdNum(idNum)
+        def str = ""
+        def strId = ""
+        for(LoanAppReceipts loanAppReceipts:loan_list){
+           str += (loanAppReceipts.loanAppReceiptsId+","+loanAppReceipts.loanBegDate+","+loanAppReceipts.billsCurr+","
+            +loanAppReceipts.loanMoney+","+loanAppReceipts.loanBalance+","+loanAppReceipts.loanAlreadyRefund+","
+            +loanAppReceipts.loanRemark+";")
+            strId += (loanAppReceipts.loanAppReceiptsId+";")
+        }
+        render(view: '../bxReceipt/bxReceiptDetail',model: [user:user,bxReceipt:bxReceipt,str:str,strId:strId,bxTravel:bxTravel,listOther:listOther,
+                listLoan:listLoan,listTravel:listTravel,listZhaoDai:listZhaoDai,listWork:listWork,loan_list:loan_list])
     }
     /**
      *   进入修改界面
@@ -312,7 +321,22 @@ class BxReceiptController {
                 break;
             }
         }
-        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt:bxReceipt,user: user,role:role,listOther:listOther,
+        def userL = UserLogin.findByIdNumber(bxReceipt.bxEmpIdNumber)
+        def user2 = User.findByUsername(userL.loginName)
+        def userRoleList2 = UserRole.findAllByUser(user2)
+        def role2 = new Role()
+        for (UserRole userRole:userRoleList2){
+            def role1 = new Role()
+            role1 = userRole.role
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("B")) {
+                role2 = role1
+                break;
+            }
+        }
+        def exmApp = loanAppReceiptsService.getProcessApprove(role2.authority,userL.companyNo,"FYBX")
+        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt:bxReceipt,user: user,role:role,exmApp:exmApp,listOther:listOther,
                 listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
 
@@ -322,18 +346,47 @@ class BxReceiptController {
      */
     def bxdCommit(){
         def action = params["act"]
+        def bxdNo
         if (action.equals("add")){
-            def bxId = getBxdNo()
+            String type="add"
+            bxdNo = getBxdNo()
             bxReceipt = new BxReceipt()
-            bxReceipt.bxNo = bxId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
-            startFlow(bxId)
+            bxReceipt.bxNo = bxdNo   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
+            //保存其他报销信息
+            saveOther(params,bxdNo,type)
+            //保存借款信息
+            saveLoan(params,bxdNo,type)
+            //保存差旅信息
+            saveTravel(params,bxdNo,type)
+//            BxTravel bxTravel = new BxTravel();
+//            bxTravel.clTravelDaysCount=Integer.parseInt( params['clTravelDaysCount'])
+//            bxTravel.clTravelDetails = params['clTravelDetails']
+            //保存办公信息
+            saveWork(params,bxdNo,type)
+            //保存招待信息
+            saveZhaoDai(params,bxdNo,type)
+            startFlow(bxdNo)
         }else if (params["act"].equals("update")){
             bxReceipt=bxReceiptService.getBxdById(params["bxNo"]).get(0)
+            bxdNo = bxReceipt.bxNo
+            String type="lookUp"
+            //保存其他报销信息
+            saveOther(params,bxdNo,type)
+            //保存借款信息
+            saveLoan(params,bxdNo,type)
+            //保存差旅信息
+            saveTravel(params,bxdNo,type)
+            BxTravel bxTravel = new BxTravel();
+            bxTravel.clTravelDaysCount=Integer.parseInt( params['clTravelDaysCount'])
+//            bxTravel.clTravelDetails = params['clTravelDetails']
+            //保存办公信息
+            saveWork(params,bxdNo,type)
+            //保存招待信息
+            saveZhaoDai(params,bxdNo,type)
         }
         bxReceipt=bxRep(bxReceipt,params)
         bxReceipt.bxdStatus = "已提交"
         bxReceiptService.bxdSave(bxReceipt)
-        def bxdNo = bxReceipt.bxNo
 
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = User.findByUsername(currentUserName)
@@ -386,7 +439,22 @@ class BxReceiptController {
         //保存招待信息
         List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
         listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
-        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt:bxReceipt,user: user,role:role,listOther:listOther,
+        def userL = UserLogin.findByIdNumber(bxReceipt.bxEmpIdNumber)
+        def user3 = User.findByUsername(userL.loginName)
+        def userRoleList2 = UserRole.findAllByUser(user3)
+        def role2 = new Role()
+        for (UserRole userRole:userRoleList2){
+            def role1 = new Role()
+            role1 = userRole.role
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("B")) {
+                role2 = role1
+                break;
+            }
+        }
+        def exmApp = loanAppReceiptsService.getProcessApprove(role2.authority,userL.companyNo,"FYBX")
+        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt:bxReceipt,user: user,role:role,exmApp:exmApp,listOther:listOther,
                 listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
 

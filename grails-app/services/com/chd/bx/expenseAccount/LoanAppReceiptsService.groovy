@@ -55,11 +55,21 @@ class LoanAppReceiptsService {
         }else if(index==2){
             strSql += " and loanStatus='已审核' "
         }else if(index==3){
-            strSql += " and loanStatus='已过帐' "
+            strSql += " and loanStatus='已过账' "
+        }else if(index==4){
+            strSql += " and loanEmpIdNumber='"+idNum+"'  and loanStatus='已付款' "
         }
 
-        strSql += " order by id asc "
+        strSql += " order by loanAppReceiptsId asc "
         println(strSql)
+        List<LoanAppReceipts> list = LoanAppReceipts.findAll(strSql)
+        if (list != null && list.size() > 0) {
+            return list
+        }
+    }
+
+    def loanAppReceiptsByIdNum(String idNum){
+        String strSql = "from LoanAppReceipts where 1=1 and loanEmpIdNumber='"+idNum+"'  and loanStatus='已付款' order by loanAppReceiptsId asc "
         List<LoanAppReceipts> list = LoanAppReceipts.findAll(strSql)
         if (list != null && list.size() > 0) {
             return list

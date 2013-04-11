@@ -430,7 +430,6 @@
                     <td><div align="center" style="width:40px"><a onMouseOver="this.style.fontStyle='italic'"onMouseOut="this.style.fontStyle=''" style="color: red;" onclick="DeleteSignRow_other('otherList${index}')">删除</a></div></td>
                 </tr>
             </g:each>
-
         </table>
     </td>
 </tr>
@@ -459,7 +458,7 @@
     <td >
         <table>
             <tr>
-                <td  height="21"><input type="button" name="addLoan" value="添加" onclick="AddSignRow_loan();" /></td>
+                <td  height="21"><input type="button" name="addLoan" value="添加" onclick="AddSignRow_loan('${str}','${strId}');" /></td>
             </tr>
             <tr>
                 <td  height="21"><input type="button" name="clearLoan" value="清空" onclick="ClearAllSign_loan();" /></td>
@@ -474,12 +473,12 @@
 
             <tr align="center" style="width: 100%;height:100%;background: #ADCDF4;" colspan="10">
                 <td height="21" width="10%">序号</td>
-                <td width="12%">借款日期</td>
-                <td width="12%">借款单号</td>
+                <td width="10%">借款日期</td>
+                <td width="14%">借款单号</td>
                 <td  width="12%">票据币别 </td>
                 <td  width="12%">原币金额 </td>
                 <td  width="12%">借款余额 </td>
-                <td  width="15%">本次还款金额 </td>
+                <td  width="15%">已还金额 </td>
                 <td  width="15%">备注 </td>
             </tr>
 
@@ -496,7 +495,19 @@
                     <td><div align="center" style="width:40px"><a onMouseOver="this.style.fontStyle='italic'"onMouseOut="this.style.fontStyle=''" style="color: red;" onclick="DeleteSignRow_loan('loanList${index}')">删除</a></div></td>
                 </tr>
             </g:each>
-
+            %{--<g:each in="${loan_list}" var="item" status="index">--}%
+                %{--<tr align="center" id="loanList${index}">--}%
+                    %{--<td height="23" width="10%"><input id="lNoList" name="lNoList" value="${index+1}"></td>--}%
+                    %{--<td width="10%"><input id="loanDateList" style="width: 100%;height: 100%" name="loanDateList" value="${item.loanBegDate}"></td>--}%
+                    %{--<td width="14%"><input id="loanNoList" style="width: 100%;height: 100%" name="loanNoList" value="${item.loanAppReceiptsId}"></td>--}%
+                    %{--<td  width="12%"><input id="loanBillsCurrList" style="width: 100%;height: 100%" name="loanBillsCurrList" value="${item.billsCurr}"> </td>--}%
+                    %{--<td  width="12%"><input id="loanOriginalSumList" name="loanOriginalSumList" style="width: 100%;height: 100%" value="${item.loanMoney}"> </td>--}%
+                    %{--<td  width="12%"><input id="loanBalanceList" name="loanBalanceList" style="width: 100%;height: 100%" value="${item.loanBalance}"> </td>--}%
+                    %{--<td  width="15%"><input id="loanTheRepaymentList" name="loanTheRepaymentList" style="width: 100%;height: 100%" value="${item.loanAlreadyRefund}"> </td>--}%
+                    %{--<td  width="15%"><input id="loanRemarkList" name="loanRemarkList" style="width: 100%;height: 100%" value="${item.loanRemark}"> </td>--}%
+                    %{--<td><div align="center" style="width:40px"><a onMouseOver="this.style.fontStyle='italic'"onMouseOut="this.style.fontStyle=''" style="color: red;" onclick="DeleteSignRow_loan('loanList${index}')">删除</a></div></td>--}%
+                %{--</tr>--}%
+            %{--</g:each>--}%
         </table>
     </td>
 </tr>
@@ -575,6 +586,7 @@
 <tr>
     <td>&nbsp;&nbsp;</td>
     <td height="30"><input type="button" value="保存" onclick="commForm(0);"></td>
+    %{--<td height="30"><input type="button" value="保存" onclick="getSum();"></td>--}%
     <td><input type="button" value="提交" onclick="commForm(2);"></td>
     <td><input type="button" value="返回" onclick="commForm(3);"></td>
     <td><input type="button" value="执行过账" disabled></td>
@@ -607,7 +619,6 @@
 <script>document.getElementById("billsCurr").value = "${bxReceipt.billsCurr}";</script>
 <script type="text/javascript">
     function commForm(id){
-        alert("detail:"+id);
 //           alert(document.getElementById("bxdStatus").value);
 //        var status=document.getElementById("bxdStatus").value;
 //        if(status=="已保存"){
@@ -627,6 +638,10 @@
         gForm.controller = "bxReceipt";
         gForm.submit();
     }
+//    function  getSum(){
+//        var list = document.getElementsByName("clRemarkList");
+//        alert("getSum:"+list.toString());
+//    }
 </script>
 </body>
 </html>

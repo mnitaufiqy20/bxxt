@@ -24,8 +24,10 @@ class BxReceiptService {
             e.printStackTrace()
         }
     }
-    def bxdQueryAll() {
-        String strSql = "from BxReceipt order by id asc "
+    def bxdQuery(String bxdStatus) {
+        println("LoanAppReceiptsService loanReceiptsQuery is loading....")
+//        String strSql = "from LoanAppReceipts where loanEmpNo= '"+empNo+"' order by id asc "
+        String strSql = "from BxReceipt where bxdStatus='"+bxdStatus+"' order by bxNo asc "
         List<BxReceipt> list = BxReceipt.findAll(strSql)
         if (list != null && list.size() > 0) {
             return list
@@ -64,7 +66,7 @@ class BxReceiptService {
             strSql += " and bxdStatus='已过帐' "
         }
 
-        strSql += " order by id asc "
+        strSql += " order by bxNo asc "
         print(strSql)
         List<BxReceipt> list = BxReceipt.findAll(strSql)
         if(list!=null&&list.size()>0){

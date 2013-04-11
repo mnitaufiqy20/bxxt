@@ -4,17 +4,71 @@ import com.chd.bx.security.Menu
 import com.chd.bx.security.MenuCategory
 import com.chd.bx.security.RoleMenu
 import com.chd.bx.security.User
+import com.chd.bx.security.UserRole
+import com.chd.bx.security.Role
 
 class WorkbenchController {
 
     def springSecurityService
 
     def index() {
-        String currentUserId = springSecurityService.getPrincipal().username;
-        User currentUser = User.findByUsername(currentUserId);
-        String queryString = "from RoleMenu where roleId=" + currentUser.role.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
+//        String currentUserId = springSecurityService.getPrincipal().username;
+//        User currentUser = User.findByUsername(currentUserId);
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = User.findByUsername(currentUserName)
+        def userRoleList = UserRole.findAllByUser(user)
+        def role = new Role()
+        def role2 = new Role()
+        for (UserRole userRole:userRoleList){
+            def role1 = new Role()
+            role1 = userRole.role
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN")) {
+                role = role1
+                break;
+            }
+        }
+//        for (UserRole userRole:userRoleList){
+//            def role1 = new Role()
+//            role1 = userRole.role
+//            def str = role1.description.substring(0,1)
+//            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+//                    && !role1.description.equals("CN") && str.equals("B")) {
+//                role = role1
+//                break;
+//            }
+//        }
+//        for (UserRole userRole:userRoleList){
+//            def role1 = new Role()
+//            role1 = userRole.role
+//            def str = role1.description.substring(0,1)
+//            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+//                    && !role1.description.equals("CN") && str.equals("J")) {
+//                role2 = role1
+//                break;
+//            }
+//        }
+//        String queryString = "from RoleMenu where roleId=" + currentUser.role.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
+//        String queryString = "select distinct * from RoleMenu where roleId=" + role.id + " or roleId=" + role2.id + "and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
+        String queryString = "from RoleMenu where roleId=" + role.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
+//        String queryString2 = "from RoleMenu where roleId=" + role.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
         List menus = RoleMenu.executeQuery(queryString)
-
+//        def s = menus.size()
+//        List menus2 = RoleMenu.executeQuery(queryString2)
+//        List menus3
+//        for (RoleMenu rM:menus){
+//            for (RoleMenu rM2:menus2){
+//               if (rM.menuId==rM2.menuId){
+//                   continue
+//               }
+//                menus3.add(rM2)
+//            }
+//        }
+//
+//        for (RoleMenu rM:menus3){
+//            menus.add(rM)
+//        }
 //        def menuSecond = new ArrayList<RoleMenu>()
 //        def menuThird = new ArrayList<RoleMenu>()
 //        def menuForth = new ArrayList<RoleMenu>()

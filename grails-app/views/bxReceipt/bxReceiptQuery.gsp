@@ -57,7 +57,7 @@
                                             <td height="30" width="15%"><input id="rNo" name="rNo" type="text" value="${rNo}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                             <td height="30" width="10%" align="right">状态：</td>
                                             <td height="30" width="8%">
-                                                <select id="status"  name="status">
+                                                <select id="status"  name="status" onfocus="">
                                                     <option value="-1">请选择</option>
                                                     <option value="已保存">已保存</option>
                                                     <option value="已提交">已提交</option>

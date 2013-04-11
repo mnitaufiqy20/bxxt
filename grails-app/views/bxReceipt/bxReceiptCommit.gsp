@@ -560,7 +560,7 @@
     <td height="30"><input type="submit" value="保存" disabled></td>
     <td><input type="button" value="提交" disabled></td>
     <td><input type="button" value="返回" onclick="location='../bxReceipt/index'"></td>
-    <g:if test="${bxReceipt.bxdStatus=="已审核" && role.description=="BXKJ"}">
+    <g:if test="${bxReceipt.bxdStatus=="已审核" && role.description=="BXKJ" && user.username==exmApp.postAcc}">
         <td><input type="button" value="执行过账" onclick="location='../loanCerIntegration/loanCerIntegration?type=fybx&bxNo=${bxReceipt.bxNo}'"></td>
     </g:if>
     <g:else>
@@ -574,7 +574,7 @@
             <div>会计人员执行！</div>
         </span>
     </td>
-    <g:if test="${bxReceipt.bxdStatus=="已过账" && role.description=="BXCN"}">
+    <g:if test="${bxReceipt.bxdStatus=="已过账" && role.description=="BXCN" && user.username==exmApp.payTeller}">
         <td><input type="button" value="执行付款" onclick="location='../loanCerIntegration/loanCerIntegration?type=bxfk&bxNo=${bxReceipt.bxNo}'"></td>
     </g:if>
     <g:else>

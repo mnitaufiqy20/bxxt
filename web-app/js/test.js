@@ -189,7 +189,7 @@ function ClearAllSign_cl(){
         var rowscount = signFrame.rows.length;
 
 //循环删除行,从最后一行往前删除
-        for(i=rowscount - 1;i > 0; i--){
+        for(i=rowscount - 1;i > 1; i--){
             signFrame.deleteRow(i);
         }
 
@@ -381,7 +381,12 @@ function ClearAllSign_bg(){
     }
 }
 //添加一个参与人填写行
-function AddSignRow_loan(){
+function AddSignRow_loan(str,strId){
+    var s = str.split(";");
+    var id = strId.split(";");
+    var s1 = s[0].split(",");
+//    var defs=loan_list;
+//    alert("222"+defs);
     //读取最后一行的行号，存放在txtTRLastIndex文本框中
     var txtTRLastIndex = findObj("loanIndex",document);
     var rowID = parseInt(txtTRLastIndex.value);
@@ -394,41 +399,61 @@ function AddSignRow_loan(){
 //添加列:序号
     var newNameTD=newTR.insertCell(0);
 //添加列内容
-    newNameTD.innerHTML ="<td height='23' width='10%'><input  id='lNo"+rowID+"' name='lNo"+rowID+"' value='"+newTR.rowIndex.toString()+"'> </td>" ;
+    newNameTD.innerHTML ="<td height='23' width='10%'><input  id='lNo"+rowID+"' name='lNo"+rowID+"' value='"+newTR.rowIndex.toString()+"' readonly> </td>" ;
 
 //添加列:日期
     var newNameTD=newTR.insertCell(1);
 //添加列内容
-    newNameTD.innerHTML = "<td width='12%'><input id='loanDate"+rowID+"' style='width: 100%;height: 100%' name='loanDate"+rowID+"' value=''  class='Wdate' onclick=\"SelectDate(this,'yyyy-MM-dd',null,null);\"></td>";
+//    newNameTD.innerHTML = "<td width='12%'><input id='loanDate"+rowID+"' style='width: 100%;height: 100%' name='loanDate"+rowID+"' value=''  class='Wdate' onclick=\"SelectDate(this,'yyyy-MM-dd',null,null);\"></td>";
+    newNameTD.innerHTML = "<td width='10%'><input id='loanDate"+rowID+"' style='width: 100%;height: 100%' name='loanDate"+rowID+"' value="+s1[1]+" readonly></td>";
 
     //添加列:借款单号
     var newEmailTD=newTR.insertCell(2);
 //添加列内容
-    newEmailTD.innerHTML = "<td width=\"12%\">     <select id=\"loanNo"+rowID+"\" name=\"loanNo"+rowID+"\" style=\"width: 100%;height: 100%\">         <option value=\"L0001\">L0001</option>          <option value=\"L0002\">L0002</option>      </select></td>";
+//    newEmailTD.innerHTML = "<td width=\"12%\">     <select id=\"loanNo"+rowID+"\" name=\"loanNo"+rowID+"\" style=\"width: 100%;height: 100%\"> <option value=\"L0001\">L0001</option>          <option value=\"L0002\">L0002</option>      </select></td>";
+//    newEmailTD.innerHTML = "<td width=\"12%\">     <select id=\"loanNo"+rowID+"\" name=\"loanNo"+rowID+"\" style=\"width: 100%;height: 100%\"> " +
+//        "<g:each in="+loan_list+"\" var=\"item\" status=\"index\"> <option value="+${item.loanAppReceiptsId}+"\">${item.loanAppReceiptsId}</option>   </g:each>     </select></td>";
+//    var str="qqqqq";
+    var  b="<td width=\"14%\">  " +
+        "   <select id=\"loanNo"+rowID+"\" " +
+        " name=\"loanNo"+rowID+"\"" +
+        " onchange='" +
+        " ChangeLoanId(\"loanRow" + rowID +"\",\"" + str+"\",\"loanNo" + rowID+"\",\"" + strId+"\");" +
+        " ' " +
+        " style=\"width: 100%;height: 100%\"> " ;
 
+    var  a= "</select></td>";
+    var c ="" ;
+    for(var i=0;i<id.length-1;i++){
+        c+= " <option value="+id[i]+">"+id[i]+"</option>" ;
+     }
+    var d=b+c+a;
+    newEmailTD.innerHTML =d;
+//    newEmailTD.innerHTML = "<td width=\"14%\">     <select id=\"loanNo"+rowID+"\" name=\"loanNo"+rowID+"\" style=\"width: 100%;height: 100%\"> " +
+//        " <option value="+id+"\">"+id+"</option></select></td>";
 //添加列:原币金额
     var newEmailTD=newTR.insertCell(3);
 //添加列内容
-    newEmailTD.innerHTML = "<td width=\"12%\"><input id=\"loanBillsCurr"+rowID+"\" style=\"width: 100%;height: 100%\" name=\"loanBillsCurr"+rowID+"\" value=\"\"></td>";
+    newEmailTD.innerHTML = "<td width=\"12%\"><input id=\"loanBillsCurr"+rowID+"\" style=\"width: 100%;height: 100%\" name=\"loanBillsCurr"+rowID+"\" value="+s1[2]+" readonly></td>";
 
 //添加列:RMB报销金额
     var newTelTD=newTR.insertCell(4);
 //添加列内容
-    newTelTD.innerHTML = "<td  width=\"12%\"><input id=\"loanOriginalSum"+rowID+"\" style=\"width: 100%;height: 100%\" name=\"loanOriginalSum"+rowID+"\" value=\"\"> </td>";
+    newTelTD.innerHTML = "<td  width=\"12%\"><input id=\"loanOriginalSum"+rowID+"\" style=\"width: 100%;height: 100%\" name=\"loanOriginalSum"+rowID+"\" value="+s1[3]+" readonly> </td>";
 
 //添加列:票据说明
     var newMobileTD=newTR.insertCell(5);
 //添加列内容
-    newMobileTD.innerHTML = "<td  width=\"12%\"><input id=\"loanBalance"+rowID+"\" name=\"loanBalance"+rowID+"\" style=\"width: 100%;height: 100%\" value=\"\"> </td>";
+    newMobileTD.innerHTML = "<td  width=\"12%\"><input id=\"loanBalance"+rowID+"\" name=\"loanBalance"+rowID+"\" style=\"width: 100%;height: 100%\" value="+s1[4]+" readonly> </td>";
     //添加列:备注
     var newCompanyTD=newTR.insertCell(6);
 //添加列内容
-    newCompanyTD.innerHTML = "<td  width=\"15%\"><input id=\"loanTheRepayment"+rowID+"\" name=\"loanTheRepayment"+rowID+"\" style=\"width: 100%;height: 100%\" value=\"\"> </td>";
+    newCompanyTD.innerHTML = "<td  width=\"15%\"><input id=\"loanTheRepayment"+rowID+"\" name=\"loanTheRepayment"+rowID+"\" style=\"width: 100%;height: 100%\" value="+s1[5]+" readonly> </td>";
 
 //添加列:备注
     var newCompanyTD=newTR.insertCell(7);
 //添加列内容
-    newCompanyTD.innerHTML = " <td  width=\"15%\"><input id=\"loanRemark"+rowID+"\" name=\"loanRemark"+rowID+"\" style=\"width: 100%;height: 100%\" value=\"\"> </td>";
+    newCompanyTD.innerHTML = " <td  width=\"15%\"><input id=\"loanRemark"+rowID+"\" name=\"loanRemark"+rowID+"\" style=\"width: 100%;height: 100%\" value="+s1[6]+" readonly> </td>";
 
 
 
@@ -452,9 +477,103 @@ function DeleteSignRow_loan(rowid){
     signFrame.deleteRow(rowIndex);
 
 //重新排列序号，如果没有序号，这一步省略
-    for(i=rowIndex;i<signFrame.rows.length;i++){
+    for(var i=rowIndex;i<signFrame.rows.length;i++){
         signFrame.rows[i].cells[0].innerHTML = i.toString();
     }
+}
+function ChangeLoanId(rowid,str,loanId,strId){
+    var loan = document.getElementById(loanId).value;
+    DeleteSignRow_loan(rowid);
+    var sL = str.split(loan)[1];
+    var sL1  = sL.split(";")[0];
+    var sL2 = sL1.split(",");
+
+    var s = str.split(";");
+    var id = strId.split(";");
+    var s1 = s[0].split(",");
+//    var defs=loan_list;
+//    alert("222"+defs);
+    //读取最后一行的行号，存放在txtTRLastIndex文本框中
+    var txtTRLastIndex = findObj("loanIndex",document);
+    var rowID = parseInt(txtTRLastIndex.value);
+
+    var signFrame = findObj("loan",document);
+//添加行
+    var newTR = signFrame.insertRow(signFrame.rows.length);
+    newTR.id = "loanRow" + rowID;
+
+//添加列:序号
+    var newNameTD=newTR.insertCell(0);
+//添加列内容
+    newNameTD.innerHTML ="<td height='23' width='10%'><input  id='lNo"+rowID+"' name='lNo"+rowID+"' value='"+newTR.rowIndex.toString()+"' readonly=\"true\"> </td>" ;
+
+//添加列:日期
+    var newNameTD=newTR.insertCell(1);
+//添加列内容
+//    newNameTD.innerHTML = "<td width='12%'><input id='loanDate"+rowID+"' style='width: 100%;height: 100%' name='loanDate"+rowID+"' value=''  class='Wdate' onclick=\"SelectDate(this,'yyyy-MM-dd',null,null);\"></td>";
+    newNameTD.innerHTML = "<td width='10%'><input id='loanDate"+rowID+"' style='width: 100%;height: 100%' name='loanDate"+rowID+"' value="+sL2[1]+" readonly></td>";
+
+    //添加列:借款单号
+    var newEmailTD=newTR.insertCell(2);
+//添加列内容
+//    newEmailTD.innerHTML = "<td width=\"12%\">     <select id=\"loanNo"+rowID+"\" name=\"loanNo"+rowID+"\" style=\"width: 100%;height: 100%\"> <option value=\"L0001\">L0001</option>          <option value=\"L0002\">L0002</option>      </select></td>";
+//    newEmailTD.innerHTML = "<td width=\"12%\">     <select id=\"loanNo"+rowID+"\" name=\"loanNo"+rowID+"\" style=\"width: 100%;height: 100%\"> " +
+//        "<g:each in="+loan_list+"\" var=\"item\" status=\"index\"> <option value="+${item.loanAppReceiptsId}+"\">${item.loanAppReceiptsId}</option>   </g:each>     </select></td>";
+//    var str="qqqqq";
+    var  b="<td width=\"14%\">  " +
+        "   <select id=\"loanNo"+rowID+"\" " +
+        " name=\"loanNo"+rowID+"\"" +
+        " onchange='" +
+        " ChangeLoanId(\"loanRow" + rowID +"\",\"" + str+"\",\"loanNo" + rowID+"\",\"" + strId+"\");" +
+        " ' " +
+        " style=\"width: 100%;height: 100%\"> " ;
+
+    var  a= "</select></td>";
+    var c ="" ;
+    c+= " <option value="+loan+">"+loan+"</option>" ;
+    for(var i=0;i<id.length-1;i++){
+        if(id[i]!=loan){
+            c+= " <option value="+id[i]+">"+id[i]+"</option>" ;
+        }
+    }
+    var d=b+c+a;
+    newEmailTD.innerHTML =d;
+//    newEmailTD.innerHTML = "<td width=\"14%\">     <select id=\"loanNo"+rowID+"\" name=\"loanNo"+rowID+"\" style=\"width: 100%;height: 100%\"> " +
+//        " <option value="+id+"\">"+id+"</option></select></td>";
+//添加列:原币金额
+    var newEmailTD=newTR.insertCell(3);
+//添加列内容
+    newEmailTD.innerHTML = "<td width=\"12%\"><input id=\"loanBillsCurr"+rowID+"\" style=\"width: 100%;height: 100%\" name=\"loanBillsCurr"+rowID+"\" value="+sL2[2]+" readonly></td>";
+
+//添加列:RMB报销金额
+    var newTelTD=newTR.insertCell(4);
+//添加列内容
+    newTelTD.innerHTML = "<td  width=\"12%\"><input id=\"loanOriginalSum"+rowID+"\" style=\"width: 100%;height: 100%\" name=\"loanOriginalSum"+rowID+"\" value="+sL2[3]+" readonly> </td>";
+
+//添加列:票据说明
+    var newMobileTD=newTR.insertCell(5);
+//添加列内容
+    newMobileTD.innerHTML = "<td  width=\"12%\"><input id=\"loanBalance"+rowID+"\" name=\"loanBalance"+rowID+"\" style=\"width: 100%;height: 100%\" value="+sL2[4]+" readonly> </td>";
+    //添加列:备注
+    var newCompanyTD=newTR.insertCell(6);
+//添加列内容
+    newCompanyTD.innerHTML = "<td  width=\"15%\"><input id=\"loanTheRepayment"+rowID+"\" name=\"loanTheRepayment"+rowID+"\" style=\"width: 100%;height: 100%\" value="+sL2[5]+" readonly> </td>";
+
+//添加列:备注
+    var newCompanyTD=newTR.insertCell(7);
+//添加列内容
+    newCompanyTD.innerHTML = " <td  width=\"15%\"><input id=\"loanRemark"+rowID+"\" name=\"loanRemark"+rowID+"\" style=\"width: 100%;height: 100%\" value="+sL2[6]+" readonly> </td>";
+
+
+
+//添加列:删除按钮
+    var newDeleteTD=newTR.insertCell(8);
+//添加列内容
+    newDeleteTD.innerHTML = "<div align='center' style='width:40px'><a onMouseOver=\"this.style.fontStyle='italic'\"onMouseOut=\"this.style.fontStyle=''\" style='color: red;' onclick=\"DeleteSignRow_loan('loanRow" + rowID + "')\">删除</a></div>";
+
+//将行号推进下一行
+    txtTRLastIndex.value = (rowID + 1).toString() ;
+
 }
 //清空列表
 function ClearAllSign_loan(){

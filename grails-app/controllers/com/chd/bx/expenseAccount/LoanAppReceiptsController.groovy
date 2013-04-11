@@ -181,17 +181,13 @@ class LoanAppReceiptsController {
         if (action.equals("add")){
             def loanId = getLoanId()
             loanAppReceipts.loanAppReceiptsId = loanId   //单据名称首字母J(1位)+公司代码（4位）+年份月分（4位）+3位流水号
-            loanAppReceipts = loanAppRec(loanAppReceipts,params)
-            loanAppReceipts.loanStatus = "已提交"
-            loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
             startFlow(loanId);
         }else if (params["act"].equals("update")){
             loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(params["loanAppReceiptsId"])
-            loanAppReceipts = loanAppRec(loanAppReceipts,params)
-            loanAppReceipts.loanStatus = "已提交"
-            loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
         }
-
+        loanAppReceipts = loanAppRec(loanAppReceipts,params)
+        loanAppReceipts.loanStatus = "已提交"
+        loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
 
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = User.findByUsername(currentUserName)
@@ -213,7 +209,22 @@ class LoanAppReceiptsController {
         //发送邮件给下一个办理人
 //        sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱
         def menuId = params["menuId"]
-        render(view: '/loanAppReceipts/loanAppReceiptsCommit',model: [loanAppReceipts: loanAppReceipts,menuId: menuId])
+        def userL = UserLogin.findByIdNumber(loanAppReceipts.loanEmpIdNumber)
+        def user2 = User.findByUsername(userL.loginName)
+        def userRoleList2 = UserRole.findAllByUser(user2)
+        def role2 = new Role()
+        for (UserRole userRole:userRoleList2){
+            def role1 = new Role()
+            role1 = userRole.role
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("J")) {
+                role2 = role1
+                break;
+            }
+        }
+        def exmApp = loanAppReceiptsService.getProcessApprove(role2.authority,userL.companyNo,"LOAN")
+        render(view: '/loanAppReceipts/loanAppReceiptsCommit',model: [loanAppReceipts: loanAppReceipts,menuId: menuId,exmApp:exmApp])
     }
 
     /**
@@ -293,7 +304,22 @@ class LoanAppReceiptsController {
         if (loanAppReceipts.loanStatus.equals("已保存")){
             render(view: '/loanAppReceipts/loanAppReceiptsUpdate', model: [loanAppReceipts: loanAppReceipts,menuId: menuId])
         }else{
-            render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,menuId: menuId])
+            def userL = UserLogin.findByIdNumber(loanAppReceipts.loanEmpIdNumber)
+            def user2 = User.findByUsername(userL.loginName)
+            def userRoleList2 = UserRole.findAllByUser(user2)
+            def role2 = new Role()
+            for (UserRole userRole:userRoleList2){
+                def role1 = new Role()
+                role1 = userRole.role
+                def str = role1.description.substring(0,1)
+                if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                        && !role1.description.equals("CN") && str.equals("J")) {
+                    role2 = role1
+                    break;
+                }
+            }
+            def exmApp = loanAppReceiptsService.getProcessApprove(role2.authority,userL.companyNo,"LOAN")
+            render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,menuId: menuId,exmApp:exmApp])
         }
     }
 
@@ -321,7 +347,23 @@ class LoanAppReceiptsController {
             }
         }
         def menuId = params["menuId"]
-        render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,role:role,menuId: menuId])
+        def userL = UserLogin.findByIdNumber(loanAppReceipts.loanEmpIdNumber)
+        def user2 = User.findByUsername(userL.loginName)
+        def userRoleList2 = UserRole.findAllByUser(user2)
+        def role2 = new Role()
+        for (UserRole userRole:userRoleList2){
+            def role1 = new Role()
+            role1 = userRole.role
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("J")) {
+                role2 = role1
+                break;
+            }
+        }
+        def exmApp = loanAppReceiptsService.getProcessApprove(role2.authority,userL.companyNo,"LOAN")
+//        render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,menuId: menuId,exmApp:exmApp])
+        render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,role:role,menuId: menuId,exmApp:exmApp])
     }
 
     /**

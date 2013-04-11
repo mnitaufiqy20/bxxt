@@ -604,15 +604,15 @@
 <script>document.getElementById("budgetCenter").value = "${bxReceipt.budgetCenter}";</script>
 <script>document.getElementById("paymentMode").value = "${bxReceipt.paymentMode}";</script>
 <script>document.getElementById("billsCurr").value = "${bxReceipt.billsCurr}";</script>
+%{--<script>document.getElementById("clTravelDetails").value = "${bxReceipt.billsCurr}";</script>--}%
+%{--<script>document.getElementById("billsCurr").value = "${bxReceipt.billsCurr}";</script>--}%
 <script type="text/javascript">
     function commForm(id){
-        alert("update:"+id);
 //           alert(document.getElementById("bxdStatus").value);
         var gForm = document.getElementById("gFrom");
         if(id==1){
             gForm.action = "bxdUpdate";
         }else if(id==2){
-            alert("if:"+id);
             gForm.action = "bxdCommit";
         }else if(id==3){
             gForm.action = "index";
