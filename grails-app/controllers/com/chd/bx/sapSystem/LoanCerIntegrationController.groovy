@@ -43,7 +43,11 @@ class LoanCerIntegrationController {
             def menuId = params["menuId"]
             render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,role:role,menuId: menuId])
         }else if (type.equals("fybx")){
-
+//            bxNo = params["bxNo"]
+//            bxReceipt = new BxReceipt()
+//            bxReceipt = BxReceipt.findByBxNo(bxNo)
+//            bxReceipt.bxdStatus = "已过帐"
+//            bxReceiptService.bxdSave(bxReceipt)
         }else if (type.equals("bxfk")){
             bxNo = params["bxNo"]
             bxReceipt = new BxReceipt()
@@ -55,7 +59,7 @@ class LoanCerIntegrationController {
             def role = new Role()
             role = getRole()
             def menuId = params["menuId"]
-            render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,role:role,menuId: menuId])
+            render(view: '/bxReceipt/bxReceiptCommit', model: [bxReceipt: bxReceipt,user: user,role:role,menuId: menuId])
         }
 
     }

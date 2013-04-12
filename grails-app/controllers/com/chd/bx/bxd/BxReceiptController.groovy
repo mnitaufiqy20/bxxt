@@ -542,7 +542,10 @@ class BxReceiptController {
     //在新增时获得单号
     def getBxdNo(){
         String bxdNo = "B";
-        def comNo = "0001"  //公司代码（四位）
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def user = UserLogin.findByLoginName(currentUserName)
+
+        def comNo = user.companyNo  //公司代码（四位）
 
         //年月 （四位）
         Date date = new Date()
@@ -554,12 +557,13 @@ class BxReceiptController {
 
         //流水号（三位）
         def serialNumberList = new ArrayList<String>()
-        List<BxReceipt> loan_list = bxReceiptService.bxdQueryAll()
+        List<BxReceipt> bx_list = new ArrayList<BxReceipt>()
+        bx_list = BxReceipt.findAllByCompanyName(comNo)
         def n1 = 0
         def n2 = 0
-        if(loan_list!=null&&loan_list.size()>0){
-            for (int i=0;i<loan_list.size();i++){
-                def str = loan_list.get(i).getBxNo()
+        if(bx_list!=null&&bx_list.size()>0){
+            for (int i=0;i<bx_list.size();i++){
+                def str = bx_list.get(i).getBxNo()
                 def s = str.substring(1,9)
                 if (comAndDate.equals(s)){
                     if (serialNumberList.size()==0){

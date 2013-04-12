@@ -625,7 +625,6 @@
 //           id=1;
 //        }
         var gForm = document.getElementById("gFrom");
-        alert("gForm:"+gForm);
         if(id==0){
             gForm.action = "bxdSave";
         }else if(id==1){

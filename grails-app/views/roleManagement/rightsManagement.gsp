@@ -85,7 +85,6 @@
                 </g:each>
           </table>
          <input type="button" value="保存" name="saveRights"onclick="updateRights();">
-         %{--<input type="button" value="保存" name="saveRights"onclick="getTable()">--}%
          <input type="button" value="取消" name="back" onclick="javascript:history.back(-1);">
          <input type="hidden" id="lookString" name="lookString" value="">
          <input type="hidden" id="addString" name="addString" value="">

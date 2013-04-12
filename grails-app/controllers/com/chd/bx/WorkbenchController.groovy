@@ -54,6 +54,10 @@ class WorkbenchController {
         String queryString = "from RoleMenu where roleId=" + role.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
 //        String queryString2 = "from RoleMenu where roleId=" + role.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
         List menus = RoleMenu.executeQuery(queryString)
+//        Set set = new HashSet();
+//        set.addAll(menus2);
+//        List menus = new ArrayList();
+//        menus.addAll(set);
 //        def s = menus.size()
 //        List menus2 = RoleMenu.executeQuery(queryString2)
 //        List menus3
