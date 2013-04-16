@@ -49,6 +49,7 @@ class AccSubjectImportService {
                 accSubjectImport.setCompanyCode(gr.getFieldValue("BUKRS"))
                 accSubjectImport.setSubjectNo(gr.getFieldValue("SAKNR"))
                 accSubjectImport.setSubjectDes(gr.getFieldValue("TXT20_ML"))
+                accSubjectImport.setSubject(subjectNo)
                 try {
                     if (accSubjectImport.save(flush: true)) {
                         println("success")
@@ -70,8 +71,8 @@ class AccSubjectImportService {
         return accSubjectImportList;
     }
 
-    def delete(String companyCode){
-        def strSql="DELETE FROM TI_ACC_SUBJECT_IMPORT WHERE COMPANY_CODE='"+companyCode+"'"
+    def delete(String companyCode,String subjectNo){
+        def strSql="DELETE FROM TI_ACC_SUBJECT_IMPORT WHERE COMPANY_CODE='"+companyCode+"' AND SUBJECT='"+subjectNo+"'"
         def conn = null;
         try {
             org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy ds = SpringUtil.getBean("dataSource");

@@ -192,11 +192,11 @@
                                                 </table>
                                             </td>
                                         </tr>
-                                        <tr height="30">
-                                            <td colspan="6" align="right">
-                                                <input type="button" value="上一页" disabled>每页共10条，目前是第1页<input type="button" value="下一页">
-                                            </td>
-                                        </tr>
+                                        %{--<tr height="30">--}%
+                                            %{--<td colspan="6" align="right">--}%
+                                                %{--<input type="button" value="上一页" disabled>每页共10条，目前是第1页<input type="button" value="下一页">--}%
+                                            %{--</td>--}%
+                                        %{--</tr>--}%
                                     </table>
                                 </td>
                             </tr>

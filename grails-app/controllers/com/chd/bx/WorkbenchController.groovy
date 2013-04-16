@@ -19,39 +19,39 @@ class WorkbenchController {
         def userRoleList = UserRole.findAllByUser(user)
         def role = new Role()
         def role2 = new Role()
+//        for (UserRole userRole:userRoleList){
+//            def role1 = new Role()
+//            role1 = userRole.role
+//            def str = role1.description.substring(0,1)
+//            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+//                    && !role1.description.equals("CN")) {
+//                role = role1
+//                break;
+//            }
+//        }
         for (UserRole userRole:userRoleList){
             def role1 = new Role()
             role1 = userRole.role
             def str = role1.description.substring(0,1)
             if (!role1.description.equals("PT") && !role1.description.equals("KJ")
-                    && !role1.description.equals("CN")) {
+                    && !role1.description.equals("CN") && str.equals("B")) {
                 role = role1
                 break;
             }
         }
-//        for (UserRole userRole:userRoleList){
-//            def role1 = new Role()
-//            role1 = userRole.role
-//            def str = role1.description.substring(0,1)
-//            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
-//                    && !role1.description.equals("CN") && str.equals("B")) {
-//                role = role1
-//                break;
-//            }
-//        }
-//        for (UserRole userRole:userRoleList){
-//            def role1 = new Role()
-//            role1 = userRole.role
-//            def str = role1.description.substring(0,1)
-//            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
-//                    && !role1.description.equals("CN") && str.equals("J")) {
-//                role2 = role1
-//                break;
-//            }
-//        }
+        for (UserRole userRole:userRoleList){
+            def role1 = new Role()
+            role1 = userRole.role
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("J")) {
+                role2 = role1
+                break;
+            }
+        }
 //        String queryString = "from RoleMenu where roleId=" + currentUser.role.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
 //        String queryString = "select distinct * from RoleMenu where roleId=" + role.id + " or roleId=" + role2.id + "and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
-        String queryString = "from RoleMenu where roleId=" + role.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
+        String queryString = "from RoleMenu where roleId=" + role.id + " or roleId=" + role2.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
 //        String queryString2 = "from RoleMenu where roleId=" + role.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
         List menus = RoleMenu.executeQuery(queryString)
 //        Set set = new HashSet();
@@ -127,24 +127,44 @@ class WorkbenchController {
 //
 //
 //            }
-
+        Map<String, Map<String,List<Menu>>> map2 = new HashMap<String, Map<String,List<Menu>>>();
         Map<String, List<Menu>> map = new HashMap<String, List<Menu>>();
+        String strMenu = ""
         List<String> keys=new ArrayList<String>();
         for (RoleMenu roleMenu : menus) {
             MenuCategory mc = roleMenu.menu.menuCategory;
-            List<Menu> ms = map.get(mc.categoryName);
-            if (ms != null) {
-                ms.add(roleMenu.menu);
-            } else {
-                ms = new ArrayList<Menu>();
-                ms.add(roleMenu.menu);
-                map.put(mc.categoryName, ms);
-                keys.add(mc.categoryName);
+            def str = strMenu.indexOf(roleMenu.menu.menuName)
+            if (str==-1) {
+                strMenu += (roleMenu.menu.menuName+",")
+//                List<Menu> ms = map.get(mc.categoryName);
+//                Map<String,List<Menu>> m = map2.get(mc.categoryName);
+//
+//                if (m != null) {
+//                    m.put(mc.categoryName,roleMenu.menu);
+//                } else {
+//                    ms = new ArrayList<Menu>();
+//                    m = new HashMap<String, List<Menu>>();
+//                    ms.add(roleMenu.menu);
+//                    m.put(mc.categoryName,ms)
+//                    map2.put(mc.categoryName,m)
+////                    map.put(mc.categoryName, ms);
+//                    keys.add(mc.categoryName);
+//                }
+                List<Menu> ms = map.get(mc.categoryName);
+                if (ms != null) {
+                    ms.add(roleMenu.menu);
+                } else {
+                    ms = new ArrayList<Menu>();
+                    ms.add(roleMenu.menu);
+                    map.put(mc.categoryName, ms);
+                    keys.add(mc.categoryName);
+                }
             }
         }
         List <MenuItem> menuItems = new ArrayList<MenuItem>()
         for (String key : keys) {
             MenuItem item=new MenuItem(categoryName:key,menus:map.get(key));
+//            MenuItem item=new MenuItem(categoryName:key,menus:map2.get(key));
             menuItems.add(item);
         }
 //        String isAuth="1";
@@ -154,11 +174,13 @@ class WorkbenchController {
             String isAuth="0"
 //        }
         render view: 'index', model: ['menuItems': menuItems,isAuth:isAuth];
+//        render view: '/loanAppReceipts/loan';
     }
 
     class MenuItem {
         String categoryName;
         List<Menu> menus;
+//        Map<String,List<Menu>> menus;
     }
 
 

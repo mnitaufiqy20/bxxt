@@ -561,7 +561,7 @@
     <td><input type="button" value="提交" disabled></td>
     <td><input type="button" value="返回" onclick="location='../bxReceipt/index'"></td>
     <g:if test="${bxReceipt.bxdStatus=="已审核" && role.description=="BXKJ" && user.username==exmApp.postAcc}">
-        <td><input type="button" value="执行过账" onclick="location='../loanCerIntegration/loanCerIntegration?type=fybx&bxNo=${bxReceipt.bxNo}'"></td>
+        <td><input type="button" value="执行过账" onclick="location='../bxCerIntegration/bxCerIntegration?type=fybx&bxNo=${bxReceipt.bxNo}'"></td>
     </g:if>
     <g:else>
         <td><input type="button" value="执行过账" disabled></td>
@@ -575,7 +575,7 @@
         </span>
     </td>
     <g:if test="${bxReceipt.bxdStatus=="已过账" && role.description=="BXCN" && user.username==exmApp.payTeller}">
-        <td><input type="button" value="执行付款" onclick="location='../loanCerIntegration/loanCerIntegration?type=bxfk&bxNo=${bxReceipt.bxNo}'"></td>
+        <td><input type="button" value="执行付款" onclick="location='../bxCerIntegration/bxCerIntegration?type=bxfk&bxNo=${bxReceipt.bxNo}'"></td>
     </g:if>
     <g:else>
         <td><input type="button" value="执行付款" disabled></td>

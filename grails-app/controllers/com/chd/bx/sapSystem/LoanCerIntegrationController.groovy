@@ -6,12 +6,10 @@ import sapSystem.LoanCerIntegrationOutput
 import com.chd.bx.security.User
 import com.chd.bx.security.UserRole
 import com.chd.bx.security.Role
-import com.chd.bx.bxd.BxReceipt
 
 class LoanCerIntegrationController {
-    def loanCerIntegrationService = new LoanCerIntegrationService()
+    def loanCerIntegrationService
     def loanAppReceiptsService
-    def bxReceiptService
     def springSecurityService
     def index() {
         redirect(action: "list", params: params)
@@ -21,15 +19,16 @@ class LoanCerIntegrationController {
         def type = params["type"]
         def loanId
         def loanAppReceipts
-        def accSubjectImportList
-        def bxNo
-        def bxReceipt
+        def readySubjectList
+        def bankSubjectList
         if (type.equals("loan")){
             loanId = params["loanAppReceiptsId"]
             loanAppReceipts = new LoanAppReceipts()
             loanAppReceipts = LoanAppReceipts.findByLoanAppReceiptsId(loanId)
-            accSubjectImportList = AccSubjectImport.findAllByCompanyCode(loanAppReceipts.loanCompanyNo)
-            render(view: '/loanCerIntegration/loanCerIntegration',model:[loanAppReceipts:loanAppReceipts,type:type,accSubjectImportList:accSubjectImportList])
+            readySubjectList = AccSubjectImport.findAllByCompanyCode(loanAppReceipts.loanCompanyNo,"1")
+            bankSubjectList = AccSubjectImport.findAllByCompanyCode(loanAppReceipts.loanCompanyNo,"5")
+            render(view: '/loanCerIntegration/loanCerIntegration',model:[loanAppReceipts:loanAppReceipts,type:type,
+                    readySubjectList:readySubjectList,bankSubjectList:bankSubjectList])
         }else if (type.equals("jkfk")){
             loanId = params["loanAppReceiptsId"]
             loanAppReceipts = new LoanAppReceipts()
@@ -42,24 +41,6 @@ class LoanCerIntegrationController {
             role = getRole()
             def menuId = params["menuId"]
             render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,role:role,menuId: menuId])
-        }else if (type.equals("fybx")){
-//            bxNo = params["bxNo"]
-//            bxReceipt = new BxReceipt()
-//            bxReceipt = BxReceipt.findByBxNo(bxNo)
-//            bxReceipt.bxdStatus = "已过帐"
-//            bxReceiptService.bxdSave(bxReceipt)
-        }else if (type.equals("bxfk")){
-            bxNo = params["bxNo"]
-            bxReceipt = new BxReceipt()
-            bxReceipt = BxReceipt.findByBxNo(bxNo)
-            bxReceipt.bxdStatus = "已付款"
-            bxReceiptService.bxdSave(bxReceipt)
-            String currentUserName = springSecurityService.getPrincipal().username;
-            def user = User.findByUsername(currentUserName)
-            def role = new Role()
-            role = getRole()
-            def menuId = params["menuId"]
-            render(view: '/bxReceipt/bxReceiptCommit', model: [bxReceipt: bxReceipt,user: user,role:role,menuId: menuId])
         }
 
     }
@@ -111,7 +92,9 @@ class LoanCerIntegrationController {
         for (UserRole userRole:userRoleList){
             def role1 = new Role()
             role1 = userRole.role
-            if (!role1.description.equals("PT") && !role1.description.equals("KJ") && !role1.description.equals("CN")) {
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("J")) {
                 role = role1
                 break;
             }

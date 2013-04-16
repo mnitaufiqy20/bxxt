@@ -11,7 +11,7 @@
 <head>
   <title></title>
     <script type="text/javascript">
-        function commForm(){
+        function commForm(type){
             var readySubject = document.getElementById("readySubject").value;
             var bankSubject = document.getElementById("bankSubject").value;
             var type = "${loanAppReceipts.loanPaymentType}";
@@ -27,8 +27,13 @@
                 }
             }
             var gForm = document.getElementById("gForm");
-            gForm.constructor = "loanCerIntegration";
-            gForm.action = "loanCerIntegrationSave";
+            if(type=="loan"){
+                gForm.constructor = "loanCerIntegration";
+                gForm.action = "loanCerIntegrationSave";
+            }else{
+                gForm.constructor = "bxCerIntegration";
+                gForm.action = "bxCerIntegrationSave";
+            }
             gForm.submit();
         }
     </script>
@@ -48,7 +53,12 @@
                 <tr><td>&nbsp;</td></tr>
                 <tr>
                     <td width="10%">&nbsp;&nbsp;
-                        <input type="hidden" name="loanAppReceiptsId" id="loanAppReceiptsId" value="${loanAppReceipts.loanAppReceiptsId}">
+                        <g:if test="${type=="loan"}">
+                            <input type="hidden" name="loanAppReceiptsId" id="loanAppReceiptsId" value="${loanAppReceipts.loanAppReceiptsId}">
+                        </g:if>
+                        <g:else>
+                            <input type="hidden" name="bxNo" id="bxNo" value="${bxReceipt.bxNo}">
+                        </g:else>
                         <input type="hidden" name="type" id="type" value="${type}">
                     </td>
                     <g:if test="${loanAppReceipts.loanPaymentType=="银行转账"}">
@@ -60,7 +70,7 @@
                         <td width="15%"> 银行科目：
                             <select name="bankSubject">
                                 <option value="0">-----请选择-----</option>
-                                <g:each in="${accSubjectImportList}" var="item">
+                                <g:each in="${bankSubjectList}" var="item">
                                     <option value="${item.id}">${item.subjectNo}</option>
                                 </g:each>
                             </select>
@@ -70,7 +80,7 @@
                         <td width="15%"> 现金科目：
                             <select name="readySubject">
                                 <option value="0">-----请选择-----</option>
-                                <g:each in="${accSubjectImportList}" var="item">
+                                <g:each in="${readySubjectList}" var="item">
                                     <option value="${item.id}">${item.subjectNo}</option>
                                 </g:each>
                             </select>
@@ -82,8 +92,13 @@
                         </td>
                     </g:else>
 
-                    <td  width="5%"><input type="button" value="确定" onclick="commForm();"></td>
-                    <td width="10%"><input type="button" value="返回" onclick="location='../loanAppReceipts/loanAppReceiptsQuery'"></td>
+                    <td  width="5%"><input type="button" value="确定" onclick="commForm('${type}');"></td>
+                    <g:if test="${type=="loan"}">
+                        <td width="10%"><input type="button" value="返回" onclick="location='../loanAppReceipts/loanAppReceiptsQuery'"></td>
+                    </g:if>
+                    <g:else>
+                        <td width="10%"><input type="button" value="返回" onclick="location='../bxReceipt/index'"></td>
+                    </g:else>
                 </tr>
             </table>
         </td>

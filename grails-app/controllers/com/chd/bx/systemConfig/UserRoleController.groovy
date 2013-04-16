@@ -24,18 +24,32 @@ class UserRoleController {
             String userId=""
             String userName=""
             if (listUser!=null){
-                for (int h=0;h<listUser.size();h++){
-                    def userRole=listUser.get(h)
-                    int uId=userRole.user.id
-                    String uName=userRole.user.username
-                    if (listUser.size()-1==h){
-                        userId = userId+uId
-                        userName = userName+uName
-                    }else{
-                        userId = userId+uId+","
-                        userName = userName+uName+","
+                if (listUser.size()>5){
+                    for (int h=0;h<5;h++){
+                        def userRole=listUser.get(h)
+                        int uId=userRole.user.id
+                        String uName=userRole.user.username
+                        if (h==4){
+                            userId = userId+uId
+                            userName = userName+uName+",......"
+                        }else{
+                            userId = userId+uId+","
+                            userName = userName+uName+","
+                        }
                     }
-
+                }else{
+                    for (int h=0;h<listUser.size();h++){
+                        def userRole=listUser.get(h)
+                        int uId=userRole.user.id
+                        String uName=userRole.user.username
+                        if (listUser.size()-1==h){
+                            userId = userId+uId
+                            userName = userName+uName
+                        }else{
+                            userId = userId+uId+","
+                            userName = userName+uName+","
+                        }
+                    }
                 }
                 userRoleList.setUserId(userId)
                 userRoleList.setUserName(userName)

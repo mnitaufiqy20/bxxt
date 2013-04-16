@@ -20,9 +20,9 @@ class AccSubjectImportController {
         def subjectNo = params["subjectNo"]
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = UserLogin.findByLoginName(currentUserName)
-        def list = AccSubjectImport.findAllByCompanyCode(companyCode);
+        def list = AccSubjectImport.findAllByCompanyCodeAndSubject(companyCode,subjectNo);
         if (list!=null && list.size()>0){
-            accSubjectImportService.delete(companyCode)
+            accSubjectImportService.delete(companyCode,subjectNo)
         }
         accSubjectImportList = accSubjectImportService.accSubjectImport(companyCode,subjectNo)
         render(view: '/accSubjectImport/accSubjectImport',model: [user:user,accSubjectImportList: accSubjectImportList])
