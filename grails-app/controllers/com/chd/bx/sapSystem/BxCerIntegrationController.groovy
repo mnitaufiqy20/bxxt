@@ -214,13 +214,13 @@ class BxCerIntegrationController {
             for (BxLoan bxLoan:listLoan){
                 bxCerIntegrationLineOutput  = new BxCerIntegrationLineOutput()
                 bxCerIntegrationLineOutput.bxdh = bxNo
-                def accSubSafeguard = new AccSubSafeguard()
-                accSubSafeguard = AccSubSafeguard.findByAppTypeAndCostKind("费用报销单","其他费用")
-                if (accSubSafeguard!=null && accSubSafeguard!=""){
-                    bxCerIntegrationLineOutput.fykm = accSubSafeguard.appSub
-                }else{
+//                def accSubSafeguard = new AccSubSafeguard()
+//                accSubSafeguard = AccSubSafeguard.findByAppTypeAndCostKind("费用报销单","其他费用")
+//                if (accSubSafeguard!=null && accSubSafeguard!=""){
+//                    bxCerIntegrationLineOutput.fykm = accSubSafeguard.appSub
+//                }else{
                     bxCerIntegrationLineOutput.fykm = ""
-                }
+//                }
 
                 bxCerIntegrationLineOutput.ybje = bxLoan.loanOriginalSum.toString()
                 bxCerIntegrationLineOutput.bz = bxLoan.loanRemark

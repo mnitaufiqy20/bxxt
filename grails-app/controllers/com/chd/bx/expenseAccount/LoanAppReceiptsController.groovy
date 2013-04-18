@@ -47,22 +47,23 @@ class LoanAppReceiptsController {
         def user = User.findByUsername(currentUserName)
         def user2 = UserLogin.findByLoginName(currentUserName)
         def empNo = user.empNo
-        def menuId = params["menuId"]
+        def funcCode = params["funcCode"]
+        def menuId = Menu.findByMenuCode(funcCode).id
         loan_list = new ArrayList<LoanAppReceipts>();
 
-//        def str = getLimitsStr(currentUserName)
-//        def a = ""
-//        def b = ""
-//        def c = ""
-//        if (str.indexOf("V")!=-1){
-//          a = "V"
-//        }
-//        if(str.indexOf("N")!=-1){
-//          b = "N"
-//        }
-//        if(str.indexOf("E")!=-1){
-//            c = "E"
-//        }
+        def str = getLimitsStr(currentUserName,funcCode)
+        def a = ""
+        def b = ""
+        def c = ""
+        if (str.indexOf("V")!=-1){
+          a = "V"
+        }
+        if(str.indexOf("N")!=-1){
+          b = "N"
+        }
+        if(str.indexOf("E")!=-1){
+            c = "E"
+        }
         def userRoleList = UserRole.findAllByUser(user)
         for (UserRole userRole:userRoleList){
             def role = new Role()
@@ -85,10 +86,11 @@ class LoanAppReceiptsController {
     /**
      * 得到当前用户所有权限的字符串
      */
-    def getLimitsStr(String currentUserName){
-        def menu = Menu.findById(params["menuId"])
+    def getLimitsStr(String currentUserName,String funcCode){
+        def menu = Menu.findByMenuCode(funcCode)
         def u = User.findByUsername(currentUserName)
         def userRoleList = UserRole.findAllByUser(u)
+
         def str = ""
         for (UserRole userRole:userRoleList){
             def roleMenu = RoleMenu.findByRoleIdAndMenu(userRole.roleId,menu)
@@ -513,7 +515,6 @@ class LoanAppReceiptsController {
             //申请失败
             mail.send(userName,uid,request.getRealPath("/email/FailureMail.txt"),email,res)
         }
-
     }
 
     /**
