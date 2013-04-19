@@ -99,7 +99,7 @@
                                                 <td height="30">
                                                     <input type="text" id="loanEmpIdNumber" name="loanEmpIdNumber" value="${user.idNumber}" readonly>
                                                     <input type="hidden" id="loanEmpNo" name="loanEmpNo" value="${user.empNo}">
-                                                    <input type="hidden" name="menuId" value="${menuId}">
+                                                    <input type="hidden" name="funcCode" value="${funcCode}">
                                                     %{--选项只能为本公司员工--}%
                                                     %{--<select id="loanEmpNo" name="loanEmpNo" onblur="emptyVerify('loanEmpNo');" onchange="changeEmpNo();">--}%
                                                         %{--<option value="-1">--请选择--</option>--}%
@@ -306,7 +306,7 @@
             <td>&nbsp;&nbsp;</td>
             <td height="30"><input type="button" value="保存" onclick="commForm(0);"></td>
             <td><input type="button" value="提交" onclick="commForm(1);"></td>
-            <td><input type="button" value="返回" onclick="location='../loanAppReceipts/loanAppReceiptsQuery?menuId=${menuId}'"></td>
+            <td><input type="button" value="返回" onclick="location='../loanAppReceipts/loanAppReceiptsQuery?funcCode=${funcCode}'"></td>
             <td><input type="button" value="执行过账" disabled></td>
             <td>
                 <span style="color: red">

@@ -113,7 +113,7 @@
                                 <td height="30"><div style="width: 150px;background: #ADCDF4;">申请人填写：</div></td>
                                 <td colspan="3" height="30">单号：${loanAppReceipts.loanAppReceiptsId}
                                     <input type="hidden" name="loanAppReceiptsId" id="loanAppReceiptsId" value="${loanAppReceipts.loanAppReceiptsId}">
-                                    <input type="hidden" name="menuId" value="${menuId}">
+                                    <input type="hidden" name="funcCode" value="${funcCode}">
                                 </td>
                             </tr>
                             <tr>

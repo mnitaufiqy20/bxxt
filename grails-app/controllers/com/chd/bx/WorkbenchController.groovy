@@ -213,7 +213,7 @@ class WorkbenchController {
         generateTree(root,result);
         result.append("]");
         String treeStr = result.toString();
-        println(treeStr)
+//        println(treeStr)
         render(view: "index", text:treeStr,contentType:'text/plaintext',encoding:"UTF-8");
     }
 
@@ -253,7 +253,6 @@ class WorkbenchController {
                 }else{
                     result.append("]},\n")
                 }
-
             }
         }
     }

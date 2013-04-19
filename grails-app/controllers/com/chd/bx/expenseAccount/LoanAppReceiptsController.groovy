@@ -48,7 +48,6 @@ class LoanAppReceiptsController {
         def user2 = UserLogin.findByLoginName(currentUserName)
         def empNo = user.empNo
         def funcCode = params["funcCode"]
-        def menuId = Menu.findByMenuCode(funcCode).id
         loan_list = new ArrayList<LoanAppReceipts>();
 
         def str = getLimitsStr(currentUserName,funcCode)
@@ -78,27 +77,31 @@ class LoanAppReceiptsController {
                 break;
             }
         }
-//        loan_list = loanAppReceiptsService.loanAppReceiptsQuery()
-//        render(view: '/loanAppReceipts/loanAppReceiptsList', model: [loan_list: loan_list,menuId:menuId,a:a,b:b,c:c])
-        render(view: '/loanAppReceipts/loanAppReceiptsList', model: [loan_list: loan_list,menuId:menuId])
+        render(view: '/loanAppReceipts/loanAppReceiptsList', model: [loan_list: loan_list,funcCode:funcCode,a:a,b:b,c:c])
     }
 
     /**
      * 得到当前用户所有权限的字符串
      */
     def getLimitsStr(String currentUserName,String funcCode){
+        def strRoleRight = ""
         def menu = Menu.findByMenuCode(funcCode)
         def u = User.findByUsername(currentUserName)
         def userRoleList = UserRole.findAllByUser(u)
-
-        def str = ""
+        def role = new Role()
         for (UserRole userRole:userRoleList){
-            def roleMenu = RoleMenu.findByRoleIdAndMenu(userRole.roleId,menu)
-            if (roleMenu!=null && roleMenu.roleRight!=""){
-                str += roleMenu.roleRight
+            def role1 = new Role()
+            role1 = userRole.role
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("J")) {
+                def roleMenu = RoleMenu.findByRoleIdAndMenu(role1.id,menu)
+                if (roleMenu!=null && roleMenu.roleRight!=""){
+                    strRoleRight += roleMenu.roleRight
+                }
             }
         }
-        return str
+        return strRoleRight
     }
     /**
      * 高级查询
@@ -146,8 +149,8 @@ class LoanAppReceiptsController {
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = UserLogin.findByLoginName(currentUserName)
         def costCenterList = CostCenterImport.findAllByCompanyCode(user.companyNo)
-        def menuId = params["menuId"]
-        render(view: '/loanAppReceipts/loanAppReceiptsAdd', model: [nowDate: nowDate,user:user,menuId: menuId,costCenterList:costCenterList])
+        def funcCode = params["funcCode"]
+        render(view: '/loanAppReceipts/loanAppReceiptsAdd', model: [nowDate: nowDate,user:user,funcCode: funcCode,costCenterList:costCenterList])
     }
 
     /**
@@ -164,12 +167,12 @@ class LoanAppReceiptsController {
         loanAppReceipts = loanAppRec(loanAppReceipts,params)
         loanAppReceipts.loanStatus = "已保存"
         loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts);
-        def menuId = params["menuId"]
+        def funcCode = params["funcCode"]
         startFlow(loanId);
         String currentUserName = springSecurityService.getPrincipal().username;
         def user = UserLogin.findByLoginName(currentUserName)
         def costCenterList = CostCenterImport.findAllByCompanyCode(user.companyNo)
-        render(view: '/loanAppReceipts/loanAppReceiptsUpdate',model: [loanAppReceipts: loanAppReceipts,menuId: menuId,costCenterList:costCenterList])
+        render(view: '/loanAppReceipts/loanAppReceiptsUpdate',model: [loanAppReceipts: loanAppReceipts,funcCode: funcCode,costCenterList:costCenterList])
     }
 
     /**
@@ -210,7 +213,7 @@ class LoanAppReceiptsController {
 
         //发送邮件给下一个办理人
 //        sendEmail(nextUser.getUserName(),params["loanAppReceiptsId"],nextUser.empEmail,1);//用户需要邮箱
-        def menuId = params["menuId"]
+        def funcCode = params["funcCode"]
         def userL = UserLogin.findByIdNumber(loanAppReceipts.loanEmpIdNumber)
         def user2 = User.findByUsername(userL.loginName)
         def userRoleList2 = UserRole.findAllByUser(user2)
@@ -226,7 +229,7 @@ class LoanAppReceiptsController {
             }
         }
         def exmApp = loanAppReceiptsService.getProcessApprove(role2.authority,userL.companyNo,"LOAN")
-        render(view: '/loanAppReceipts/loanAppReceiptsCommit',model: [loanAppReceipts: loanAppReceipts,menuId: menuId,exmApp:exmApp])
+        render(view: '/loanAppReceipts/loanAppReceiptsCommit',model: [loanAppReceipts: loanAppReceipts,funcCode: funcCode,exmApp:exmApp])
     }
 
     /**
@@ -302,9 +305,9 @@ class LoanAppReceiptsController {
      */
     def editLoanAppReceipts(params){
         loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(params["loanAppReceiptsId"])
-        def menuId = params["menuId"]
+        def funcCode = params["funcCode"]
         if (loanAppReceipts.loanStatus.equals("已保存")){
-            render(view: '/loanAppReceipts/loanAppReceiptsUpdate', model: [loanAppReceipts: loanAppReceipts,menuId: menuId])
+            render(view: '/loanAppReceipts/loanAppReceiptsUpdate', model: [loanAppReceipts: loanAppReceipts,funcCode: funcCode])
         }else{
             def userL = UserLogin.findByIdNumber(loanAppReceipts.loanEmpIdNumber)
             def user2 = User.findByUsername(userL.loginName)
@@ -321,7 +324,7 @@ class LoanAppReceiptsController {
                 }
             }
             def exmApp = loanAppReceiptsService.getProcessApprove(role2.authority,userL.companyNo,"LOAN")
-            render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,menuId: menuId,exmApp:exmApp])
+            render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,funcCode: funcCode,exmApp:exmApp])
         }
     }
 
@@ -348,7 +351,7 @@ class LoanAppReceiptsController {
                 break;
             }
         }
-        def menuId = params["menuId"]
+        def funcCode = params["funcCode"]
         def userL = UserLogin.findByIdNumber(loanAppReceipts.loanEmpIdNumber)
         def user2 = User.findByUsername(userL.loginName)
         def userRoleList2 = UserRole.findAllByUser(user2)
@@ -364,8 +367,8 @@ class LoanAppReceiptsController {
             }
         }
         def exmApp = loanAppReceiptsService.getProcessApprove(role2.authority,userL.companyNo,"LOAN")
-//        render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,menuId: menuId,exmApp:exmApp])
-        render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,role:role,menuId: menuId,exmApp:exmApp])
+//        render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,funcCode: funcCode,exmApp:exmApp])
+        render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,role:role,funcCode: funcCode,exmApp:exmApp])
     }
 
     /**
@@ -379,8 +382,8 @@ class LoanAppReceiptsController {
         loanAppReceipts = loanAppRec(loanAppReceipts,params)
         loanAppReceipts.loanStatus = "已保存"
         loanAppReceiptsService.loanAppReceiptsSave(loanAppReceipts)
-        def menuId = params["menuId"]
-        render(view: '/loanAppReceipts/loanAppReceiptsUpdate', model: [loanAppReceipts: loanAppReceipts,menuId: menuId])
+        def funcCode = params["funcCode"]
+        render(view: '/loanAppReceipts/loanAppReceiptsUpdate', model: [loanAppReceipts: loanAppReceipts,funcCode: funcCode])
     }
 
     /**
@@ -413,12 +416,12 @@ class LoanAppReceiptsController {
         loanAppReceipts = loanAppReceiptsService.getLoanAppReceiptsById(loanAppReceiptsId)
         def historyLists = handle(taskId,loanAppReceiptsId)
 //        String type = loanAppReceiptsId.toString().substring(0,1);
-        def menuId = params["menuId"]
+        def funcCode = params["funcCode"]
 //        if("J".equals(type)){
             render(view: '/loanAppReceipts/loanAppReceiptsExamine', model: [nowDate:nowDate,user:user,loanAppReceipts: loanAppReceipts,
-                    taskId:taskId,historyLists:historyLists,menuId: menuId,role:role])
+                    taskId:taskId,historyLists:historyLists,funcCode: funcCode,role:role])
 //        }else if ("B".equals(type)){
-//            render(view: '/bxReceipt/bxHandle', model: [nowDate:nowDate,user:user,loanAppReceipts: loanAppReceipts,taskId:taskId,historyLists:historyLists,menuId: menuId])
+//            render(view: '/bxReceipt/bxHandle', model: [nowDate:nowDate,user:user,loanAppReceipts: loanAppReceipts,taskId:taskId,historyLists:historyLists,funcCode: funcCode])
 //        }
 //        render(view: '/loanAppReceipts/loan')
     }
