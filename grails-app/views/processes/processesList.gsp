@@ -125,13 +125,16 @@
                                                 <td>${item.processName}</td>
                                                 <td>${item.createTime}</td>
                                                 <td>
-                                                    <a style="color: blue;" href="../loanAppReceipts/examineLoanAppReceipts?loanAppReceiptsId=${item.wfNo}&taskId=${item.taskId}">
-                                                        办理
-                                                        %{--<g:if test="${item.status=='已保存'}">--}%
-                                                            %{--修改--}%
-                                                        %{--</g:if>--}%
-                                                        %{--<g:else>查看</g:else>--}%
-                                                    </a>
+                                                    <g:if test="${a =="C"}">
+                                                        <a style="color: blue;" href="../loanAppReceipts/examineLoanAppReceipts?loanAppReceiptsId=${item.wfNo}&taskId=${item.taskId}&funcCode=${funcCode}">
+                                                            办理
+                                                        </a>
+                                                    </g:if>
+                                                    <g:else>
+                                                        <a style="color: blue;" href="#">
+                                                            办理
+                                                        </a>
+                                                    </g:else>
                                                 </td>
                                             </tr>
                                         </g:each>
@@ -186,13 +189,21 @@
                                                 <td>${item.processName}</td>
                                                 <td>${item.createTime}</td>
                                                 <td>
-                                                    <a style="color: blue;" href="../bxReceipt/examineBxReceipts?bxReceiptsId=${item.wfNo}&taskId=${item.taskId}">
-                                                        办理
-                                                        %{--<g:if test="${item.status=='已保存'}">--}%
-                                                        %{--修改--}%
-                                                        %{--</g:if>--}%
-                                                        %{--<g:else>查看</g:else>--}%
-                                                    </a>
+                                                    <g:if test="${b =="C"}">
+                                                        <a style="color: blue;" href="../bxReceipt/examineBxReceipts?bxReceiptsId=${item.wfNo}&taskId=${item.taskId}&funcCode=${funcCode}">
+                                                            办理
+                                                            %{--<g:if test="${item.status=='已保存'}">--}%
+                                                            %{--修改--}%
+                                                            %{--</g:if>--}%
+                                                            %{--<g:else>查看</g:else>--}%
+                                                        </a>
+                                                    </g:if>
+                                                    <g:else>
+                                                        <a style="color: blue;" href="#">
+                                                            办理
+                                                        </a>
+                                                    </g:else>
+
                                                 </td>
                                             </tr>
                                         </g:each>

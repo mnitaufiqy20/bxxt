@@ -863,9 +863,66 @@ class LoanAppReceiptsController {
                 bxList.add(taskStore)
             }
         }
-
+        def funcCode = params["funcCode"]
+        def strJ = getLimitsStrJ(currentUserName,funcCode)
+        def strB = getLimitsStrB(currentUserName,funcCode)
+        def a = ""
+        def b = ""
+        if (strJ.indexOf("C")!=-1){
+            a = "C"
+        }
+        if(strB.indexOf("C")!=-1){
+            b = "C"
+        }
 //        loan_list = processesService.getProcessList();
-        render(view: '/processes/processesList', model: [list: list,loanList:loanList,bxList:bxList,userName:user.name])
+        render(view: '/processes/processesList', model: [list: list,loanList:loanList,bxList:bxList,userName:user.name,funcCode:funcCode,a:a,b:b])
+    }
+    /**
+     * 得到当前用户作为借款申请中角色的所有权限的字符串
+     */
+    def getLimitsStrJ(String currentUserName,String funcCode){
+        def strRoleRight = ""
+        def menu = Menu.findByMenuCode(funcCode)
+        def u = User.findByUsername(currentUserName)
+        def userRoleList = UserRole.findAllByUser(u)
+        def role = new Role()
+        for (UserRole userRole:userRoleList){
+            def role1 = new Role()
+            role1 = userRole.role
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("J")) {
+                def roleMenu = RoleMenu.findByRoleIdAndMenu(role1.id,menu)
+                if (roleMenu!=null && roleMenu.roleRight!=""){
+                    strRoleRight += roleMenu.roleRight
+                }
+            }
+        }
+        return strRoleRight
+    }
+
+    /**
+     * 得到当前用户作为报销申请中角色的所有权限的字符串
+     */
+    def getLimitsStrB(String currentUserName,String funcCode){
+        def strRoleRight = ""
+        def menu = Menu.findByMenuCode(funcCode)
+        def u = User.findByUsername(currentUserName)
+        def userRoleList = UserRole.findAllByUser(u)
+        def role = new Role()
+        for (UserRole userRole:userRoleList){
+            def role1 = new Role()
+            role1 = userRole.role
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("B")) {
+                def roleMenu = RoleMenu.findByRoleIdAndMenu(role1.id,menu)
+                if (roleMenu!=null && roleMenu.roleRight!=""){
+                    strRoleRight += roleMenu.roleRight
+                }
+            }
+        }
+        return strRoleRight
     }
 
 }

@@ -55,19 +55,6 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/WorkbenchController.groovy" line="55" class="com.chd.bx.WorkbenchController" package="com.chd.bx">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
     </line_breakpoints>
     <breakpoint_any>
       <breakpoint>
@@ -113,16 +100,70 @@
       <file leaf-file-name="LoanAppReceiptsController.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/expenseAccount/LoanAppReceiptsController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="252" column="35" selection-start="9950" selection-end="9950" vertical-scroll-proportion="-2.7708333">
+            <state line="865" column="39" selection-start="35773" selection-end="35781" vertical-scroll-proportion="-1.6666666">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WorkbenchController.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="loanAppReceiptsExamine.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/loanAppReceipts/loanAppReceiptsExamine.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="117" column="95" selection-start="5421" selection-end="5421" vertical-scroll-proportion="1.7763158">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="loanAppReceiptsList.gsp" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/loanAppReceipts/loanAppReceiptsList.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="166" column="157" selection-start="10485" selection-end="10485" vertical-scroll-proportion="7.7591624">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProcessesController.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/flow/ProcessesController.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="150" column="11" selection-start="4317" selection-end="6165" vertical-scroll-proportion="-2.0869565">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BxReceiptController.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/bxd/BxReceiptController.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1470" column="144" selection-start="61231" selection-end="61231" vertical-scroll-proportion="-6.8125">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bxHandle.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/bxReceipt/bxHandle.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="64" column="47" selection-start="3235" selection-end="3246" vertical-scroll-proportion="-1.9803921">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="processesList.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/processes/processesList.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="192" column="116" selection-start="10575" selection-end="10592" vertical-scroll-proportion="-0.43421054">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WorkbenchController.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/WorkbenchController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="0" selection-start="2423" selection-end="2423" vertical-scroll-proportion="-1.0916667">
+            <state line="55" column="0" selection-start="2423" selection-end="2423" vertical-scroll-proportion="-3.4782608">
               <folding />
             </state>
           </provider>
@@ -145,10 +186,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/grails-app/views/loanAppReceipts/loanAppReceiptsExamine.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/expenseAccount/LoanAppReceiptsController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/RoleManagementController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/views/loanAppReceipts/loanAppReceiptsList.gsp" />
         <option value="$PROJECT_DIR$/grails-app/views/roleManagement/roleList.gsp" />
         <option value="$PROJECT_DIR$/grails-app/views/userRole/userRole.gsp" />
         <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/UserRoleController.groovy" />
@@ -157,10 +194,14 @@
         <option value="$PROJECT_DIR$/grails-app/views/bxReceipt/bxReceiptDetail.gsp" />
         <option value="$PROJECT_DIR$/grails-app/views/bxReceipt/bxReceiptUpdate.gsp" />
         <option value="$PROJECT_DIR$/grails-app/views/bxReceipt/bxReceiptQuery.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/bxd/BxReceiptController.groovy" />
         <option value="$PROJECT_DIR$/grails-app/views/loanAppReceipts/loanAppReceiptsCommit.gsp" />
         <option value="$PROJECT_DIR$/grails-app/views/bxReceipt/bxReceiptCommit.gsp" />
         <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/WorkbenchController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/flow/ProcessesController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/processes/processesList.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/bxReceipt/bxHandle.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/bxd/BxReceiptController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/com/chd/bx/expenseAccount/LoanAppReceiptsController.groovy" />
       </list>
     </option>
   </component>
@@ -562,6 +603,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="security" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bxxt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bx" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flow" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1014,7 +1081,7 @@
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28072837" sideWeight="0.22804055" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.6197917" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.48986486" sideWeight="0.7003035" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.48986486" sideWeight="0.7003035" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3783784" sideWeight="0.29438543" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28072837" sideWeight="0.22804055" order="5" side_tool="true" content_ui="tabs" />
@@ -1099,41 +1166,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/grails-app/views/userRole/addUser.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="60" selection-start="1181" selection-end="1181" vertical-scroll-proportion="0.33461538">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Program Files/Java/jdk1.7.0_15/jre/lib/rt.jar!/java/util/ArrayList.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="11" selection-start="570" selection-end="570" vertical-scroll-proportion="0.33212996">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/systemConfig/RightsManagementController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="45" selection-start="2187" selection-end="2188" vertical-scroll-proportion="-3.3043478">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/bxd/BxReceiptController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="392" column="95" selection-start="15575" selection-end="15583" vertical-scroll-proportion="-1.5833334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/bxReceipt/bxReceiptDetail.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="82" selection-start="4582" selection-end="4590" vertical-scroll-proportion="-0.8815789">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/bxReceipt/bxReceiptQuery.gsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="55" column="142" selection-start="1953" selection-end="1961" vertical-scroll-proportion="-0.8815789">
@@ -1151,20 +1183,6 @@
     <entry file="file://$PROJECT_DIR$/grails-app/views/loanAppReceipts/loanAppReceiptsUpdate.gsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="100" column="71" selection-start="5364" selection-end="5372" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/loanAppReceipts/loanAppReceiptsList.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="152" column="99" selection-start="9187" selection-end="9195" vertical-scroll-proportion="0.29850745">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/expenseAccount/LoanAppReceiptsController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="252" column="35" selection-start="9950" selection-end="9950" vertical-scroll-proportion="-2.7708333">
           <folding />
         </state>
       </provider>
@@ -1212,7 +1230,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/WorkbenchController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="0" selection-start="2423" selection-end="2423" vertical-scroll-proportion="-1.0916667">
+        <state line="55" column="0" selection-start="2423" selection-end="2423" vertical-scroll-proportion="-3.4782608">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/processes/processesList.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="192" column="116" selection-start="10575" selection-end="10592" vertical-scroll-proportion="-0.43421054">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/bxReceipt/bxHandle.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="47" selection-start="3235" selection-end="3246" vertical-scroll-proportion="-1.9803921">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/bxd/BxReceiptController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1470" column="144" selection-start="61231" selection-end="61231" vertical-scroll-proportion="-6.8125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/flow/ProcessesController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="150" column="11" selection-start="4317" selection-end="6165" vertical-scroll-proportion="-2.0869565">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/com/chd/bx/expenseAccount/LoanAppReceiptsController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="865" column="39" selection-start="35773" selection-end="35781" vertical-scroll-proportion="-1.6666666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/loanAppReceipts/loanAppReceiptsExamine.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="95" selection-start="5421" selection-end="5421" vertical-scroll-proportion="1.7763158">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/loanAppReceipts/loanAppReceiptsList.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="166" column="157" selection-start="10485" selection-end="10485" vertical-scroll-proportion="7.7591624">
           <folding />
         </state>
       </provider>

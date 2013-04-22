@@ -96,6 +96,7 @@
                             <td height="21">单号：</td>
                             <td height="21"> <span id="bxNo">${bxReceipt.bxNo}</span>
                                 <input type="hidden" value="${bxReceipt.bxNo}" name="bxNo">
+                                <input type="hidden" name="funcCode" value="${funcCode}">
                             </td>
                         </tr>
                         <tr>
