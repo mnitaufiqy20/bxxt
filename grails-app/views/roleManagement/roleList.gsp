@@ -37,18 +37,33 @@
                 <option value="借款申请单">借款申请单</option>
             </select>
         </td>
-        <td >角色编码：<g:textField name="roleCode" value="${roleCode}"   maxlength="30"/></td>
+        <td >角色编码：<g:textField name="roleCode" value="${roleCode}"   maxlength="30"/>
+            <input type="hidden" name="funcCode" value="${funcCode}">
+        </td>
     </tr>
     <tr align="center">
         <td >角色名称：<g:textField name="roleName" value="${roleName}" style="width: 130px;" maxlength="30"/></td>
         <td>
-            <input type="button" value="查询" onclick="commForm(0)">
-            <input type="button" value="新增" onclick="commForm(1)">
-            <input type="button" value="删除" onclick="getChecked()">
+            <g:if test="${a =="V"}">
+                <input type="button" value="查询" onclick="commForm(0)">
+            </g:if>
+            <g:else>
+                <input type="button" value="查询" disabled>
+            </g:else>
+            <g:if test="${b =="N"}">
+                <input type="button" value="新增" onclick="commForm(1)">
+            </g:if>
+            <g:else>
+                <input type="button" value="新增" disabled>
+            </g:else>
+            <g:if test="${c =="D"}">
+                <input type="button" value="删除" onclick="getChecked()">
+            </g:if>
+            <g:else>
+                <input type="button" value="删除" disabled>
+            </g:else>
         </td>
     </tr>
-
-
 </table>
 <table id="table1" border="0.5" width="100%" border="0" cellpadding="0" cellspacing="0">
     <tr style="background-color: #f5f5dc;">
@@ -58,7 +73,6 @@
         <td width="36%" align="center">角色名称</td>
     </tr>
     <g:each in="${list}" var="item" status="index">
-
         <tr onMouseOver="over()" onClick="change()" onMouseOut="out()">
             <td width="2%" align="center"><g:checkBox name="checkRole" id="checkRole" checked="false" value="${item.roleCode}"></g:checkBox> </td>
             <td  width="36%" align="center"> ${item.functionName}</td>

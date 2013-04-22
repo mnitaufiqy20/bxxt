@@ -103,7 +103,7 @@
                     <table style="height:120px">
                         <tr>
                             <td height="21"><div style="width: 150px;background: #ADCDF4;">申请人填写：</div></td>
-                            <td height="21">单号：</td>
+                            <td height="21">单号：<input type="hidden" name="funcCode" value="${funcCode}"></td>
                             <td height="21"> <span id="bxNo">${bxReceipt.bxNo}</span>
                                 <input type="hidden" value="${bxReceipt.bxNo}" name="bxNo">
                             </td>

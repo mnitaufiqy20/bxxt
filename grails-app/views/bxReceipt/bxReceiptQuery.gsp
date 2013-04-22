@@ -53,7 +53,7 @@
                                 <td colspan="6" width="100%">
                                     <table>
                                         <tr>
-                                            <td height="30" width="8%" align="right">单号：</td>
+                                            <td height="30" width="8%" align="right">单号：<input type="hidden" name="funcCode" value="${funcCode}"></td>
                                             <td height="30" width="15%"><input id="rNo" name="rNo" type="text" value="${rNo}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                             <td height="30" width="10%" align="right">状态：</td>
                                             <td height="30" width="8%">
@@ -71,8 +71,23 @@
                                                 <input type="text" name="startDate" value="${startDate}"  class="Wdate" onclick="SelectDate(this,'yyyy-MM-dd',null,null);">
                                                 至<input type="text" value="${endDate}" name="endDate"  class="Wdate" onclick="SelectDate(this,'yyyy-MM-dd',null,null);">
                                             </td>
-                                            <td height="30" colspan="3" width="5%" align="right"><input type="button" value="查询" onclick="query();"></td> &nbsp;&nbsp;&nbsp;&nbsp;
-                                            <td colspan="2" width="5%" align="right"><input type="button" value="添加" onclick="location='../bxReceipt/bxdDetail'"></td>
+                                            <td height="30" colspan="3" width="5%" align="right">
+                                                <g:if test="${a=="V"}">
+                                                    <input type="button" value="查询" onclick="query();">
+                                                </g:if>
+                                                <g:else>
+                                                    <input type="button" value="查询" disabled>
+                                                </g:else>
+
+                                            </td> &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <td colspan="2" width="5%" align="right">
+                                                <g:if test="${b=="N"}">
+                                                    <input type="button" value="添加" onclick="location='../bxReceipt/bxdDetail?funcCode=${funcCode}'">
+                                                </g:if>
+                                                <g:else>
+                                                    <input type="button" value="添加" disabled>
+                                                </g:else>
+                                            </td>
                                         </tr>
                                         <tr>
 
@@ -119,12 +134,28 @@
                                                             <td>${item.applicationDate}</td>
                                                             <td>${item.payCounts}</td>
                                                             <td>${item.bxdStatus}</td>
-                                                            <g:if test="${item.bxdStatus=='已保存'}">
-                                                            <td><a href="../bxReceipt/bxdEdit?bxNo=${item.bxNo}">修改</a></td>
-                                                            </g:if>
-                                                            <g:else>
-                                                                <td><a href="../bxReceipt/bxdLookUp?bxNo=${item.bxNo}">查看</a></td>
-                                                            </g:else>
+                                                            <td>
+                                                                <g:if test="${item.bxdStatus=='已保存'}">
+                                                                    <g:if test="${c =="E"}">
+                                                                        <a href="../bxReceipt/bxdEdit?bxNo=${item.bxNo}&funcCode=${funcCode}">修改</a>
+                                                                    </g:if>
+                                                                    <g:else>
+                                                                        <a href="#">
+                                                                            修改
+                                                                        </a>
+                                                                    </g:else>
+                                                                </g:if>
+                                                                <g:else>
+                                                                    <g:if test="${a =="V"}">
+                                                                        <a href="../bxReceipt/bxdLookUp?bxNo=${item.bxNo}&funcCode=${funcCode}">查看</a>
+                                                                    </g:if>
+                                                                    <g:else>
+                                                                        <a href="#">
+                                                                            查看
+                                                                        </a>
+                                                                    </g:else>
+                                                                </g:else>
+                                                            </td>
                                                         </tr>
                                                     </g:each>
                                                 </table>

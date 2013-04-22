@@ -28,11 +28,17 @@
     <table  width="100%">
         <tr><td align="center" colspan="4" width="100%"><h3>添加角色用户</h3></td></tr>
         <tr>
-            <td width="10%">角色：</td>
+            <td width="10%">角色：<input type="hidden" name="funcCode" value="${funcCode}"></td>
             <td width="30%">${roleName}</td>
             <td width="45%">&nbsp;</td>
             <td width="15%" align="left">
-                <input type="button" value="添加" onclick="commForm(0)">
+                <g:if test="${a == "N"}">
+                    <input type="button" value="添加" onclick="commForm(0)">
+                </g:if>
+                <g:else>
+                    <input type="button" value="添加" disabled>
+                </g:else>
+
                 <input type="button" value="返回" onclick="javascript:history.back(-1);">
             </td>
         </tr>

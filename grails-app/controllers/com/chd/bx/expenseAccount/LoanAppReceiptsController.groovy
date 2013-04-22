@@ -130,9 +130,23 @@ class LoanAppReceiptsController {
                 break;
             }
         }
+        def funcCode = params["funcCode"]
+        def str = getLimitsStr(currentUserName,funcCode)
+        def a = ""
+        def b = ""
+        def c = ""
+        if (str.indexOf("V")!=-1){
+            a = "V"
+        }
+        if(str.indexOf("N")!=-1){
+            b = "N"
+        }
+        if(str.indexOf("E")!=-1){
+            c = "E"
+        }
         loan_list = loanAppReceiptsService.loanAppReceiptsGJQuery(params,idNum,index)
 //        loan_list = loanAppReceiptsService.loanAppReceiptsGJQuery(params)
-        render(view: '/loanAppReceipts/loanAppReceiptsList', model: [loan_list: loan_list,startDate:params["startDate"],
+        render(view: '/loanAppReceipts/loanAppReceiptsList', model: [loan_list: loan_list,funcCode:funcCode,a:a,b:b,c:c,startDate:params["startDate"],
                 endDate:params["endDate"],loanAppReceiptsId:params["loanAppReceiptsId"],loanStatus:params["loanStatus"]])
     }
 
@@ -150,7 +164,8 @@ class LoanAppReceiptsController {
         def user = UserLogin.findByLoginName(currentUserName)
         def costCenterList = CostCenterImport.findAllByCompanyCode(user.companyNo)
         def funcCode = params["funcCode"]
-        render(view: '/loanAppReceipts/loanAppReceiptsAdd', model: [nowDate: nowDate,user:user,funcCode: funcCode,costCenterList:costCenterList])
+
+        render(view: '/loanAppReceipts/loanAppReceiptsAdd', model: [nowDate: nowDate,user:user,funcCode: funcCode, costCenterList:costCenterList])
     }
 
     /**
@@ -229,7 +244,16 @@ class LoanAppReceiptsController {
             }
         }
         def exmApp = loanAppReceiptsService.getProcessApprove(role2.authority,userL.companyNo,"LOAN")
-        render(view: '/loanAppReceipts/loanAppReceiptsCommit',model: [loanAppReceipts: loanAppReceipts,funcCode: funcCode,exmApp:exmApp])
+        def str = getLimitsStr(currentUserName,funcCode)
+        def d = ""
+        def e = ""
+        if (str.indexOf("P")!=-1){
+            d = "P"
+        }
+        if(str.indexOf("M")!=-1){
+            e = "M"
+        }
+        render(view: '/loanAppReceipts/loanAppReceiptsCommit',model: [loanAppReceipts: loanAppReceipts,funcCode: funcCode,d: d,e: e,exmApp:exmApp])
     }
 
     /**
@@ -324,7 +348,17 @@ class LoanAppReceiptsController {
                 }
             }
             def exmApp = loanAppReceiptsService.getProcessApprove(role2.authority,userL.companyNo,"LOAN")
-            render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,funcCode: funcCode,exmApp:exmApp])
+            String currentUserName = springSecurityService.getPrincipal().username;
+            def str = getLimitsStr(currentUserName,funcCode)
+            def d = ""
+            def e = ""
+            if (str.indexOf("P")!=-1){
+                d = "P"
+            }
+            if(str.indexOf("M")!=-1){
+                e = "M"
+            }
+            render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,funcCode: funcCode,d:d,e:e, exmApp:exmApp])
         }
     }
 
@@ -366,9 +400,18 @@ class LoanAppReceiptsController {
                 break;
             }
         }
+        def str = getLimitsStr(currentUserName,funcCode)
+        def d = ""
+        def e = ""
+        if (str.indexOf("P")!=-1){
+            d = "P"
+        }
+        if(str.indexOf("M")!=-1){
+            e = "M"
+        }
         def exmApp = loanAppReceiptsService.getProcessApprove(role2.authority,userL.companyNo,"LOAN")
 //        render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,funcCode: funcCode,exmApp:exmApp])
-        render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,role:role,funcCode: funcCode,exmApp:exmApp])
+        render(view: '/loanAppReceipts/loanAppReceiptsCommit', model: [loanAppReceipts: loanAppReceipts,user: user,role:role,funcCode: funcCode,d:d,e:e,exmApp:exmApp])
     }
 
     /**

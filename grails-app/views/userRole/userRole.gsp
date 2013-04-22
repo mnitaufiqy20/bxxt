@@ -37,6 +37,7 @@
     <tr >
         <td  align="center" width="100%" colspan="2">
             <h3>用户角色列表</h3>
+            <input type="hidden" name="funcCode" value="${funcCode}">
         </td>
     </tr>
     <tr align="center">
@@ -57,7 +58,13 @@
             </select>
         </td>
         <td width="20%">
-            <input type="button" value="查询" onclick="commForm()">
+            <g:if test="${a == "V"}">
+                <input type="button" value="查询" onclick="commForm()">
+            </g:if>
+            <g:else>
+                <input type="button" value="查询" disabled>
+            </g:else>
+
         </td>
     </tr>
     <tr ><td align="center">&nbsp;</td></tr>
@@ -76,7 +83,14 @@
             <td width="8%">${index+1}</td>
             <td width="52%">${item.roleName}</td>
             <td width="32%">&nbsp;${item.userName}</td>
-            <td width="8%"><a href="../userRole/edit?roleId=${item.roleId}&roleName=${item.roleName}">查看</a></td>
+            <td width="8%">
+                <g:if test="${a =="V"}">
+                    <a href="../userRole/edit?roleId=${item.roleId}&roleName=${item.roleName}&funcCode=${funcCode}">查看</a>
+                </g:if>
+                <g:else>
+                    <a href="#">查看</a>
+                </g:else>
+            </td>
             <input type="hidden" value="${item.roleId}" name="roleId">
             <input type="hidden" value="${item.userId}" name="userId">
         </tr>

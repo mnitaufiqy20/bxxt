@@ -19,6 +19,8 @@ import com.chd.bx.expenseAccount.LoanAppReceipts
 import org.jbpm.api.ProcessDefinition
 import com.chd.bx.security.UserRole
 import com.chd.bx.security.Role
+import com.chd.bx.security.Menu
+import com.chd.bx.security.RoleMenu
 
 /**
  *   用户登录service
@@ -61,8 +63,22 @@ class BxReceiptController {
                 break;
             }
         }
+        def funcCode = params["funcCode"]
+        def str = getLimitsStr(currentUserName,funcCode)
+        def a = ""
+        def b = ""
+        def c = ""
+        if (str.indexOf("V")!=-1){
+            a = "V"
+        }
+        if(str.indexOf("N")!=-1){
+            b = "N"
+        }
+        if(str.indexOf("E")!=-1){
+            c = "E"
+        }
 //        bxdList = bxReceiptService.bxdQueryAll()
-        render(view: '../bxReceipt/bxReceiptQuery',model: [bxdList:bxdList])
+        render(view: '../bxReceipt/bxReceiptQuery',model: [bxdList:bxdList,funcCode:funcCode,a:a,b:b,c:c])
     }
     /**
      *   查询报销单据
@@ -98,6 +114,30 @@ class BxReceiptController {
         String endDate = params['endDate']
         String status = params['status']
         render(view: '../bxReceipt/bxReceiptQuery',model: [bxdList:bxdList,rNo:rNo,startDate:startDate,endDate:endDate,status:status])
+    }
+
+    /**
+     * 得到当前用户所有权限的字符串
+     */
+    def getLimitsStr(String currentUserName,String funcCode){
+        def strRoleRight = ""
+        def menu = Menu.findByMenuCode(funcCode)
+        def u = User.findByUsername(currentUserName)
+        def userRoleList = UserRole.findAllByUser(u)
+        def role = new Role()
+        for (UserRole userRole:userRoleList){
+            def role1 = new Role()
+            role1 = userRole.role
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && str.equals("B")) {
+                def roleMenu = RoleMenu.findByRoleIdAndMenu(role1.id,menu)
+                if (roleMenu!=null && roleMenu.roleRight!=""){
+                    strRoleRight += roleMenu.roleRight
+                }
+            }
+        }
+        return strRoleRight
     }
     /**
      * 进入新增报销单页面
@@ -140,7 +180,8 @@ class BxReceiptController {
             +loanAppReceipts.loanRemark+";")
             strId += (loanAppReceipts.loanAppReceiptsId+";")
         }
-        render(view: '../bxReceipt/bxReceiptDetail',model: [user:user,bxReceipt:bxReceipt,str:str,strId:strId,bxTravel:bxTravel,listOther:listOther,
+        def funcCode = params["funcCode"]
+        render(view: '../bxReceipt/bxReceiptDetail',model: [user:user,bxReceipt:bxReceipt,funcCode:funcCode,str:str,strId:strId,bxTravel:bxTravel,listOther:listOther,
                 listLoan:listLoan,listTravel:listTravel,listZhaoDai:listZhaoDai,listWork:listWork,loan_list:loan_list])
     }
     /**
@@ -186,7 +227,8 @@ class BxReceiptController {
         if (listZhaoDai==null){
             listZhaoDai = new ArrayList<BxZhaoDai>()
         }
-        render(view: '../bxReceipt/bxReceiptUpdate',model: [bxReceipt:bxReceipt,bxTravel:bxTravel,listOther:listOther,
+        def funcCode = params["funcCode"]
+        render(view: '../bxReceipt/bxReceiptUpdate',model: [bxReceipt:bxReceipt,funcCode:funcCode,bxTravel:bxTravel,listOther:listOther,
                 listLoan:listLoan,listTravel:listTravel,listZhaoDai:listZhaoDai,listWork:listWork])
     }
     /**
@@ -238,7 +280,8 @@ class BxReceiptController {
         List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
         listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
         startFlow(bxdNo);
-        render(view: '/bxReceipt/bxReceiptUpdate',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,
+        def funcCode = params["funcCode"]
+        render(view: '/bxReceipt/bxReceiptUpdate',model: [bxReceipt:bxReceipt,funcCode:funcCode,listOther:listOther,listLoan:listLoan,
                 listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
     /**
@@ -279,7 +322,8 @@ class BxReceiptController {
         saveZhaoDai(params,bxdNo,type)
         List<BxZhaoDai> listZhaoDai = new ArrayList<BxZhaoDai>()
         listZhaoDai = bxZhaoDaiService.zhaoDaiQueryByBxdNo(bxdNo)
-        render(view: '/bxReceipt/bxReceiptUpdate',model: [bxReceipt:bxReceipt,listOther:listOther,listLoan:listLoan,listTravel:listTravel,
+        def funcCode = params["funcCode"]
+        render(view: '/bxReceipt/bxReceiptUpdate',model: [bxReceipt:bxReceipt,funcCode:funcCode,listOther:listOther,listLoan:listLoan,listTravel:listTravel,
                 listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
 
@@ -336,7 +380,17 @@ class BxReceiptController {
             }
         }
         def exmApp = loanAppReceiptsService.getProcessApprove(role2.authority,userL.companyNo,"FYBX")
-        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt:bxReceipt,user: user,role:role,exmApp:exmApp,listOther:listOther,
+        def funcCode = params["funcCode"]
+        def str = getLimitsStr(currentUserName,funcCode)
+        def d = ""
+        def e = ""
+        if (str.indexOf("P")!=-1){
+            d = "P"
+        }
+        if(str.indexOf("M")!=-1){
+            e = "M"
+        }
+        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt:bxReceipt,funcCode:funcCode,d: d,e: e,user: user,role:role,exmApp:exmApp,listOther:listOther,
                 listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
 
@@ -454,7 +508,17 @@ class BxReceiptController {
             }
         }
         def exmApp = loanAppReceiptsService.getProcessApprove(role2.authority,userL.companyNo,"FYBX")
-        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt:bxReceipt,user: user,role:role,exmApp:exmApp,listOther:listOther,
+        def funcCode = params["funcCode"]
+        def str = getLimitsStr(currentUserName,funcCode)
+        def d = ""
+        def e = ""
+        if (str.indexOf("P")!=-1){
+            d = "P"
+        }
+        if(str.indexOf("M")!=-1){
+            e = "M"
+        }
+        render(view: '/bxReceipt/bxReceiptCommit',model: [bxReceipt:bxReceipt,funcCode:funcCode,d: d,e: e,user: user,role:role,exmApp:exmApp,listOther:listOther,
                 listLoan:listLoan,listTravel:listTravel,listWork:listWork,listZhaoDai:listZhaoDai,bxTravel:bxTravel])
     }
 

@@ -4,10 +4,12 @@ import com.chd.bx.security.Role
 import com.chd.bx.security.User
 import com.chd.bx.security.UserRole
 import systemConfig.UserRoleList
+import com.chd.bx.security.Menu
+import com.chd.bx.security.RoleMenu
 
 class UserRoleController {
     def userRoleService
-
+    def springSecurityService
     def index() {
         def role = "0"
         def user = "0"
@@ -56,7 +58,39 @@ class UserRoleController {
             }
             listAll.add(userRoleList)
         }
-        render(view:'../userRole/userRole',model: [list:listAll,roleList:roleList,userList:userList,roleId:role,userId:user])
+
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def funcCode = params["funcCode"]
+        def str = getLimitsStr(currentUserName,funcCode)
+        def a = ""
+        if (str.indexOf("V")!=-1){
+            a = "V"
+        }
+        render(view:'../userRole/userRole',model: [list:listAll,roleList:roleList,funcCode:funcCode,a:a,userList:userList,roleId:role,userId:user])
+    }
+
+    /**
+     * 得到当前用户所有权限的字符串
+     */
+    def getLimitsStr(String currentUserName,String funcCode){
+        def strRoleRight = ""
+        def menu = Menu.findByMenuCode(funcCode)
+        def u = User.findByUsername(currentUserName)
+        def userRoleList = UserRole.findAllByUser(u)
+        def role = new Role()
+        for (UserRole userRole:userRoleList){
+            def role1 = new Role()
+            role1 = userRole.role
+            def str = role1.description.substring(0,1)
+            if (!role1.description.equals("PT") && !role1.description.equals("KJ")
+                    && !role1.description.equals("CN") && (str.equals("J") || str.equals("B"))) {
+                def roleMenu = RoleMenu.findByRoleIdAndMenu(role1.id,menu)
+                if (roleMenu!=null && roleMenu.roleRight!=""){
+                    strRoleRight += roleMenu.roleRight
+                }
+            }
+        }
+        return strRoleRight
     }
 
     def queryUserRole(){
@@ -94,7 +128,14 @@ class UserRoleController {
                 list.add(userRoleList)
             }
         }
-        render(view:'../userRole/userRole',model: [list:list,roleList:roleList,userList:userList,roleId:roleId,userId:userId])
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def funcCode = params["funcCode"]
+        def str = getLimitsStr(currentUserName,funcCode)
+        def a = ""
+        if (str.indexOf("V")!=-1){
+            a = "V"
+        }
+        render(view:'../userRole/userRole',model: [list:list,roleList:roleList,funcCode:funcCode,a:a,userList:userList,roleId:roleId,userId:userId])
     }
     /**
      * 查看详细--该角色下的所有用户
@@ -104,7 +145,18 @@ class UserRoleController {
         def roleName=request.getParameter("roleName")
         def roleId=request.getParameter("roleId")
         def list = userRoleService.getUserRoleByRoleId(Integer.parseInt(roleId))
-        render(view: '../userRole/editUserRole',model: [roleName:roleName,list: list,roleId:roleId])
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def funcCode = params["funcCode"]
+        def str = getLimitsStr(currentUserName,funcCode)
+        def a = ""
+        def b = ""
+        if (str.indexOf("N")!=-1){
+            a = "N"
+        }
+        if (str.indexOf("D")!=-1){
+            b = "D"
+        }
+        render(view: '../userRole/editUserRole',model: [roleName:roleName,list: list,roleId:roleId,funcCode:funcCode,a:a,b:b])
     }
     def deleteUserRole(){
         def roleName=request.getParameter("roleName")
@@ -112,7 +164,18 @@ class UserRoleController {
         def roleId=request.getParameter("roleId")
         userRoleService.deleteUserRole(Integer.parseInt(userId),Integer.parseInt(roleId))
         def list = userRoleService.getUserRoleByRoleId(Integer.parseInt(roleId))
-        render(view: '../userRole/editUserRole',model: [roleName:roleName,list: list,roleId:roleId])
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def funcCode = params["funcCode"]
+        def str = getLimitsStr(currentUserName,funcCode)
+        def a = ""
+        def b = ""
+        if (str.indexOf("N")!=-1){
+            a = "N"
+        }
+        if (str.indexOf("D")!=-1){
+            b = "D"
+        }
+        render(view: '../userRole/editUserRole',model: [roleName:roleName,list: list,roleId:roleId,funcCode:funcCode,a:a,b:b])
     }
     def getUser(){
         String rId=params["roleId"]
@@ -136,7 +199,15 @@ class UserRoleController {
             }
         }
         List<User> userList = userRoleService.getUser(userId)
-        render(view: '../userRole/addUser',model: [userList:userList,roleName:roleName,roleId:roleId])
+
+        String currentUserName = springSecurityService.getPrincipal().username;
+        def funcCode = params["funcCode"]
+        def str = getLimitsStr(currentUserName,funcCode)
+        def a = ""
+        if (str.indexOf("N")!=-1){
+            a = "N"
+        }
+        render(view: '../userRole/addUser',model: [userList:userList,roleName:roleName,roleId:roleId,funcCode:funcCode,a: a])
     }
     def saveUserRole(){
         String roleName = params["roleName"]

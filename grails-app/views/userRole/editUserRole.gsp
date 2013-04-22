@@ -28,11 +28,16 @@
       <table  width="100%">
              <tr><td align="center" colspan="4" width="100%"><h3>用户角色配置</h3></td></tr>
             <tr>
-                <td width="10%">角色：</td>
+                <td width="10%">角色：<input type="hidden" name="funcCode" value="${funcCode}"></td>
                 <td width="30%">${roleName}</td>
                 <td width="45%">&nbsp;</td>
                 <td width="15%" align="left">
-                    <input type="button" value="添加员工" onclick="commForm(0)">
+                    <g:if test="${a =="N"}">
+                        <input type="button" value="添加员工" onclick="commForm(0)">
+                    </g:if>
+                    <g:else>
+                        <input type="button" value="添加员工" disabled>
+                    </g:else>
                     <input type="button" value="返回" onclick="commForm(1);">
                 </td>
             </tr>
@@ -51,7 +56,14 @@
                    <td width="26%">${item.role.authority}</td>
                    <td width="25%">${item.user.empNo}</td>
                    <td width="25%">${item.user.username}</td>
-                   <td width="12%"><a href="../userRole/deleteUserRole?userId=${item.user.id}&roleId=${item.role.id}&roleName=${item.role.authority}">删除</a></td>
+                   <td width="12%">
+                       <g:if test="${b =="D"}">
+                           <a href="../userRole/deleteUserRole?userId=${item.user.id}&roleId=${item.role.id}&roleName=${item.role.authority}&funcCode=${funcCode}">删除</a>
+                       </g:if>
+                       <g:else>
+                           <a href="#">删除</a>
+                       </g:else>
+                   </td>
                </tr>
            </g:each>
 

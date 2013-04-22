@@ -106,6 +106,7 @@
                                         <td height="21">
                                             <input type="text" id="bxEmpIdNumber" name="bxEmpIdNumber" value="${bxReceipt.bxEmpIdNumber}" disabled>
                                             <input type="hidden" id="bxEmpNo" name="bxEmpNo" value="${bxReceipt.bxEmpNo}">
+                                            <input type="hidden" name="funcCode" value="${funcCode}">
                                         </td>
                                         %{--<td height="21" width="120" >报销员工编号：</td>--}%
                                         %{--<td height="21">--}%
@@ -559,14 +560,13 @@
     <td>&nbsp;&nbsp;</td>
     <td height="30"><input type="submit" value="保存" disabled></td>
     <td><input type="button" value="提交" disabled></td>
-    <td><input type="button" value="返回" onclick="location='../bxReceipt/index'"></td>
-    <g:if test="${bxReceipt.bxdStatus=="已审核" && role.description=="BXKJ" && user.username==exmApp.postAcc}">
+    <td><input type="button" value="返回" onclick="location='../bxReceipt/index?funcCode=${funcCode}'"></td>
+    <g:if test="${bxReceipt.bxdStatus=="已审核" && role.description=="BXKJ" && user.username==exmApp.postAcc && d =="P"}">
         <td><input type="button" value="执行过账" onclick="location='../bxCerIntegration/bxCerIntegration?type=fybx&bxNo=${bxReceipt.bxNo}'"></td>
     </g:if>
     <g:else>
         <td><input type="button" value="执行过账" disabled></td>
     </g:else>
-
     <td>
         <span style="color: red">
             <div>此功能在所有审批通过后</div>
@@ -574,7 +574,7 @@
             <div>会计人员执行！</div>
         </span>
     </td>
-    <g:if test="${bxReceipt.bxdStatus=="已过账" && role.description=="BXCN" && user.username==exmApp.payTeller}">
+    <g:if test="${bxReceipt.bxdStatus=="已过账" && role.description=="BXCN" && user.username==exmApp.payTeller && e =="M"}">
         <td><input type="button" value="执行付款" onclick="location='../bxCerIntegration/bxCerIntegration?type=bxfk&bxNo=${bxReceipt.bxNo}'"></td>
     </g:if>
     <g:else>

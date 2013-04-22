@@ -53,7 +53,21 @@ class WorkbenchController {
         }
 //        String queryString = "from RoleMenu where roleId=" + currentUser.role.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
 //        String queryString = "select distinct * from RoleMenu where roleId=" + role.id + " or roleId=" + role2.id + "and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
-        String queryString = "from RoleMenu where roleId=" + role.id + " or roleId=" + role2.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
+        String queryString = "from RoleMenu where 1=1 and roleRight is not null ";
+         System.out.print("role2==null:"+role2.id)
+         System.out.print("role1==null:"+role==null)
+        if (role!=null && role2!=null){
+            if (role.id!=null && role2.id==null){
+                queryString += " and roleId=" + role.id
+            }else if (role2.id!=null && role.id==null) {
+                queryString += " and roleId=" + role2.id
+            }else if (role.id!=null && role2.id!=null) {
+                queryString += " and (roleId=" + role.id +" or roleId=" + role2.id +")"
+            }
+        }
+
+        queryString +=" order by menu.menuCategory.sortIndex asc,menu.sortIndex asc" ;
+        System.out.print("queryString:"+queryString)
 //        String queryString2 = "from RoleMenu where roleId=" + role.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
         List menus = RoleMenu.executeQuery(queryString)
 //        Map<String, Map> map = new HashMap<String, Map>();
@@ -303,7 +317,22 @@ class WorkbenchController {
                 break;
             }
         }
-        String queryString = "from RoleMenu where roleId=" + role.id + " or roleId=" + role2.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
+//        String queryString = "from RoleMenu where roleId=" + role.id + " or roleId=" + role2.id + " and roleRight is not null order by menu.menuCategory.sortIndex asc,menu.sortIndex asc";
+        String queryString = "from RoleMenu where 1=1 and roleRight is not null ";
+        System.out.print("role2==null:"+role2.id)
+        System.out.print("role1==null:"+role==null)
+        if (role!=null && role2!=null){
+            if (role.id!=null && role2.id==null){
+                queryString += " and roleId=" + role.id
+            }else if (role2.id!=null && role.id==null) {
+                queryString += " and roleId=" + role2.id
+            }else if (role.id!=null && role2.id!=null) {
+                queryString += " and (roleId=" + role.id +" or roleId=" + role2.id +")"
+            }
+        }
+
+        queryString +=" order by menu.menuCategory.sortIndex asc,menu.sortIndex asc" ;
+        System.out.print("queryString:"+queryString)
         List menus = RoleMenu.executeQuery(queryString)
 
         Map<String, TreeNode> result = new HashMap<String, TreeNode>();
